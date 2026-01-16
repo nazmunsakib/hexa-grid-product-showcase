@@ -1,0 +1,20 @@
+{
+    "name": "nazmunsakib/product-showcase",
+    "description": "Professional Product Showcase with Unlimited Grid, List, Slider and Table Layout for WooCommerce",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Nazmun Sakib",
+            "email": "contact@nazmunsakib.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "ProductShowcase\\": "includes/"
+        }
+    }
+}

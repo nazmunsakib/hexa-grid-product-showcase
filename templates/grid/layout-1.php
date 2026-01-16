@@ -1,0 +1,61 @@
+<?php
+/**
+ * Grid Layout Template - Style 1 (Modern Card)
+ *
+ * @var \WP_Query $query
+ * @var int $columns
+ */
+?>
+<div class="psw-layout-grid psw-grid-style-1 psw-columns-<?php echo esc_attr( $columns ); ?>">
+    <?php while ( $query->have_posts() ) : $query->the_post(); ?>
+        <?php 
+            global $product;
+            if ( ! is_object( $product ) ) {
+                $product = wc_get_product( get_the_ID() );
+            }
+        ?>
+        <div class="psw-product-card">
+            <div class="psw-product-image-wrapper">
+                <a href="<?php the_permalink(); ?>">
+                    <?php echo wp_kses_post( $product->get_image( 'woocommerce_thumbnail' ) ); ?>
+                </a>
+                <?php if ( $product->is_on_sale() ) : ?>
+                    <span class="psw-badge psw-sale-badge"><?php esc_html_e( 'Sale!', 'product-showcase-woo' ); ?></span>
+                <?php endif; ?>
+            </div>
+            
+            <div class="psw-product-content">
+                <h3 class="psw-product-title">
+                    <a href="<?php the_permalink(); ?>"><?php echo wp_kses_post( get_the_title() ); ?></a>
+                </h3>
+                
+                <div class="psw-product-rating">
+                    <?php 
+                    if ( $average = $product->get_average_rating() ) :
+                        echo wp_kses_post( wc_get_rating_html( $average ) );
+                    endif;
+                    ?>
+                </div>
+
+                <div class="psw-product-footer">
+                    <div class="psw-product-price">
+                        <?php echo wp_kses_post( $product->get_price_html() ); ?>
+                    </div>
+                    
+                    <div class="psw-product-cart-btn">
+                         <?php 
+                         // Custom Add to Cart Button (Simple Icon style)
+                         $args = array(); 
+                         echo sprintf( '<a href="%s" data-quantity="1" class="%s" %s aria-label="%s" rel="nofollow"><span class="dashicons dashicons-cart"></span></a>',
+                                esc_url( $product->add_to_cart_url() ),
+                                esc_attr( isset( $args['class'] ) ? $args['class'] : 'button product_type_' . $product->get_type() . ' add_to_cart_button ajax_add_to_cart' ),
+                                isset( $args['attributes'] ) ? wc_implode_html_attributes( $args['attributes'] ) : '',
+                                esc_html( $product->add_to_cart_description() )
+                            );
+                         ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endwhile; wp_reset_postdata(); ?>
+</div>
