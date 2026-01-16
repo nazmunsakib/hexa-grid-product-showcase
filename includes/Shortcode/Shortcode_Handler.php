@@ -31,27 +31,48 @@ class Shortcode_Handler {
         // 0. Handle Preset ID
         if ( isset( $atts['preset_id'] ) && ! empty( $atts['preset_id'] ) ) {
             $preset_id = intval( $atts['preset_id'] );
-            $layout    = get_post_meta( $preset_id, '_psw_layout_type', true );
-            $limit     = get_post_meta( $preset_id, '_psw_query_limit', true );
-            $columns   = get_post_meta( $preset_id, '_psw_columns', true );
-            $category  = get_post_meta( $preset_id, '_psw_query_category', true );
+            
+            // Map meta keys to shortcode attributes
+            $meta_map = [
+                'layout'      => '_psw_layout_type',
+                'style'       => '_psw_layout_style',
+                'limit'       => '_psw_query_limit',
+                'columns'     => '_psw_columns',
+                'category'    => '_psw_categories', // This is an array
+                'ids'         => '_psw_include_ids',
+                'exclude_ids' => '_psw_exclude_ids',
+                'orderby'     => '_psw_orderby',
+                'order'       => '_psw_order',
+                'theme_color' => '_psw_theme_color',
+            ];
 
-            // Merge preset settings into attributes if they exist
-            if ( $layout ) $atts['layout'] = $layout;
-            if ( $limit ) $atts['limit'] = $limit;
-            if ( $columns ) $atts['columns'] = $columns;
-            if ( $category ) $atts['category'] = $category;
+            foreach ( $meta_map as $att_key => $meta_key ) {
+                $value = get_post_meta( $preset_id, $meta_key, true );
+                if ( ! empty( $value ) ) {
+                    // Handle array for category logic if passed to shortcode
+                    // If shortcode handles category as string (commas), we might need to implode if it's an array
+                    if ( is_array( $value ) && 'category' === $att_key ) {
+                         // Query Builder handles array directly, but shortcode_atts expects all to be scaler ideally. 
+                         // But we can pass array if QueryBuilder handles it.
+                         // For simplicity and compatibility, let's keep it as is, but be mindful of shortcode_atts
+                    }
+                    $atts[ $att_key ] = $value;
+                }
+            }
         }
 
         $atts = shortcode_atts( [
-            'layout'    => 'grid', // grid, list, slider
-            'limit'     => 12,
-            'columns'   => 3, // For grid
-            'category'  => '',
-            'ids'       => '',
-            'orderby'   => 'date',
-            'order'     => 'DESC',
-            'preset_id' => '',
+            'layout'      => 'grid',
+            'style'       => 'layout-1',
+            'limit'       => 12,
+            'columns'     => 3,
+            'category'    => '',
+            'ids'         => '',
+            'exclude_ids' => '',
+            'orderby'     => 'date',
+            'order'       => 'DESC',
+            'theme_color' => '',
+            'preset_id'   => '',
         ], $atts, 'product_showcase' );
 
         // 1. Build Query
@@ -64,30 +85,46 @@ class Shortcode_Handler {
         }
 
         if ( ! empty( $atts['ids'] ) ) {
-            $ids = array_map( 'trim', explode( ',', $atts['ids'] ) );
-            $query_builder->set_ids( $ids );
+             // If array, it's from meta; if string, it's from shortcode param
+            $query_builder->set_ids( $atts['ids'] );
         }
+        
+        if ( ! empty( $atts['exclude_ids'] ) ) {
+            $query_builder->set_exclude_ids( $atts['exclude_ids'] );
+        }
+
+        if ( ! empty( $atts['category'] ) ) {
+            $query_builder->set_category( $atts['category'] );
+        }
+
 
         $query = $query_builder->get_query();
 
-        // 2. Select Layout
-        $layout_renderer = null;
+        // 2. Generate Unique ID for Scoping
+        $unique_id = 'psw-preset-' . $preset_id . '-' . uniqid();
+        $atts['wrapper_id'] = $unique_id;
+
+        // 3. Render Layout
+        $renderer = null;
         switch ( $atts['layout'] ) {
             case 'list':
-                $layout_renderer = new List_Layout();
+                $renderer = new List_Layout();
                 break;
             case 'slider':
-                $layout_renderer = new Slider_Layout();
+                $renderer = new Slider_Layout();
+                break;
+            case 'table':
+                $renderer = new \ProductShowcase\Layout\Table_Layout();
                 break;
             case 'grid':
             default:
-                $layout_renderer = new Grid_Layout();
+                $renderer = new Grid_Layout();
                 break;
         }
 
         // 3. Render
-        if ( $layout_renderer ) {
-            return $layout_renderer->render( $query, $atts );
+        if ( $renderer ) {
+            return $renderer->render( $query, $atts );
         }
 
         return '';

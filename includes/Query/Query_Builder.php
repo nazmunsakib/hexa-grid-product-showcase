@@ -46,33 +46,31 @@ class Query_Builder {
      */
     public function set_ids( $ids ) {
         if ( ! empty( $ids ) ) {
+            if ( is_string( $ids ) ) {
+                $ids = array_map( 'intval', explode( ',', $ids ) );
+            }
             $this->args['post__in'] = $ids;
         }
         return $this;
     }
 
     /**
-     * Filter by category slugs.
+     * Set specific product IDs to exclude.
      *
-     * @param string|array $categories Category slug or array of slugs.
+     * @param string|array $ids Array or comma-separated list of product IDs.
      * @return self
      */
-    public function set_category( $categories ) {
-        if ( ! empty( $categories ) ) {
-            if ( ! is_array( $categories ) ) {
-                $categories = array_map( 'trim', explode( ',', $categories ) );
+    public function set_exclude_ids( $ids ) {
+        if ( ! empty( $ids ) ) {
+            if ( is_string( $ids ) ) {
+                $ids = array_map( 'intval', explode( ',', $ids ) );
             }
-
-            $this->args['tax_query'] = [
-                [
-                    'taxonomy' => 'product_cat',
-                    'field'    => 'slug',
-                    'terms'    => $categories,
-                ],
-            ];
+            $this->args['post__not_in'] = $ids;
         }
         return $this;
     }
+
+
 
     /**
      * Set ordering arguments.

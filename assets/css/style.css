@@ -193,13 +193,17 @@
     height: 36px;
     background-color: #f1f2f6;
     color: #2d3436;
-    border-radius: 50%;
+    border-radius: 6px;
     transition: all 0.2s ease;
     text-decoration: none;
 }
 
 .psw-grid-style-1 .psw-product-cart-btn a:hover {
     background-color: #0984e3;
+    color: #fff;
+}
+
+.psw-grid-style-1 .psw-product-card:hover .psw-product-cart-btn a. {
     color: #fff;
 }
 
@@ -210,69 +214,193 @@
     line-height: 18px;
 }
 
-/* List Layout */
+.psw-grid-style-1 a.added_to_cart.wc-forward {
+    width: auto !important;
+    padding: 0 !important;
+    font-size: 15px;
+    background: none !important;
+}
+
+/* List Layout - Modern Card */
 .psw-layout-list {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
 .psw-product-list-item {
     display: flex;
     background: #fff;
-    border: 1px solid #e5e5e5;
-    border-radius: 8px;
+    border: 1px solid #eef2f7;
+    /* Very subtle border */
+    border-radius: 12px;
+    /* Smooth rounded corners */
     overflow: hidden;
-    align-items: center;
-    padding: 15px;
+    padding: 20px;
+    align-items: stretch;
+    /* Stretch to match height */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.02);
+    /* Very minimal shadow */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.psw-product-list-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+/* Image - Left */
 .psw-list-image {
-    width: 100px;
-    height: 100px;
+    width: 180px;
+    /* Larger image as per screenshot */
+    height: 180px;
     flex-shrink: 0;
-    margin-right: 20px;
+    margin-right: 25px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .psw-list-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 4px;
+    /* or contain, depending on preference, screenshot looks like contain/cover mix */
+    mix-blend-mode: multiply;
+    /* Optional: helps if images have white bg */
 }
 
+/* Content - Middle */
 .psw-list-content {
     flex-grow: 1;
-}
-
-.psw-list-actions {
-    text-align: right;
-    min-width: 120px;
-    margin-left: 20px;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
+    justify-content: center;
+    padding-right: 20px;
 }
 
-@media (max-width: 600px) {
+.psw-list-content .psw-product-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.psw-list-content .psw-product-title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.psw-list-content .psw-product-rating {
+    margin-bottom: 12px;
+    font-size: 13px;
+}
+
+.psw-list-content .psw-product-excerpt {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* Limit description lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Actions - Right */
+.psw-list-actions {
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Spread Price (Top) and Button (Bottom) */
+    align-items: flex-end;
+    text-align: right;
+    border-left: 1px solid #f0f0f0;
+    padding-left: 20px;
+}
+
+/* Price */
+.psw-list-actions .psw-product-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #266bf9;
+    /* Bright Blue Price */
+    margin-bottom: 10px;
+}
+
+/* Add to Cart Button - List Layout Override */
+.psw-layout-list .button,
+.psw-layout-list .added_to_cart {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #266bf9;
+    /* Blue button */
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+    cursor: pointer;
+    white-space: nowrap;
+    min-width: 140px;
+}
+
+.psw-layout-list .button:hover {
+    background-color: #1e5ad6;
+    color: #fff;
+}
+
+.psw-layout-list .button::before {
+    /* WooCommerce cart icon often comes from font, ensure we handle it or customize */
+    content: '\f174';
+    /* Dashicons cart, or generic woocommerce font */
+    font-family: 'dashicons';
+    margin-right: 8px;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
     .psw-product-list-item {
         flex-direction: column;
         align-items: flex-start;
+        padding: 15px;
     }
 
     .psw-list-image {
         width: 100%;
-        height: 200px;
-        margin-right: 0;
-        margin-bottom: 15px;
+        height: 250px;
+        margin: 0 0 15px 0;
+    }
+
+    .psw-list-content {
+        width: 100%;
+        padding: 0 0 15px 0;
     }
 
     .psw-list-actions {
         width: 100%;
-        align-items: flex-start;
-        margin-left: 0;
-        margin-top: 15px;
+        min-width: auto;
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 15px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .psw-list-actions .psw-product-price {
+        margin-bottom: 0;
     }
 }
 

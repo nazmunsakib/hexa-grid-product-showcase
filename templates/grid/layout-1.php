@@ -48,9 +48,13 @@
                          $args = array(); 
                          echo sprintf( '<a href="%s" data-quantity="1" class="%s" %s aria-label="%s" rel="nofollow"><span class="dashicons dashicons-cart"></span></a>',
                                 esc_url( $product->add_to_cart_url() ),
-                                esc_attr( isset( $args['class'] ) ? $args['class'] : 'button product_type_' . $product->get_type() . ' add_to_cart_button ajax_add_to_cart' ),
-                                isset( $args['attributes'] ) ? wc_implode_html_attributes( $args['attributes'] ) : '',
-                                esc_html( $product->add_to_cart_description() )
+                                esc_attr( 'button product_type_' . $product->get_type() . ' add_to_cart_button ajax_add_to_cart' ),
+                                sprintf( 'data-product_id="%s" data-product_sku="%s" aria-label="%s"', 
+                                    esc_attr( $product->get_id() ), 
+                                    esc_attr( $product->get_sku() ),
+                                    esc_attr( $product->add_to_cart_description() )
+                                ),
+                                esc_html( $product->add_to_cart_description() ) 
                             );
                          ?>
                     </div>

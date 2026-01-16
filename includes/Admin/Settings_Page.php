@@ -14,6 +14,21 @@ class Settings_Page {
      */
     public function init() {
         add_action( 'admin_menu', [ $this, 'register_menu' ] );
+        add_action( 'in_admin_header', [ $this, 'remove_notices' ] );
+    }
+
+    /**
+     * Remove generic admin notices on plugin pages.
+     */
+    public function remove_notices() {
+        $screen = get_current_screen();
+        if ( ! $screen ) return;
+
+        // Check if we are on our settings page or custom post type
+        if ( strpos( $screen->id, 'product_show_preset' ) !== false || strpos( $screen->id, 'psw-product-showcase-settings' ) !== false ) {
+            remove_all_actions( 'admin_notices' );
+            remove_all_actions( 'all_admin_notices' );
+        }
     }
 
     /**

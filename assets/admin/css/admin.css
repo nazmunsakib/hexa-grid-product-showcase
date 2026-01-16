@@ -1,0 +1,167 @@
+/* Main Wrapper */
+.ps-meta-box-wrapper {
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+/* Header */
+.ps-meta-header {
+    background: #1e2733;
+    /* Darker blue/black from screenshot */
+    color: #fff;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ps-meta-header h2 {
+    color: #fff;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.ps-meta-header .dashicons {
+    font-size: 20px;
+    color: #a0a5aa;
+}
+
+/* Content */
+.ps-meta-box-content {
+    padding: 20px;
+}
+
+/* Sections */
+.psw-section {
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.psw-section-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0 0 15px 0;
+    padding: 0;
+    border: none;
+    color: #1e2733;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.psw-step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: #1e2733;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Forms */
+.psw-form-group {
+    margin-bottom: 20px;
+}
+
+.psw-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #3c434a;
+}
+
+.widefat {
+    border: 1px solid #dcdcde;
+    box-shadow: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    height: auto;
+    font-size: 14px;
+    color: #3c434a;
+}
+
+.widefat:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+/* Row/Col Helper */
+.psw-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.psw-col-6 {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* Shortcode Preview */
+.ps-shortcode-preview-wrapper {
+    background: #fff;
+    border-top: 1px solid #f0f0f1;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.ps-shortcode-preview-wrapper label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #1e2733;
+}
+
+.ps-shortcode-container {
+    display: flex;
+    gap: 10px;
+    background: #f6f7f7;
+    border: 1px solid #dcdcde;
+    padding: 5px;
+    border-radius: 4px;
+    align-items: center;
+}
+
+.ps-shortcode-container code {
+    background: transparent;
+    padding: 5px 10px;
+    flex-grow: 1;
+    color: #2c3338;
+    font-family: monospace;
+    font-size: 13px;
+    margin: 0;
+}
+
+.psw-copy-btn {
+    background: #13273f !important;
+    /* Dark button from screenshot */
+    color: #fff !important;
+    border: none !important;
+    border-radius: 4px !important;
+    padding: 5px 15px !important;
+    font-size: 13px !important;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.2s;
+}
+
+.psw-copy-btn:hover {
+    background: #2c3e50 !important;
+}
+
+.psw-copy-btn .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}

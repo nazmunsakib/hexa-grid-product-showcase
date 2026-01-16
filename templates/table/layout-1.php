@@ -52,7 +52,11 @@
                                 echo sprintf( '<a href="%s" data-quantity="1" class="%s" %s>%s</a>',
                                     esc_url( $product->add_to_cart_url() ),
                                     esc_attr( 'button product_type_' . $product->get_type() . ' add_to_cart_button ajax_add_to_cart' ),
-                                    'aria-label="' . esc_attr( $product->add_to_cart_description() ) . '" rel="nofollow"',
+                                    sprintf( 'data-product_id="%s" data-product_sku="%s" aria-label="%s" rel="nofollow"', 
+                                        esc_attr( $product->get_id() ), 
+                                        esc_attr( $product->get_sku() ),
+                                        esc_attr( $product->add_to_cart_description() )
+                                    ),
                                     esc_html( $product->add_to_cart_description() )
                                 );
                             ?>
