@@ -28,7 +28,7 @@ class List_Layout implements Layout_Interface {
         
         ob_start();
         echo \ProductShowcase\Assets\Dynamic_Styles::generate( $atts, $atts['wrapper_id'] );
-        echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="psw-layout-container psw-list-' . $style . '">';
+        echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="psw-layout-container psw-list-' . esc_attr( $style ) . '">';
         include $template_path;
         echo '</div>';
         return ob_get_clean();

@@ -6,7 +6,7 @@
  * @var int $columns
  */
 ?>
-<div class="psw-layout-grid psw-grid-style-1 psw-columns-<?php echo esc_attr( $columns ); ?>">
+<div class="psw-layout-grid psw-columns-<?php echo esc_attr( $columns ); ?>">
     <?php while ( $query->have_posts() ) : $query->the_post(); ?>
         <?php 
             global $product;
