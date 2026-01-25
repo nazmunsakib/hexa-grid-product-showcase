@@ -15,7 +15,7 @@
                 }
             ?>
             <div class="swiper-slide">
-                <div class="psw-product-card">
+                <div class="psw-product">
                     <div class="psw-product-image">
                         <a href="<?php the_permalink(); ?>">
                             <?php echo wp_kses_post( $product->get_image( 'woocommerce_thumbnail' ) ); ?>

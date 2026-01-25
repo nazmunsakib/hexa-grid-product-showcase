@@ -30,10 +30,12 @@ class Dynamic_Styles {
         
         // Backgrounds (Badges, Buttons)
         $css .= "{$scope}.psw-sale-badge { background-color: {$theme_color} !important; }";
-        $css .= "{$scope}.psw-product-card:hover .psw-product-cart-btn a { background-color: {$theme_color} !important; border-color: {$theme_color} !important; }";
+        $css .= "{$scope}.psw-add-btn>a { background-color: {$theme_color} !important; }";
+        $css .= "{$scope}.psw-product-price ins .amount { color: {$theme_color} !important; }";
+        $css .= "{$scope}.psw-product:hover .psw-product-cart-btn a { background-color: {$theme_color} !important; border-color: {$theme_color} !important; }";
         
         // Text Hover (Links) - NOW USING THEME COLOR
-        $css .= "{$scope}.psw-product-title a:hover { color: {$theme_color} !important; }";
+        $css .= "{$scope}.psw-product-title a:hover, {$scope}.psw-product-category a:hover { color: {$theme_color} !important; }";
         
         // Pagination/Action buttons if needed
         $css .= "{$scope}.swiper-button-next, {$scope}.swiper-button-prev { color: {$theme_color} !important; }";

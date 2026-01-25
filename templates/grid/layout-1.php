@@ -14,52 +14,54 @@
                 $product = wc_get_product( get_the_ID() );
             }
         ?>
-        <div class="psw-product-card">
-            <div class="psw-product-image-wrapper">
-                <a href="<?php the_permalink(); ?>">
-                    <?php echo wp_kses_post( $product->get_image( 'woocommerce_thumbnail' ) ); ?>
-                </a>
-                <?php if ( $product->is_on_sale() ) : ?>
-                    <span class="psw-badge psw-sale-badge"><?php esc_html_e( 'Sale!', 'product-showcase-woo' ); ?></span>
-                <?php endif; ?>
-            </div>
+        <article <?php post_class( 'psw-product' ); ?>>
+            <div class="psw-product-wrapper">
+                <div class="psw-product-image-area">
+                    <a href="<?php the_permalink(); ?>">
+                        <?php echo wp_kses_post( $product->get_image( 'woocommerce_thumbnail' ) ); ?>
+                    </a>
+                    <?php if ( $product->is_on_sale() ) : ?>
+                        <span class="psw-badge psw-sale-badge"><?php esc_html_e( 'Sale!', 'product-showcase-woo' ); ?></span>
+                    <?php endif; ?>
+                </div>
             
-            <div class="psw-product-content">
-                <h3 class="psw-product-title">
-                    <a href="<?php the_permalink(); ?>"><?php echo wp_kses_post( get_the_title() ); ?></a>
-                </h3>
-                
-                <div class="psw-product-rating">
-                    <?php 
-                    if ( $average = $product->get_average_rating() ) :
-                        echo wp_kses_post( wc_get_rating_html( $average ) );
-                    endif;
-                    ?>
-                </div>
-
-                <div class="psw-product-footer">
-                    <div class="psw-product-price">
-                        <?php echo wp_kses_post( $product->get_price_html() ); ?>
-                    </div>
+                <div class="psw-product-content-area">
+                    <h3 class="psw-product-title">
+                        <a href="<?php the_permalink(); ?>"><?php echo wp_kses_post( get_the_title() ); ?></a>
+                    </h3>
                     
-                    <div class="psw-product-cart-btn">
-                         <?php 
-                         // Custom Add to Cart Button (Simple Icon style)
-                         $args = array(); 
-                         echo sprintf( '<a href="%s" data-quantity="1" class="%s" %s aria-label="%s" rel="nofollow"><span class="dashicons dashicons-cart"></span></a>',
-                                esc_url( $product->add_to_cart_url() ),
-                                esc_attr( 'button product_type_' . $product->get_type() . ' add_to_cart_button ajax_add_to_cart' ),
-                                sprintf( 'data-product_id="%s" data-product_sku="%s" aria-label="%s"', 
-                                    esc_attr( $product->get_id() ), 
-                                    esc_attr( $product->get_sku() ),
-                                    esc_attr( $product->add_to_cart_description() )
-                                ),
-                                esc_html( $product->add_to_cart_description() ) 
-                            );
-                         ?>
+                    <div class="psw-product-rating">
+                        <?php 
+                        if ( $average = $product->get_average_rating() ) :
+                            echo wp_kses_post( wc_get_rating_html( $average ) );
+                        endif;
+                        ?>
+                    </div>
+
+                    <div class="psw-product-footer">
+                        <div class="psw-product-price">
+                            <?php echo wp_kses_post( $product->get_price_html() ); ?>
+                        </div>
+                        
+                        <div class="psw-product-cart-btn">
+                            <?php 
+                            // Custom Add to Cart Button (Simple Icon style)
+                            $args = array(); 
+                            echo sprintf( '<a href="%s" data-quantity="1" class="%s" %s aria-label="%s" rel="nofollow"><span class="dashicons dashicons-cart"></span></a>',
+                                    esc_url( $product->add_to_cart_url() ),
+                                    esc_attr( 'button product_type_' . $product->get_type() . ' add_to_cart_button ajax_add_to_cart' ),
+                                    sprintf( 'data-product_id="%s" data-product_sku="%s" aria-label="%s"', 
+                                        esc_attr( $product->get_id() ), 
+                                        esc_attr( $product->get_sku() ),
+                                        esc_attr( $product->add_to_cart_description() )
+                                    ),
+                                    esc_html( $product->add_to_cart_description() ) 
+                                );
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </article>
     <?php endwhile; wp_reset_postdata(); ?>
 </div>
