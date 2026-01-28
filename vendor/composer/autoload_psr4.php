@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'ProductShowcase\\' => array($baseDir . '/includes'),
+    'HexaGrid\\' => array($baseDir . '/includes'),
 );

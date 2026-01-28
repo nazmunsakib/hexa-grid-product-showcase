@@ -1,5 +1,5 @@
 /* Main Wrapper */
-.ps-meta-box-wrapper {
+.hexagrid-meta-box-wrapper {
     background: #fff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     border-radius: 6px;
@@ -7,7 +7,7 @@
 }
 
 /* Header */
-.ps-meta-header {
+.hexagrid-meta-header {
     background: #1e2733;
     /* Darker blue/black from screenshot */
     color: #fff;
@@ -17,32 +17,32 @@
     gap: 10px;
 }
 
-.ps-meta-header h2 {
+.hexagrid-meta-header h2 {
     color: #fff;
     margin: 0;
     font-size: 16px;
     font-weight: 500;
 }
 
-.ps-meta-header .dashicons {
+.hexagrid-meta-header .dashicons {
     font-size: 20px;
     color: #a0a5aa;
 }
 
 /* Content */
-.ps-meta-box-content {
+.hexagrid-meta-box-content {
     padding: 20px;
 }
 
 /* Sections */
-.psw-section {
+.hexagrid-section {
     border: none;
     background: transparent;
     padding: 0;
     margin-bottom: 30px;
 }
 
-.psw-section-title {
+.hexagrid-section-title {
     font-size: 15px;
     font-weight: 500;
     margin: 0 0 15px 0;
@@ -54,7 +54,7 @@
     gap: 10px;
 }
 
-.psw-step-number {
+.hexagrid-step-number {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -68,11 +68,11 @@
 }
 
 /* Forms */
-.psw-form-group {
+.hexagrid-form-group {
     margin-bottom: 20px;
 }
 
-.psw-form-group label {
+.hexagrid-form-group label {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
@@ -95,33 +95,33 @@
 }
 
 /* Row/Col Helper */
-.psw-row {
+.hexagrid-row {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
 }
 
-.psw-col-6 {
+.hexagrid-col-6 {
     flex: 1;
     min-width: 200px;
 }
 
 /* Shortcode Preview */
-.ps-shortcode-preview-wrapper {
+.hexagrid-shortcode-preview-wrapper {
     background: #fff;
     border-top: 1px solid #f0f0f1;
     padding-top: 20px;
     margin-top: 20px;
 }
 
-.ps-shortcode-preview-wrapper label {
+.hexagrid-shortcode-preview-wrapper label {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
     color: #1e2733;
 }
 
-.ps-shortcode-container {
+.hexagrid-shortcode-container {
     display: flex;
     gap: 10px;
     background: #f6f7f7;
@@ -131,7 +131,7 @@
     align-items: center;
 }
 
-.ps-shortcode-container code {
+.hexagrid-shortcode-container code {
     background: transparent;
     padding: 5px 10px;
     flex-grow: 1;
@@ -141,7 +141,7 @@
     margin: 0;
 }
 
-.psw-copy-btn {
+.hexagrid-copy-btn {
     background: #13273f !important;
     /* Dark button from screenshot */
     color: #fff !important;
@@ -156,11 +156,11 @@
     transition: background 0.2s;
 }
 
-.psw-copy-btn:hover {
+.hexagrid-copy-btn:hover {
     background: #2c3e50 !important;
 }
 
-.psw-copy-btn .dashicons {
+.hexagrid-copy-btn .dashicons {
     font-size: 16px;
     width: 16px;
     height: 16px;

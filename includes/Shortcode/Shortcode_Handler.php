@@ -1,16 +1,18 @@
 <?php
 
-namespace ProductShowcase\Shortcode;
+namespace HexaGrid\Shortcode;
 
-use ProductShowcase\Query\Query_Builder;
-use ProductShowcase\Layout\Grid_Layout;
-use ProductShowcase\Layout\List_Layout;
-use ProductShowcase\Layout\Slider_Layout;
+use HexaGrid\Query\Query_Builder;
+use HexaGrid\Layout\Grid_Layout;
+use HexaGrid\Layout\List_Layout;
+use HexaGrid\Layout\Slider_Layout;
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
  * Class Shortcode_Handler
  *
- * Registers and processes the [product_showcase] shortcode.
+ * Registers and processes the [hexagrid_product_showcase] shortcode.
  */
 class Shortcode_Handler {
 
@@ -18,7 +20,7 @@ class Shortcode_Handler {
      * Initialize hooks.
      */
     public function init() {
-        add_shortcode( 'product_showcase', [ $this, 'render_shortcode' ] );
+        add_shortcode( 'hexagrid_product_showcase', [ $this, 'render_shortcode' ] );
     }
 
     /**
@@ -73,7 +75,7 @@ class Shortcode_Handler {
             'order'       => 'DESC',
             'theme_color' => '',
             'preset_id'   => '',
-        ], $atts, 'product_showcase' );
+        ], $atts, 'hexagrid_product_showcase' );
 
         // 1. Build Query
         $query_builder = new Query_Builder();
@@ -101,7 +103,7 @@ class Shortcode_Handler {
         $query = $query_builder->get_query();
 
         // 2. Generate Unique ID for Scoping
-        $unique_id = 'psw-preset-' . $preset_id . '-' . uniqid();
+        $unique_id = 'hexagrid-preset-' . $preset_id . '-' . uniqid();
         $atts['wrapper_id'] = $unique_id;
 
         // 3. Render Layout
@@ -114,7 +116,7 @@ class Shortcode_Handler {
                 $renderer = new Slider_Layout();
                 break;
             case 'table':
-                $renderer = new \ProductShowcase\Layout\Table_Layout();
+                $renderer = new \HexaGrid\Layout\Table_Layout();
                 break;
             case 'grid':
             default:

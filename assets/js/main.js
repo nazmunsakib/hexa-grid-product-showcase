@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var sliders = document.querySelectorAll('.psw-layout-slider');
+    var sliders = document.querySelectorAll('.hexagrid-layout-slider');
 
     sliders.forEach(function (slider) {
         new Swiper(slider, {
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 jQuery(document.body).on('added_to_cart', function (event, fragments, cart_hash, $button) {
-    var $container = $button.closest('.psw-product-cart-btn');
+    var $container = $button.closest('.hexagrid-product-cart-btn');
     if ($container.length) {
         // Change icon
         $button.find('.dashicons').removeClass('dashicons-cart').addClass('dashicons-arrow-right-alt');

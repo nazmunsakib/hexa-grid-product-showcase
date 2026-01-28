@@ -1,6 +1,8 @@
 <?php
 
-namespace ProductShowcase\Layout;
+namespace HexaGrid\Layout;
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
  * Interface Layout_Interface

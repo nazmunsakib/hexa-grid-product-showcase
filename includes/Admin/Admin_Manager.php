@@ -1,6 +1,8 @@
 <?php
 
-namespace ProductShowcase\Admin;
+namespace HexaGrid\Admin;
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
  * Class Admin_Manager

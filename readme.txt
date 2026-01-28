@@ -1,4 +1,4 @@
-=== Product Showcase Woo – Grid, List, Slider & Table Layouts ===
+=== Hexa Grid – Product Showcase and Category Layouts ===
 Contributors: nazmunsakib
 Tags: woocommerce, product showcase, product slider, product grid, product table
 Requires at least: 5.0
@@ -13,7 +13,7 @@ Create beautiful WooCommerce product showcases using grid, list, slider, and tab
 
 == Description ==
 
-**Product Showcase for WooCommerce** allows you to display your WooCommerce products in multiple modern layouts, including Grid, List, Slider, and Table. It is designed for store owners who want full control over how products are presented without writing any code.
+**Hexa Grid Product Showcase for WooCommerce** allows you to display your WooCommerce products in multiple modern layouts, including Grid, List, Slider, and Table. It is designed for store owners who want full control over how products are presented without writing any code.
 
 The plugin works seamlessly with both Elementor and the WordPress Block Editor (Gutenberg), making it easy to build product displays anywhere on your site—pages, posts, or landing pages.
 
@@ -30,7 +30,7 @@ Key Features:
 
 == Installation ==
 
-1.  Upload the `product-showcase-woo` folder to the `/wp-content/plugins/` directory.
+1.  Upload the `hexa-grid-product-showcase` folder to the `/wp-content/plugins/` directory.
 2.  Activate the plugin through the 'Plugins' menu in WordPress.
 3.  Go to **Product Showcase** in the admin menu to start creating your layouts.
 

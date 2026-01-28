@@ -1,6 +1,8 @@
 <?php
 
-namespace ProductShowcase\Layout;
+namespace HexaGrid\Layout;
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
  * Class Grid_Layout
@@ -16,7 +18,7 @@ class Grid_Layout implements Layout_Interface {
      */
     public function render( $query, $atts ) {
         if ( ! $query->have_posts() ) {
-            return '<p class="ps-no-products">No products found.</p>';
+            return '<p class="hexagrid-no-products">No products found.</p>';
         }
 
         $columns = isset( $atts['columns'] ) ? intval( $atts['columns'] ) : 3;
@@ -29,8 +31,8 @@ class Grid_Layout implements Layout_Interface {
         }
 
         ob_start();
-        echo \ProductShowcase\Assets\Dynamic_Styles::generate( $atts, $atts['wrapper_id'] );
-        echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="psw-layout-container psw-grid-' . esc_attr( $style ) . '">';
+        echo \HexaGrid\Assets\Dynamic_Styles::generate( $atts, $atts['wrapper_id'] );
+        echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="hexagrid-layout-container hexagrid-grid-' . esc_attr( $style ) . '">';
         include $template_path;
         echo '</div>';
 

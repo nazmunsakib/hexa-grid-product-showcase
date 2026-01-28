@@ -1,12 +1,12 @@
 jQuery(document).ready(function ($) {
     // Tabs
-    $('.psw-tab-link').on('click', function (e) {
+    $('.hexagrid-tab-link').on('click', function (e) {
         e.preventDefault();
         var tabId = $(this).data('tab');
 
         // Remove active class
-        $('.psw-tab-link').removeClass('active');
-        $('.psw-tab-content').removeClass('active');
+        $('.hexagrid-tab-link').removeClass('active');
+        $('.hexagrid-tab-content').removeClass('active');
 
         // Add active class
         $(this).addClass('active');
@@ -14,10 +14,10 @@ jQuery(document).ready(function ($) {
     });
 
     // Color Picker
-    $('.psw-color-picker').wpColorPicker();
+    $('.hexagrid-color-picker').wpColorPicker();
 
     // Copy Shortcode functionality
-    $('.psw-copy-btn').on('click', function (e) {
+    $('.hexagrid-copy-btn').on('click', function (e) {
         e.preventDefault();
         var $btn = $(this);
         var targetId = $btn.data('clipboard-target');

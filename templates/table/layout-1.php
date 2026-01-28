@@ -6,16 +6,16 @@
  * @var int $columns
  */
 ?>
-<div class="psw-layout-table psw-table-style-1">
-    <div class="psw-table-responsive">
-        <table class="psw-product-table">
+<div class="hexagrid-layout-table hexagrid-table-style-1">
+    <div class="hexagrid-table-responsive">
+        <table class="hexagrid-product-table">
             <thead>
                 <tr>
-                    <th class="psw-th-image"><?php esc_html_e( 'Image', 'product-showcase-woo' ); ?></th>
-                    <th class="psw-th-name"><?php esc_html_e( 'Product Name', 'product-showcase-woo' ); ?></th>
-                    <th class="psw-th-price"><?php esc_html_e( 'Price', 'product-showcase-woo' ); ?></th>
-                    <th class="psw-th-rating"><?php esc_html_e( 'Rating', 'product-showcase-woo' ); ?></th>
-                    <th class="psw-th-action"><?php esc_html_e( 'Action', 'product-showcase-woo' ); ?></th>
+                    <th class="hexagrid-th-image"><?php esc_html_e( 'Image', 'hexa-grid-product-showcase' ); ?></th>
+                    <th class="hexagrid-th-name"><?php esc_html_e( 'Product Name', 'hexa-grid-product-showcase' ); ?></th>
+                    <th class="hexagrid-th-price"><?php esc_html_e( 'Price', 'hexa-grid-product-showcase' ); ?></th>
+                    <th class="hexagrid-th-rating"><?php esc_html_e( 'Rating', 'hexa-grid-product-showcase' ); ?></th>
+                    <th class="hexagrid-th-action"><?php esc_html_e( 'Action', 'hexa-grid-product-showcase' ); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -27,27 +27,27 @@
                         }
                     ?>
                     <tr>
-                        <td class="psw-td-image">
+                        <td class="hexagrid-td-image">
                             <a href="<?php the_permalink(); ?>">
                                 <?php echo wp_kses_post( $product->get_image( 'woocommerce_thumbnail' ) ); ?>
                             </a>
                         </td>
-                        <td class="psw-td-name">
+                        <td class="hexagrid-td-name">
                             <a href="<?php the_permalink(); ?>">
                                 <?php echo wp_kses_post( get_the_title() ); ?>
                             </a>
                         </td>
-                        <td class="psw-td-price">
+                        <td class="hexagrid-td-price">
                              <?php echo wp_kses_post( $product->get_price_html() ); ?>
                         </td>
-                        <td class="psw-td-rating">
+                        <td class="hexagrid-td-rating">
                             <?php 
                             if ( $average = $product->get_average_rating() ) :
                                 echo wp_kses_post( wc_get_rating_html( $average ) );
                             endif;
                             ?>
                         </td>
-                        <td class="psw-td-action">
+                        <td class="hexagrid-td-action">
                             <?php 
                                 echo sprintf( '<a href="%s" data-quantity="1" class="%s" %s>%s</a>',
                                     esc_url( $product->add_to_cart_url() ),

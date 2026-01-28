@@ -1,6 +1,8 @@
 <?php
 
-namespace ProductShowcase\Admin;
+namespace HexaGrid\Admin;
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
  * Class Meta_Box
@@ -33,10 +35,10 @@ class Meta_Box {
 
 
             $plugin_root_url = plugin_dir_url( dirname( dirname( __FILE__ ) ) );
-            wp_enqueue_style( 'psw-admin-style', $plugin_root_url . 'assets/admin/css/admin.css', [], '1.0.0' );
-            wp_enqueue_script( 'psw-admin-script', $plugin_root_url . 'assets/admin/js/admin.js', [ 'jquery', 'wp-color-picker' ], '1.0.0', true );
+            wp_enqueue_style( 'hexagrid-admin-style', $plugin_root_url . 'assets/admin/css/admin.css', [], '1.0.0' );
+            wp_enqueue_script( 'hexagrid-admin-script', $plugin_root_url . 'assets/admin/js/admin.js', [ 'jquery', 'wp-color-picker' ], '1.0.0', true );
             
-            wp_localize_script( 'psw-admin-script', 'pswAdmin', [
+            wp_localize_script( 'hexagrid-admin-script', 'pswAdmin', [
                 'ajaxurl' => admin_url( 'admin-ajax.php' ),
                 'nonce'   => wp_create_nonce( 'psw_admin_nonce' ),
             ]);
@@ -51,7 +53,7 @@ class Meta_Box {
     public function add_meta_boxes() {
         add_meta_box(
             'psw_showcase_settings',
-            __( 'Showcase Settings', 'product-showcase-woo' ),
+            __( 'Showcase Settings', 'hexa-grid-product-showcase' ),
             [ $this, 'render_meta_box' ],
             'product_show_preset',
             'normal',
@@ -85,111 +87,111 @@ class Meta_Box {
         
 
         ?>
-        <div class="ps-meta-box-wrapper">
-            <div class="ps-meta-header">
+        <div class="hexagrid-meta-box-wrapper">
+            <div class="hexagrid-meta-header">
                 <span class="dashicons dashicons-sliders"></span>
-                <h2><?php esc_html_e( 'Showcase Settings', 'product-showcase-woo' ); ?></h2>
+                <h2><?php esc_html_e( 'Showcase Settings', 'hexa-grid-product-showcase' ); ?></h2>
             </div>
             
-            <div class="ps-meta-box-content">
+            <div class="hexagrid-meta-box-content">
                 
                 <!-- Section 1: Layout Settings -->
-                <div class="psw-section">
-                    <h3 class="psw-section-title">
-                        <span class="psw-step-number">1</span> <?php esc_html_e( 'Layout Settings', 'product-showcase-woo' ); ?>
+                <div class="hexagrid-section">
+                    <h3 class="hexagrid-section-title">
+                        <span class="hexagrid-step-number">1</span> <?php esc_html_e( 'Layout Settings', 'hexa-grid-product-showcase' ); ?>
                     </h3>
                     
-                    <p class="psw-form-group">
-                        <label for="psw_layout_type"><?php esc_html_e( 'Layout Type', 'product-showcase-woo' ); ?></label>
+                    <p class="hexagrid-form-group">
+                        <label for="psw_layout_type"><?php esc_html_e( 'Layout Type', 'hexa-grid-product-showcase' ); ?></label>
                         <select name="psw_layout_type" id="psw_layout_type" class="widefat">
-                            <option value="grid" <?php selected( $layout, 'grid' ); ?>><?php esc_html_e( 'Grid', 'product-showcase-woo' ); ?></option>
-                            <option value="list" <?php selected( $layout, 'list' ); ?>><?php esc_html_e( 'List', 'product-showcase-woo' ); ?></option>
-                            <option value="slider" <?php selected( $layout, 'slider' ); ?>><?php esc_html_e( 'Carousel (Slider)', 'product-showcase-woo' ); ?></option>
-                            <option value="table" <?php selected( $layout, 'table' ); ?>><?php esc_html_e( 'Table', 'product-showcase-woo' ); ?></option>
+                            <option value="grid" <?php selected( $layout, 'grid' ); ?>><?php esc_html_e( 'Grid', 'hexa-grid-product-showcase' ); ?></option>
+                            <option value="list" <?php selected( $layout, 'list' ); ?>><?php esc_html_e( 'List', 'hexa-grid-product-showcase' ); ?></option>
+                            <option value="slider" <?php selected( $layout, 'slider' ); ?>><?php esc_html_e( 'Carousel (Slider)', 'hexa-grid-product-showcase' ); ?></option>
+                            <option value="table" <?php selected( $layout, 'table' ); ?>><?php esc_html_e( 'Table', 'hexa-grid-product-showcase' ); ?></option>
                         </select>
                     </p>
 
-                     <p class="psw-form-group">
-                        <label for="psw_layout_style"><?php esc_html_e( 'Layout Variation', 'product-showcase-woo' ); ?></label>
+                     <p class="hexagrid-form-group">
+                        <label for="psw_layout_style"><?php esc_html_e( 'Layout Variation', 'hexa-grid-product-showcase' ); ?></label>
                         <select name="psw_layout_style" id="psw_layout_style" class="widefat">
-                            <option value="layout-1" <?php selected( $style, 'layout-1' ); ?>><?php esc_html_e( 'Style 1 (Modern)', 'product-showcase-woo' ); ?></option>
-                            <option value="layout-2" <?php selected( $style, 'layout-2' ); ?>><?php esc_html_e( 'Style 2 (Classic)', 'product-showcase-woo' ); ?></option>
+                            <option value="layout-1" <?php selected( $style, 'layout-1' ); ?>><?php esc_html_e( 'Style 1 (Modern)', 'hexa-grid-product-showcase' ); ?></option>
+                            <option value="layout-2" <?php selected( $style, 'layout-2' ); ?>><?php esc_html_e( 'Style 2 (Classic)', 'hexa-grid-product-showcase' ); ?></option>
                         </select>
                     </p>
 
-                    <p class="psw-form-group">
-                        <label for="psw_columns"><?php esc_html_e( 'Columns', 'product-showcase-woo' ); ?></label>
+                    <p class="hexagrid-form-group">
+                        <label for="psw_columns"><?php esc_html_e( 'Columns', 'hexa-grid-product-showcase' ); ?></label>
                         <select name="psw_columns" id="psw_columns" class="widefat">
-                            <option value="1" <?php selected( $columns, 1 ); ?>>1 <?php esc_html_e( 'Column', 'product-showcase-woo' ); ?></option>
-                            <option value="2" <?php selected( $columns, 2 ); ?>>2 <?php esc_html_e( 'Columns', 'product-showcase-woo' ); ?></option>
-                            <option value="3" <?php selected( $columns, 3 ); ?>>3 <?php esc_html_e( 'Columns', 'product-showcase-woo' ); ?></option>
-                            <option value="4" <?php selected( $columns, 4 ); ?>>4 <?php esc_html_e( 'Columns', 'product-showcase-woo' ); ?></option>
+                            <option value="1" <?php selected( $columns, 1 ); ?>>1 <?php esc_html_e( 'Column', 'hexa-grid-product-showcase' ); ?></option>
+                            <option value="2" <?php selected( $columns, 2 ); ?>>2 <?php esc_html_e( 'Columns', 'hexa-grid-product-showcase' ); ?></option>
+                            <option value="3" <?php selected( $columns, 3 ); ?>>3 <?php esc_html_e( 'Columns', 'hexa-grid-product-showcase' ); ?></option>
+                            <option value="4" <?php selected( $columns, 4 ); ?>>4 <?php esc_html_e( 'Columns', 'hexa-grid-product-showcase' ); ?></option>
                         </select>
                     </p>
 
-                    <p class="psw-form-group">
-                        <label for="psw_query_limit"><?php esc_html_e( 'Product Limit', 'product-showcase-woo' ); ?></label>
+                    <p class="hexagrid-form-group">
+                        <label for="psw_query_limit"><?php esc_html_e( 'Product Limit', 'hexa-grid-product-showcase' ); ?></label>
                         <input type="number" name="psw_query_limit" id="psw_query_limit" value="<?php echo esc_attr( $limit ); ?>" class="widefat" min="1">
                     </p>
                 </div>
 
                 <!-- Section 2: Query Settings -->
-                <div class="psw-section">
-                    <h3 class="psw-section-title">
-                        <span class="psw-step-number">2</span> <?php esc_html_e( 'Query Settings', 'product-showcase-woo' ); ?>
+                <div class="hexagrid-section">
+                    <h3 class="hexagrid-section-title">
+                        <span class="hexagrid-step-number">2</span> <?php esc_html_e( 'Query Settings', 'hexa-grid-product-showcase' ); ?>
                     </h3>
 
-                    <p class="psw-form-group">
-                        <label for="psw_include_ids"><?php esc_html_e( 'Include Products (IDs)', 'product-showcase-woo' ); ?></label>
+                    <p class="hexagrid-form-group">
+                        <label for="psw_include_ids"><?php esc_html_e( 'Include Products (IDs)', 'hexa-grid-product-showcase' ); ?></label>
                         <input type="text" name="psw_include_ids" id="psw_include_ids" value="<?php echo esc_attr( $include_ids ); ?>" class="widefat" placeholder="e.g. 101, 105, 200">
                     </p>
 
-                     <p class="psw-form-group">
-                        <label for="psw_exclude_ids"><?php esc_html_e( 'Exclude Products (IDs)', 'product-showcase-woo' ); ?></label>
+                     <p class="hexagrid-form-group">
+                        <label for="psw_exclude_ids"><?php esc_html_e( 'Exclude Products (IDs)', 'hexa-grid-product-showcase' ); ?></label>
                         <input type="text" name="psw_exclude_ids" id="psw_exclude_ids" value="<?php echo esc_attr( $exclude_ids ); ?>" class="widefat" placeholder="e.g. 101, 105, 200">
                     </p>
 
-                    <div class="psw-row">
-                        <p class="psw-form-group psw-col-6">
-                            <label for="psw_orderby"><?php esc_html_e( 'Order By', 'product-showcase-woo' ); ?></label>
+                    <div class="hexagrid-row">
+                        <p class="hexagrid-form-group hexagrid-col-6">
+                            <label for="psw_orderby"><?php esc_html_e( 'Order By', 'hexa-grid-product-showcase' ); ?></label>
                             <select name="psw_orderby" id="psw_orderby" class="widefat">
-                                <option value="date" <?php selected( $orderby, 'date' ); ?>><?php esc_html_e( 'Date', 'product-showcase-woo' ); ?></option>
-                                <option value="price" <?php selected( $orderby, 'price' ); ?>><?php esc_html_e( 'Price', 'product-showcase-woo' ); ?></option>
-                                <option value="ID" <?php selected( $orderby, 'ID' ); ?>><?php esc_html_e( 'ID', 'product-showcase-woo' ); ?></option>
-                                <option value="title" <?php selected( $orderby, 'title' ); ?>><?php esc_html_e( 'Title', 'product-showcase-woo' ); ?></option>
-                                <option value="popularity" <?php selected( $orderby, 'popularity' ); ?>><?php esc_html_e( 'Popularity (Sales)', 'product-showcase-woo' ); ?></option>
+                                <option value="date" <?php selected( $orderby, 'date' ); ?>><?php esc_html_e( 'Date', 'hexa-grid-product-showcase' ); ?></option>
+                                <option value="price" <?php selected( $orderby, 'price' ); ?>><?php esc_html_e( 'Price', 'hexa-grid-product-showcase' ); ?></option>
+                                <option value="ID" <?php selected( $orderby, 'ID' ); ?>><?php esc_html_e( 'ID', 'hexa-grid-product-showcase' ); ?></option>
+                                <option value="title" <?php selected( $orderby, 'title' ); ?>><?php esc_html_e( 'Title', 'hexa-grid-product-showcase' ); ?></option>
+                                <option value="popularity" <?php selected( $orderby, 'popularity' ); ?>><?php esc_html_e( 'Popularity (Sales)', 'hexa-grid-product-showcase' ); ?></option>
                             </select>
                         </p>
 
-                         <p class="psw-form-group psw-col-6">
-                            <label for="psw_order"><?php esc_html_e( 'Order', 'product-showcase-woo' ); ?></label>
+                         <p class="hexagrid-form-group hexagrid-col-6">
+                            <label for="psw_order"><?php esc_html_e( 'Order', 'hexa-grid-product-showcase' ); ?></label>
                             <select name="psw_order" id="psw_order" class="widefat">
-                                <option value="DESC" <?php selected( $order, 'DESC' ); ?>><?php esc_html_e( 'Descending (Z-A, Newest)', 'product-showcase-woo' ); ?></option>
-                                <option value="ASC" <?php selected( $order, 'ASC' ); ?>><?php esc_html_e( 'Ascending (A-Z, Oldest)', 'product-showcase-woo' ); ?></option>
+                                <option value="DESC" <?php selected( $order, 'DESC' ); ?>><?php esc_html_e( 'Descending (Z-A, Newest)', 'hexa-grid-product-showcase' ); ?></option>
+                                <option value="ASC" <?php selected( $order, 'ASC' ); ?>><?php esc_html_e( 'Ascending (A-Z, Oldest)', 'hexa-grid-product-showcase' ); ?></option>
                             </select>
                         </p>
                     </div>
                 </div>
 
                 <!-- Section 3: Style Settings -->
-                <div class="psw-section">
-                    <h3 class="psw-section-title">
-                        <span class="psw-step-number">3</span> <?php esc_html_e( 'Style Settings', 'product-showcase-woo' ); ?>
+                <div class="hexagrid-section">
+                    <h3 class="hexagrid-section-title">
+                        <span class="hexagrid-step-number">3</span> <?php esc_html_e( 'Style Settings', 'hexa-grid-product-showcase' ); ?>
                     </h3>
 
-                    <p class="psw-form-group">
-                        <label for="psw_theme_color"><?php esc_html_e( 'Theme Color', 'product-showcase-woo' ); ?></label>
-                        <input type="text" name="psw_theme_color" id="psw_theme_color" value="<?php echo esc_attr( $theme_color ); ?>" class="psw-color-picker">
+                    <p class="hexagrid-form-group">
+                        <label for="psw_theme_color"><?php esc_html_e( 'Theme Color', 'hexa-grid-product-showcase' ); ?></label>
+                        <input type="text" name="psw_theme_color" id="psw_theme_color" value="<?php echo esc_attr( $theme_color ); ?>" class="hexagrid-color-picker">
                     </p>
                 </div>
 
                 <?php if ( $post->ID ) : ?>
-                    <div class="ps-shortcode-preview-wrapper">
-                        <label><?php esc_html_e( 'Shortcode', 'product-showcase-woo' ); ?></label>
-                        <div class="ps-shortcode-container">
-                            <code id="psw-shortcode-text">[product_showcase preset_id="<?php echo esc_attr( $post->ID ); ?>"]</code>
-                            <button type="button" class="button psw-copy-btn" data-clipboard-target="#psw-shortcode-text">
-                                <span class="dashicons dashicons-admin-page"></span> <?php esc_html_e( 'Copy', 'product-showcase-woo' ); ?>
+                    <div class="hexagrid-shortcode-preview-wrapper">
+                        <label><?php esc_html_e( 'Shortcode', 'hexa-grid-product-showcase' ); ?></label>
+                        <div class="hexagrid-shortcode-container">
+                            <code id="hexagrid-shortcode-text">[hexagrid_product_showcase preset_id="<?php echo esc_attr( $post->ID ); ?>"]</code>
+                            <button type="button" class="button hexagrid-copy-btn" data-clipboard-target="#hexagrid-shortcode-text">
+                                <span class="dashicons dashicons-admin-page"></span> <?php esc_html_e( 'Copy', 'hexa-grid-product-showcase' ); ?>
                             </button>
                         </div>
                     </div>

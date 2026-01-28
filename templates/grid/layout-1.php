@@ -6,7 +6,7 @@
  * @var int $columns
  */
 ?>
-<div class="psw-layout-grid psw-columns-<?php echo esc_attr( $columns ); ?>">
+<div class="hexagrid-layout-grid hexagrid-columns-<?php echo esc_attr( $columns ); ?>">
     <?php while ( $query->have_posts() ) : $query->the_post(); ?>
         <?php 
             global $product;
@@ -14,23 +14,23 @@
                 $product = wc_get_product( get_the_ID() );
             }
         ?>
-        <article <?php post_class( 'psw-product' ); ?>>
-            <div class="psw-product-wrapper">
-                <div class="psw-product-image-area">
+        <article <?php post_class( 'hexagrid-product' ); ?>>
+            <div class="hexagrid-product-wrapper">
+                <div class="hexagrid-product-image-area">
                     <a href="<?php the_permalink(); ?>">
                         <?php echo wp_kses_post( $product->get_image( 'woocommerce_thumbnail' ) ); ?>
                     </a>
                     <?php if ( $product->is_on_sale() ) : ?>
-                        <span class="psw-badge psw-sale-badge"><?php esc_html_e( 'Sale!', 'product-showcase-woo' ); ?></span>
+                        <span class="hexagrid-badge hexagrid-sale-badge"><?php esc_html_e( 'Sale!', 'hexa-grid-product-showcase' ); ?></span>
                     <?php endif; ?>
                 </div>
             
-                <div class="psw-product-content-area">
-                    <h3 class="psw-product-title">
+                <div class="hexagrid-product-content-area">
+                    <h3 class="hexagrid-product-title">
                         <a href="<?php the_permalink(); ?>"><?php echo wp_kses_post( get_the_title() ); ?></a>
                     </h3>
                     
-                    <div class="psw-product-rating">
+                    <div class="hexagrid-product-rating">
                         <?php 
                         if ( $average = $product->get_average_rating() ) :
                             echo wp_kses_post( wc_get_rating_html( $average ) );
@@ -38,12 +38,12 @@
                         ?>
                     </div>
 
-                    <div class="psw-product-footer">
-                        <div class="psw-product-price">
+                    <div class="hexagrid-product-footer">
+                        <div class="hexagrid-product-price">
                             <?php echo wp_kses_post( $product->get_price_html() ); ?>
                         </div>
                         
-                        <div class="psw-product-cart-btn">
+                        <div class="hexagrid-product-cart-btn">
                             <?php 
                             // Custom Add to Cart Button (Simple Icon style)
                             $args = array(); 

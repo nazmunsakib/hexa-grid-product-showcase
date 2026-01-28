@@ -1,6 +1,8 @@
 <?php
 
-namespace ProductShowcase\Layout;
+namespace HexaGrid\Layout;
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
  * Class List_Layout
@@ -16,7 +18,7 @@ class List_Layout implements Layout_Interface {
      */
     public function render( $query, $atts ) {
         if ( ! $query->have_posts() ) {
-            return '<p class="ps-no-products">No products found.</p>';
+            return '<p class="hexagrid-no-products">No products found.</p>';
         }
 
         $style = isset( $atts['style'] ) ? sanitize_file_name( $atts['style'] ) : 'layout-1';
@@ -27,8 +29,8 @@ class List_Layout implements Layout_Interface {
         }
         
         ob_start();
-        echo \ProductShowcase\Assets\Dynamic_Styles::generate( $atts, $atts['wrapper_id'] );
-        echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="psw-layout-container psw-list-' . esc_attr( $style ) . '">';
+        echo \HexaGrid\Assets\Dynamic_Styles::generate( $atts, $atts['wrapper_id'] );
+        echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="hexagrid-layout-container hexagrid-list-' . esc_attr( $style ) . '">';
         include $template_path;
         echo '</div>';
         return ob_get_clean();

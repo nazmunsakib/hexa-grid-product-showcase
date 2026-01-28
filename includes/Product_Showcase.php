@@ -1,6 +1,8 @@
 <?php
 
-namespace ProductShowcase;
+namespace HexaGrid;
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
  * Class Product_Showcase
@@ -50,7 +52,7 @@ class Product_Showcase {
      */
     public function on_plugins_loaded() {
         // Load text domain etc. - Not needed for WP Repo
-        // load_plugin_textdomain( 'product-showcase-woo', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+        // load_plugin_textdomain( 'hexa-grid-product-showcase', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
         
         // Register services early so hooks (like init for CPT) can be added correctly.
         $this->register_services();
@@ -61,18 +63,18 @@ class Product_Showcase {
      */
     private function register_services() {
         // We will initialize Query_Builder, Shortcodes, and Assets here
-        $asset_manager = new \ProductShowcase\Assets\Asset_Manager();
+        $asset_manager = new \HexaGrid\Assets\Asset_Manager();
         $asset_manager->init();
 
-        $shortcode_handler = new \ProductShowcase\Shortcode\Shortcode_Handler();
+        $shortcode_handler = new \HexaGrid\Shortcode\Shortcode_Handler();
         $shortcode_handler->init();
 
         // CPT must be registered globally
-        $post_type = new \ProductShowcase\Admin\Post_Type();
+        $post_type = new \HexaGrid\Admin\Post_Type();
         $post_type->init();
 
         if ( is_admin() ) {
-            $admin_manager = new \ProductShowcase\Admin\Admin_Manager();
+            $admin_manager = new \HexaGrid\Admin\Admin_Manager();
             $admin_manager->init();
         }
     }

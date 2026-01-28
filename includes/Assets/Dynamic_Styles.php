@@ -1,6 +1,8 @@
 <?php
 
-namespace ProductShowcase\Assets;
+namespace HexaGrid\Assets;
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
  * Class Dynamic_Styles
@@ -29,13 +31,13 @@ class Dynamic_Styles {
         $css = '<style>';
         
         // Backgrounds (Badges, Buttons)
-        $css .= "{$scope}.psw-sale-badge { background-color: {$theme_color} !important; }";
-        $css .= "{$scope}.psw-add-btn>a { background-color: {$theme_color} !important; }";
-        $css .= "{$scope}.psw-product-price ins .amount { color: {$theme_color} !important; }";
-        $css .= "{$scope}.psw-product:hover .psw-product-cart-btn a { background-color: {$theme_color} !important; border-color: {$theme_color} !important; }";
+        $css .= "{$scope}.hexagrid-sale-badge { background-color: {$theme_color} !important; }";
+        $css .= "{$scope}.hexagrid-add-btn>a { background-color: {$theme_color} !important; }";
+        $css .= "{$scope}.hexagrid-product-price ins .amount { color: {$theme_color} !important; }";
+        $css .= "{$scope}.hexagrid-product:hover .hexagrid-product-cart-btn a { background-color: {$theme_color} !important; border-color: {$theme_color} !important; }";
         
         // Text Hover (Links) - NOW USING THEME COLOR
-        $css .= "{$scope}.psw-product-title a:hover, {$scope}.psw-product-category a:hover { color: {$theme_color} !important; }";
+        $css .= "{$scope}.hexagrid-product-title a:hover, {$scope}.hexagrid-product-category a:hover { color: {$theme_color} !important; }";
         
         // Pagination/Action buttons if needed
         $css .= "{$scope}.swiper-button-next, {$scope}.swiper-button-prev { color: {$theme_color} !important; }";

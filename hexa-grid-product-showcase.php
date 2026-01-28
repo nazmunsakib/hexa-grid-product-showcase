@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Product Showcase Woo
+ * Plugin Name: Hexa Grid – Product Showcase and Category Layouts
  * Plugin URI: https://addonskit.com
  * Description: Professional Product Showcase with Unlimited Grid, List, Slider and Table Layout for WooCommerce.
  * Version: 1.0.0
@@ -8,7 +8,7 @@
  * Author URI: https://nazmunsakib.com
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: product-showcase-woo
+ * Text Domain: hexa-grid-product-showcase
  * Domain Path: /languages
  * Requires at least: 5.0
  * Tested up to: 6.9
@@ -17,7 +17,7 @@
  * WC requires at least: 5.0
  * WC tested up to: 8.5
  *
- * @package ProductShowcase
+ * @package HexaGrid
  * @author Nazmun Sakib
  * @since 1.0.0
  */
@@ -35,9 +35,9 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 /**
  * Initialize the plugin.
  */
-function product_showcase_init() {
-	if ( class_exists( 'ProductShowcase\\Product_Showcase' ) ) {
-		\ProductShowcase\Product_Showcase::get_instance();
+function hexagrid_product_showcase_init() {
+	if ( class_exists( 'HexaGrid\\Product_Showcase' ) ) {
+		\HexaGrid\Product_Showcase::get_instance();
 	}
 }
-add_action( 'plugins_loaded', 'product_showcase_init' );
+add_action( 'plugins_loaded', 'hexagrid_product_showcase_init' );

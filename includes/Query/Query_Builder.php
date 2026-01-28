@@ -1,6 +1,8 @@
 <?php
 
-namespace ProductShowcase\Query;
+namespace HexaGrid\Query;
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
  * Class Query_Builder

@@ -1,6 +1,8 @@
 <?php
 
-namespace ProductShowcase\Admin;
+namespace HexaGrid\Admin;
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
  * Class Post_Type
@@ -21,20 +23,20 @@ class Post_Type {
      */
     public function register_cpt() {
         $labels = [
-            'name'               => _x( 'Showcase Presets', 'post type general name', 'product-showcase-woo' ),
-            'singular_name'      => _x( 'Showcase Preset', 'post type singular name', 'product-showcase-woo' ),
-            'menu_name'          => _x( 'Product Showcase', 'admin menu', 'product-showcase-woo' ),
-            'name_admin_bar'     => _x( 'Showcase Preset', 'add new on admin bar', 'product-showcase-woo' ),
-            'add_new'            => _x( 'Add New', 'Showcase Preset', 'product-showcase-woo' ),
-            'add_new_item'       => __( 'Add New Showcase Preset', 'product-showcase-woo' ),
-            'new_item'           => __( 'New Showcase Preset', 'product-showcase-woo' ),
-            'edit_item'          => __( 'Edit Showcase Preset', 'product-showcase-woo' ),
-            'view_item'          => __( 'View Showcase Preset', 'product-showcase-woo' ),
-            'all_items'          => __( 'Showcase Presets', 'product-showcase-woo' ), // Renamed for clarity in submenu
-            'search_items'       => __( 'Search Presets', 'product-showcase-woo' ),
-            'parent_item_colon'  => __( 'Parent Presets:', 'product-showcase-woo' ),
-            'not_found'          => __( 'No presets found.', 'product-showcase-woo' ),
-            'not_found_in_trash' => __( 'No presets found in Trash.', 'product-showcase-woo' ),
+            'name'               => _x( 'Hexa Grid Presets', 'post type general name', 'hexa-grid-product-showcase' ),
+            'singular_name'      => _x( 'Hexa Grid Preset', 'post type singular name', 'hexa-grid-product-showcase' ),
+            'menu_name'          => _x( 'Hexa Grid', 'admin menu', 'hexa-grid-product-showcase' ),
+            'name_admin_bar'     => _x( 'Hexa Grid Preset', 'add new on admin bar', 'hexa-grid-product-showcase' ),
+            'add_new'            => _x( 'Add New', 'Hexa Grid Preset', 'hexa-grid-product-showcase' ),
+            'add_new_item'       => __( 'Add New Preset', 'hexa-grid-product-showcase' ),
+            'new_item'           => __( 'New Preset', 'hexa-grid-product-showcase' ),
+            'edit_item'          => __( 'Edit Preset', 'hexa-grid-product-showcase' ),
+            'view_item'          => __( 'View Preset', 'hexa-grid-product-showcase' ),
+            'all_items'          => __( 'Hexa Grid Presets', 'hexa-grid-product-showcase' ), // Renamed for clarity in submenu
+            'search_items'       => __( 'Search Presets', 'hexa-grid-product-showcase' ),
+            'parent_item_colon'  => __( 'Parent Presets:', 'hexa-grid-product-showcase' ),
+            'not_found'          => __( 'No presets found.', 'hexa-grid-product-showcase' ),
+            'not_found_in_trash' => __( 'No presets found in Trash.', 'hexa-grid-product-showcase' ),
         ];
 
         $args = [
@@ -54,6 +56,6 @@ class Post_Type {
             'map_meta_cap'       => true, // Explicitly map capabilities
         ];
 
-        register_post_type( 'product_show_preset', $args );
+        register_post_type( 'hexagrid_show_preset', $args );
     }
 }

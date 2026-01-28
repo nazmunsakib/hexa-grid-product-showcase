@@ -5,7 +5,7 @@
  * @var \WP_Query $query
  */
 ?>
-<div class="psw-layout-list">
+<div class="hexagrid-layout-list">
     <?php while ( $query->have_posts() ) : $query->the_post(); ?>
         <?php 
             global $product;
@@ -13,58 +13,58 @@
                 $product = wc_get_product( get_the_ID() );
             }
         ?>
-        <article <?php post_class( 'psw-product' ); ?>>
-            <div class="psw-product-wrapper">
-                <div class="psw-lproduct-image-area">
-                    <a href="<?php the_permalink(); ?>" class="psw-product-image-link">
-                        <?php echo wp_kses_post( $product->get_image( 'woocommerce_thumbnail' ) ); ?>
+        <article <?php post_class( 'hexagrid-product' ); ?>>
+            <div class="hexagrid-product-wrapper">
+                <div class="hexagrid-lproduct-image-area">
+                    <a href="<?php the_permalink(); ?>" class="hexagrid-product-image-link">
+                        <?php echo wp_kses_post( $product->get_image( 'woocommerce_medium' ) ); ?>
                     </a>
                     <?php if ( $product->is_on_sale() ) : ?>
-                        <span class="psw-badge psw-sale-badge"><?php esc_html_e( 'Sale!', 'product-showcase-woo' ); ?></span>
+                        <span class="hexagrid-badge hexagrid-sale-badge"><?php esc_html_e( 'Sale!', 'hexa-grid-product-showcase' ); ?></span>
                     <?php endif; ?>
                 </div>
-                <div class="psw-product-content-area">
-                    <div class="psw-product-content-header">
+                <div class="hexagrid-product-content-area">
+                    <div class="hexagrid-product-content-header">
                         <?php 
                         $categories = wc_get_product_category_list( $product->get_id(), ', ' );
                         if ( $categories ) : ?>
-                            <div class="psw-product-category">
+                            <div class="hexagrid-product-category">
                                 <?php echo wp_kses_post( $categories ); ?>
                             </div>
                         <?php endif; ?>
 
-                        <h3 class="psw-product-title">
+                        <h3 class="hexagrid-product-title">
                             <a href="<?php the_permalink(); ?>">
                                 <?php the_title(); ?>
                             </a>
                         </h3>
                     </div>
 
-                    <div class="psw-product-rating">
+                    <div class="hexagrid-product-rating">
                         <?php 
                         $average = $product->get_average_rating();
                         if ( $average = $product->get_average_rating() ) :
                             echo wp_kses_post( wc_get_rating_html( $average ) );
                             ?>
-                            <span class="psw-rating-average">
+                            <span class="hexagrid-rating-average">
                                 <?php echo esc_html( number_format( $average, 1 ) ); ?>
                             </span>
                             <?php
                             $review_count = $product->get_review_count();
                             if ( $review_count > 0 ) : ?>
-                                <span class="psw-rating-separator">&bull;</span>
-                                <span class="psw-review-count"><?php printf( esc_html__( '%d reviews', 'product-showcase-woo' ), $review_count ); ?></span>
+                                <span class="hexagrid-rating-separator">&bull;</span>
+                                <span class="hexagrid-review-count"><?php printf( esc_html__( '%d reviews', 'hexa-grid-product-showcase' ), $review_count ); ?></span>
                             <?php endif;
                         endif;
                         ?>
                     </div>
-                    <div class="psw-product-price">
+                    <div class="hexagrid-product-price">
                         <?php echo wp_kses_post( $product->get_price_html() ); ?>
                     </div>
-                    <div class="psw-product-short-desc">
+                    <div class="hexagrid-product-short-desc">
                         <p><?php echo wp_kses_post( wp_trim_words( get_the_excerpt(), 20 ) ); ?></p>
                     </div>
-                    <div class="psw-add-btn">
+                    <div class="hexagrid-add-btn">
                         <?php woocommerce_template_loop_add_to_cart(); ?>
                     </div>
                 </div>

@@ -1,6 +1,8 @@
 <?php
 
-namespace ProductShowcase\Assets;
+namespace HexaGrid\Assets;
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
  * Class Asset_Manager
@@ -23,7 +25,7 @@ class Asset_Manager {
         $plugin_root_url = plugin_dir_url( dirname( dirname( __FILE__ ) ) );
 
         wp_enqueue_style(
-            'product-showcase-woo-style',
+            'hexa-grid-product-showcase-style',
             $plugin_root_url . 'assets/css/style.css',
             [],
             '1.0.0'
@@ -34,7 +36,7 @@ class Asset_Manager {
         wp_enqueue_style( 'swiper-css', $plugin_root_url . 'assets/vendor/swiper/swiper-bundle.min.css', [], '11.0.0' );
 
         wp_enqueue_script(
-            'product-showcase-woo-script',
+            'hexa-grid-product-showcase-script',
             $plugin_root_url . 'assets/js/main.js',
             [ 'jquery', 'swiper-js' ],
             '1.0.0',
