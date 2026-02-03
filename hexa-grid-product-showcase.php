@@ -32,6 +32,11 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 }
 
+// Require Addons Kit Settings Library
+if ( file_exists( dirname( __FILE__ ) . '/lib/addons-kit-settings/addons-kit-settings.php' ) ) {
+	require_once dirname( __FILE__ ) . '/lib/addons-kit-settings/addons-kit-settings.php';
+}
+
 /**
  * Declare WooCommerce HPOS compatibility
  *

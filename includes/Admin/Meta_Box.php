@@ -12,6 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 class Meta_Box {
 
     /**
+     * @var \Addons_Kit_Settings_Builder
+     */
+    private $builder;
+
+    /**
      * Initialize hooks.
      */
     public function init() {
@@ -26,12 +31,17 @@ class Meta_Box {
     public function enqueue_admin_assets() {
         global $post_type;
         if ( 'hexagrid_show_preset' === $post_type ) {
-            // WP Color Picker
-            wp_enqueue_style( 'wp-color-picker' );
-            wp_enqueue_script( 'wp-color-picker' );
+            // Instantiate builder merely to access its enqueue method (prefix irrelevant here)
+            // Ideally we might just use a static method or instantiate once, but this is fine.
+            $builder = new \Addons_Kit_Settings_Builder();
+            $builder->enqueue_assets();
 
             $plugin_root_url = plugin_dir_url( dirname( dirname( __FILE__ ) ) );
+            
+            // Layout specific styles (wrapper, shortcode, variations)
             wp_enqueue_style( 'hexagrid-admin-style', $plugin_root_url . 'assets/admin/css/admin.css', [], '1.0.0' );
+            
+            // Plugin specific logic (variations, tabs)
             wp_enqueue_script( 'hexagrid-admin-script', $plugin_root_url . 'assets/admin/js/admin.js', [ 'jquery', 'wp-color-picker' ], '1.0.0', true );
             
             wp_localize_script( 'hexagrid-admin-script', 'hexagridAdmin', [
@@ -87,23 +97,36 @@ class Meta_Box {
         $plugin_root_url = plugin_dir_url( dirname( dirname( __FILE__ ) ) );
         $assets_url      = $plugin_root_url . 'assets/admin/icons/';
 
+        // Initialize Settings Builder with Prefix
+        $builder = new \Addons_Kit_Settings_Builder( 'hexagrid' );
+
         ?>
-        <div class="hexagrid-meta-box-wrapper">
+        <div class="hexagrid-settings-meta-box-wrapper">
             
-            <div class="hexagrid-meta-box-content">
+            <div class="hexagrid-settings-meta-box-content">
                 
                 <!-- Section 1: Layout Settings -->
-                <div class="hexagrid-section">
-                    <?php Form_Builder::render_section_header( 'dashicons-grid-view', __( 'Layout Settings', 'hexa-grid-product-showcase' ), __( 'Configure content display and layout options', 'hexa-grid-product-showcase' ) ); ?>
+                <div class="hexagrid-settings-section">
+                    <div class="hexagrid-settings-section-header">
+                        <div class="hexagrid-settings-section-icon">
+                            <span class="dashicons dashicons-grid-view"></span>
+                        </div>
+                        <div class="hexagrid-settings-section-info">
+                            <h3><?php esc_html_e( 'Layout Settings', 'hexa-grid-product-showcase' ); ?></h3>
+                            <p><?php esc_html_e( 'Configure content display and layout options', 'hexa-grid-product-showcase' ); ?></p>
+                        </div>
+                        <span class="hexagrid-settings-section-toggle dashicons dashicons-arrow-up-alt2"></span>
+                    </div>
                     
-                    <div class="hexagrid-section-body">
+                    <div class="hexagrid-settings-section-body">
                         <!-- Content Type Selector -->
                         <?php 
-                        Form_Builder::render_card_selector([
-                            'id'         => 'hexagrid_content_type',
+                        $builder->render_card_selector([
+                            'id'         => 'content_type',
                             'label'      => __( 'Content Type', 'hexa-grid-product-showcase' ),
                             'value'      => $content_type,
-                            'type'       => 'content_type',
+                            'type'       => 'radio',
+                            'layout'     => 'list', // content type uses list/row style
                             'assets_url' => $assets_url,
                             'options'    => [
                                 'product' => [
@@ -120,11 +143,12 @@ class Meta_Box {
                         ]);
                         
                         // Layout Type Selector
-                        Form_Builder::render_card_selector([
-                            'id'         => 'hexagrid_layout_type',
+                        $builder->render_card_selector([
+                            'id'         => 'layout_type',
                             'label'      => __( 'Layout Type', 'hexa-grid-product-showcase' ),
                             'value'      => $layout,
-                            'type'       => 'layout',
+                            'type'       => 'radio',
+                            'layout'     => 'grid',
                             'assets_url' => $assets_url,
                             'options'    => [
                                 'grid'   => [ 'label' => __( 'Grid', 'hexa-grid-product-showcase' ), 'icon' => 'grid.svg' ],
@@ -135,8 +159,7 @@ class Meta_Box {
                         ]);
                         
                         // Layout Variations
-                        // Note: Variation logic is complex (grouped by parent), so we iterate here but use FormBuilder to render
-                         $all_variations = [
+                        $all_variations = [
                             'grid' => [
                                 'grid-1' => [ 'label' => __( 'Grid Modern', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-1.svg' ],
                                 'grid-2' => [ 'label' => __( 'Grid Classic', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-2.svg' ],
@@ -155,36 +178,35 @@ class Meta_Box {
                             ],
                         ];
                         
-                        echo '<div class="hexagrid-form-group"><label>' . esc_html__( 'Layout Style', 'hexa-grid-product-showcase' ) . '</label>';
+                        echo '<div class="aksbuilder-form-group"><label style="margin-bottom:15px; display:block;">' . esc_html__( 'Layout Style', 'hexa-grid-product-showcase' ) . '</label>';
                         
                         foreach ( $all_variations as $parent_layout => $variations ) {
-                             // data-parent-layout is used by JS to show/hide this entire group
-                             echo '<div class="hexagrid-layout-variation-group" data-parent-layout="' . esc_attr($parent_layout) . '" style="display:none;">';
+                             // data-parent-layout is used by admin.js to show/hide this entire group
+                             echo '<div class="hexagrid-settings-layout-variation-group" data-parent-layout="' . esc_attr($parent_layout) . '" style="display:none;">';
                              
-                             Form_Builder::render_card_selector([
-                                'id'            => 'hexagrid_layout_style',
+                             $builder->render_card_selector([
+                                'id'            => 'layout_style',
                                 'label'         => '', // No label needed inside group
                                 'value'         => $style,
-                                'type'          => 'variation',
+                                'type'          => 'radio',
+                                'layout'        => 'grid',
                                 'assets_url'    => $assets_url,
-                                'wrapper_class' => 'hexagrid-no-margin', // Helper class to remove margin
                                 'options'       => $variations
                              ]);
                              
                              echo '</div>';
                         }
-                        echo '<div class="hexagrid-no-variations" style="display:none; color: #666; font-style: italic; padding: 10px;">' . esc_html__( 'No variations available for this layout.', 'hexa-grid-product-showcase' ) . '</div>';
+                        echo '<div class="hexagrid-settings-no-variations" style="display:none;">' . esc_html__( 'No variations available for this layout.', 'hexa-grid-product-showcase' ) . '</div>';
                         echo '</div>';
                         ?>
 
-                        <div class="hexagrid-row">
-                            <div class="hexagrid-col-6" id="hexagrid-columns-wrapper">
+                        <div class="hexagrid-settings-row">
+                            <div class="hexagrid-settings-col-6">
                                 <?php 
-                                Form_Builder::render_select_field([
-                                    'id'      => 'hexagrid_columns',
+                                $builder->render_select_field([
+                                    'id'      => 'columns',
                                     'label'   => __( 'Columns', 'hexa-grid-product-showcase' ),
                                     'value'   => $columns,
-                                    'class'   => 'widefat',
                                     'options' => [
                                         '1' => '1 ' . __( 'Column', 'hexa-grid-product-showcase' ),
                                         '2' => '2 ' . __( 'Columns', 'hexa-grid-product-showcase' ),
@@ -193,7 +215,7 @@ class Meta_Box {
                                     ],
                                     // Dependency: Show if Grid or Slider
                                     'dependency' => [
-                                        'id' => 'hexagrid_layout_type',
+                                        'id' => 'layout_type',
                                         'value' => ['grid', 'slider']
                                     ]
                                 ]); 
@@ -201,21 +223,24 @@ class Meta_Box {
                             </div>
                         </div>
 
-                        <!-- Slider Specific Settings -->
-                        <!-- Using a wrapper for the group, controlled by dependency logic -->
-                         <div id="hexagrid-slider-settings-wrapper" style="display:none; margin-top: 20px; border-top: 1px solid var(--hexagrid-border); padding-top: 20px;"
+                        <!-- Slider Specific Settings Wrapper -->
+                        <!-- 
+                            Note: We use a manual wrapper for the group dependency. 
+                            We must include the full ID prefix in the data-dependency here since we are writing raw HTML.
+                        -->
+                         <div id="hexagrid-slider-settings-wrapper" style="display:none; margin-top: 20px; border-top: 1px solid var(--aksbuilder-border); padding-top: 20px;"
                               data-dependency='{"id":"hexagrid_layout_type","value":"slider"}'>
-                            <h4 style="margin-top:0; margin-bottom:15px; color: var(--hexagrid-text); font-weight: 600;"><?php esc_html_e( 'Slider Configuration', 'hexa-grid-product-showcase' ); ?></h4>
+                            <h4 style="margin-top:0; margin-bottom:15px; color: var(--aksbuilder-text); font-weight: 600;"><?php esc_html_e( 'Slider Configuration', 'hexa-grid-product-showcase' ); ?></h4>
                             
-                            <div class="hexagrid-row">
-                                <div class="hexagrid-col-4">
-                                    <?php Form_Builder::render_switcher_field([ 'id' => 'hexagrid_slider_nav', 'label' => __( 'Navigation', 'hexa-grid-product-showcase' ), 'value' => $slider_nav ]); ?>
+                            <div class="hexagrid-settings-row">
+                                <div class="hexagrid-settings-col-4">
+                                    <?php $builder->render_switcher_field([ 'id' => 'slider_nav', 'label' => __( 'Navigation', 'hexa-grid-product-showcase' ), 'value' => $slider_nav ]); ?>
                                 </div>
-                                <div class="hexagrid-col-4">
-                                    <?php Form_Builder::render_switcher_field([ 'id' => 'hexagrid_slider_dots', 'label' => __( 'Pagination Dots', 'hexa-grid-product-showcase' ), 'value' => $slider_dots ]); ?>
+                                <div class="hexagrid-settings-col-4">
+                                    <?php $builder->render_switcher_field([ 'id' => 'slider_dots', 'label' => __( 'Pagination Dots', 'hexa-grid-product-showcase' ), 'value' => $slider_dots ]); ?>
                                 </div>
-                                <div class="hexagrid-col-4">
-                                    <?php Form_Builder::render_switcher_field([ 'id' => 'hexagrid_slider_autoplay', 'label' => __( 'Auto Play', 'hexa-grid-product-showcase' ), 'value' => $slider_autoplay ]); ?>
+                                <div class="hexagrid-settings-col-4">
+                                    <?php $builder->render_switcher_field([ 'id' => 'slider_autoplay', 'label' => __( 'Auto Play', 'hexa-grid-product-showcase' ), 'value' => $slider_autoplay ]); ?>
                                 </div>
                             </div>
                         </div>
@@ -224,21 +249,30 @@ class Meta_Box {
                 </div>
 
                 <!-- Section 2: Query Settings -->
-                <div class="hexagrid-section">
-                    <?php Form_Builder::render_section_header( 'dashicons-filter', __( 'Query Settings', 'hexa-grid-product-showcase' ), __( 'Filter and sort your products', 'hexa-grid-product-showcase' ) ); ?>
+                <div class="hexagrid-settings-section">
+                    <div class="hexagrid-settings-section-header">
+                        <div class="hexagrid-settings-section-icon">
+                            <span class="dashicons dashicons-filter"></span>
+                        </div>
+                        <div class="hexagrid-settings-section-info">
+                            <h3><?php esc_html_e( 'Query Settings', 'hexa-grid-product-showcase' ); ?></h3>
+                            <p><?php esc_html_e( 'Filter and sort your products', 'hexa-grid-product-showcase' ); ?></p>
+                        </div>
+                        <span class="hexagrid-settings-section-toggle dashicons dashicons-arrow-up-alt2"></span>
+                    </div>
 
-                    <div class="hexagrid-section-body">
+                    <div class="hexagrid-settings-section-body">
                         <?php 
-                        Form_Builder::render_text_field([
-                            'id'         => 'hexagrid_query_limit',
+                        $builder->render_text_field([
+                            'id'         => 'query_limit',
                             'label'      => __( 'Product Limit', 'hexa-grid-product-showcase' ),
                             'value'      => $limit,
                             'type'       => 'number',
                             'input_attr' => 'min="1"'
                         ]);
                         
-                        Form_Builder::render_text_field([
-                            'id'          => 'hexagrid_exclude_ids',
+                        $builder->render_text_field([
+                            'id'          => 'exclude_ids',
                             'label'       => __( 'Exclude Products (IDs)', 'hexa-grid-product-showcase' ),
                             'value'       => $exclude_ids,
                             'placeholder' => 'e.g. 101, 105, 200',
@@ -246,11 +280,11 @@ class Meta_Box {
                         ]);
                         ?>
 
-                        <div class="hexagrid-row">
-                            <div class="hexagrid-col-6">
+                        <div class="hexagrid-settings-row">
+                            <div class="hexagrid-settings-col-6">
                                 <?php 
-                                Form_Builder::render_select_field([
-                                    'id'      => 'hexagrid_orderby',
+                                $builder->render_select_field([
+                                    'id'      => 'orderby',
                                     'label'   => __( 'Order By', 'hexa-grid-product-showcase' ),
                                     'value'   => $orderby,
                                     'options' => [
@@ -264,10 +298,10 @@ class Meta_Box {
                                 ?>
                             </div>
 
-                            <div class="hexagrid-col-6">
+                            <div class="hexagrid-settings-col-6">
                                 <?php 
-                                Form_Builder::render_select_field([
-                                    'id'      => 'hexagrid_order',
+                                $builder->render_select_field([
+                                    'id'      => 'order',
                                     'label'   => __( 'Order', 'hexa-grid-product-showcase' ),
                                     'value'   => $order,
                                     'options' => [
@@ -282,13 +316,22 @@ class Meta_Box {
                 </div>
 
                 <!-- Section 3: Style Settings -->
-                <div class="hexagrid-section">
-                    <?php Form_Builder::render_section_header( 'dashicons-art', __( 'Style Settings', 'hexa-grid-product-showcase' ), __( 'Customize appearance and colors', 'hexa-grid-product-showcase' ) ); ?>
+                <div class="hexagrid-settings-section">
+                    <div class="hexagrid-settings-section-header">
+                        <div class="hexagrid-settings-section-icon">
+                            <span class="dashicons dashicons-art"></span>
+                        </div>
+                        <div class="hexagrid-settings-section-info">
+                            <h3><?php esc_html_e( 'Style Settings', 'hexa-grid-product-showcase' ); ?></h3>
+                            <p><?php esc_html_e( 'Customize appearance and colors', 'hexa-grid-product-showcase' ); ?></p>
+                        </div>
+                        <span class="hexagrid-settings-section-toggle dashicons dashicons-arrow-up-alt2"></span>
+                    </div>
 
-                    <div class="hexagrid-section-body">
+                    <div class="hexagrid-settings-section-body">
                         <?php 
-                        Form_Builder::render_color_picker([
-                            'id'    => 'hexagrid_theme_color',
+                        $builder->render_color_picker([
+                            'id'    => 'theme_color',
                             'label' => __( 'Theme Color', 'hexa-grid-product-showcase' ),
                             'value' => $theme_color,
                             'desc'  => __( 'Select your primary brand color', 'hexa-grid-product-showcase' )
@@ -298,12 +341,12 @@ class Meta_Box {
                 </div>
 
                 <?php if ( $post->ID ) : ?>
-                    <div class="hexagrid-section">
-                        <div class="hexagrid-section-body" style="border-top:none;">
+                    <div class="hexagrid-settings-section">
+                        <div class="hexagrid-settings-section-body" style="border-top:none;">
                             <label style="font-weight:600; font-size:14px; margin-bottom:10px; display:block;"><?php esc_html_e( 'Shortcode', 'hexa-grid-product-showcase' ); ?></label>
-                            <div class="hexagrid-shortcode-container">
+                            <div class="hexagrid-settings-shortcode-container">
                                 <code id="hexagrid-shortcode-text">[hexagrid_product_showcase preset_id="<?php echo esc_attr( $post->ID ); ?>"]</code>
-                                <button type="button" class="button hexagrid-copy-btn" data-clipboard-target="#hexagrid-shortcode-text">
+                                <button type="button" class="button hexagrid-settings-copy-btn" data-clipboard-target="#hexagrid-shortcode-text">
                                     <span class="dashicons dashicons-admin-page"></span> <?php esc_html_e( 'Copy', 'hexa-grid-product-showcase' ); ?>
                                 </button>
                             </div>

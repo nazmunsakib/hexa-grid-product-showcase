@@ -1,29 +1,26 @@
 jQuery(document).ready(function ($) {
-    // Tabs
-    $('.hexagrid-tab-link').on('click', function (e) {
+    // Tabs (if used)
+    $('.hexagrid-settings-tab-link').on('click', function (e) {
         e.preventDefault();
         var tabId = $(this).data('tab');
 
         // Remove active class
-        $('.hexagrid-tab-link').removeClass('active');
-        $('.hexagrid-tab-content').removeClass('active');
+        $('.hexagrid-settings-tab-link').removeClass('active');
+        $('.hexagrid-settings-tab-content').removeClass('active');
 
         $(this).addClass('active');
         $('#' + tabId).addClass('active');
     });
 
-    // Section Toggle (Accordion)
-    $('.hexagrid-section-header').on('click', function () {
-        var $section = $(this).closest('.hexagrid-section');
+    // --- Section Toggle (Accordion) - Copied and renamed from library ---
+    $('.hexagrid-settings-section-header').on('click', function () {
+        var $section = $(this).closest('.hexagrid-settings-section');
         $section.toggleClass('closed');
-        $(this).next('.hexagrid-section-body').slideToggle(200);
+        $(this).next('.hexagrid-settings-section-body').slideToggle(200);
     });
 
-    // Color Picker
-    $('.hexagrid-color-picker').wpColorPicker();
-
     // Copy Shortcode functionality
-    $('.hexagrid-copy-btn').on('click', function (e) {
+    $('.hexagrid-settings-copy-btn').on('click', function (e) {
         e.preventDefault();
         var $btn = $(this);
         var targetId = $btn.data('clipboard-target');
@@ -49,122 +46,47 @@ jQuery(document).ready(function ($) {
         $temp.remove();
     });
 
-    // Range Slider Output
+    // Range Slider Output (if used)
     $('#hexagrid_columns').on('input', function () {
         $('#hexagrid_columns_output').text($(this).val());
     });
 
-    // Card Selection Animation (Generic)
-    $('.hexagrid-content-type-option input[type="radio"], .hexagrid-layout-option input[type="radio"], .hexagrid-variation-option input[type="radio"]').on('change', function () {
-        var $card = $(this).siblings('.hexagrid-content-type-card, .hexagrid-layout-card, .hexagrid-variation-card');
-
-        // Add a pulse animation to the selected card
-        $card.addClass('hexagrid-pulse-animation');
-        setTimeout(function () {
-            $card.removeClass('hexagrid-pulse-animation');
-        }, 600);
-    });
-
-    // Keyboard accessibility for layout cards
-    $('.hexagrid-content-type-card, .hexagrid-layout-card, .hexagrid-variation-card').on('keypress', function (e) {
-        if (e.which === 13 || e.which === 32) { // Enter or Space
-            e.preventDefault();
-            $(this).siblings('input[type="radio"]').prop('checked', true).trigger('change');
-        }
-    });
-
-    // Make cards focusable for keyboard navigation
-    $('.hexagrid-content-type-card, .hexagrid-layout-card, .hexagrid-variation-card').attr('tabindex', '0');
-
     /*
      * -------------------------------------------------------------------------
-     * Layout Variation Logic (Specific)
+     * Layout Variation Logic (Specific to HexaGrid)
      * -------------------------------------------------------------------------
+     * This logic manages the showing/hiding of the specific variation groups
+     * based on the selected parent layout (Grid, List, etc).
      */
     function updateLayoutVariations() {
-        var selectedLayout = $('.hexagrid-layout-option input[type="radio"]:checked').val();
+        // We look for the checked radio input inside the 'hexagrid_layout_type' container
+        // Since we are using the generic builder, we target the name attribute directly
+        var selectedLayout = $('input[name="hexagrid_layout_type"]:checked').val();
 
         // Hide all first
-        $('.hexagrid-layout-variation-group').hide();
-        $('.hexagrid-no-variations').hide();
+        $('.hexagrid-settings-layout-variation-group').hide();
+        $('.hexagrid-settings-no-variations').hide();
 
         if (!selectedLayout) return;
 
-        var $targetGroup = $('.hexagrid-layout-variation-group[data-parent-layout="' + selectedLayout + '"]');
+        var $targetGroup = $('.hexagrid-settings-layout-variation-group[data-parent-layout="' + selectedLayout + '"]');
 
         if ($targetGroup.length) {
             $targetGroup.fadeIn(200);
 
             // If no variation in this group is checked, check the first one
             if (!$targetGroup.find('input[type="radio"]:checked').length) {
+                // Determine if we need to target generic builder classes (aksbuilder-)
                 $targetGroup.find('input[type="radio"]').first().prop('checked', true).trigger('change');
             }
         } else {
-            $('.hexagrid-no-variations').show();
+            $('.hexagrid-settings-no-variations').show();
         }
     }
 
-    $('.hexagrid-layout-option input[type="radio"]').on('change', updateLayoutVariations);
+    // Bind to the change event of the layout type radio buttons
+    $(document).on('change', 'input[name="hexagrid_layout_type"]', updateLayoutVariations);
 
     // Initial Run for Variations
     updateLayoutVariations();
-
-    /*
-     * -------------------------------------------------------------------------
-     * Generic Dependency Logic (Scalable)
-     * -------------------------------------------------------------------------
-     */
-    function checkDependencies() {
-        $('[data-dependency]').each(function () {
-            var $wrapper = $(this);
-            var rule = $wrapper.data('dependency');
-
-            // Rule format: { id: 'field_id', value: 'value' || ['v1', 'v2'] }
-            if (!rule || !rule.id) return;
-
-            var $trigger = $('[name="' + rule.id + '"], #' + rule.id);
-            var currentValue;
-
-            // Determine current value based on input type
-            if ($trigger.is(':radio')) {
-                currentValue = $('[name="' + rule.id + '"]:checked').val();
-            } else if ($trigger.is(':checkbox')) {
-                currentValue = $trigger.is(':checked') ? $trigger.val() : 'no'; // Default to 'no' if unchecked/hidden value logic aligns
-            } else {
-                currentValue = $trigger.val();
-            }
-
-            // Check match (support single value or array of values)
-            var isMatch = false;
-            if (Array.isArray(rule.value)) {
-                isMatch = rule.value.includes(currentValue);
-            } else {
-                isMatch = (currentValue == rule.value); // Loose equality for numbers/strings
-            }
-
-            if (isMatch) {
-                if ($wrapper.is(':hidden')) $wrapper.slideDown(200);
-            } else {
-                if ($wrapper.is(':visible')) $wrapper.slideUp(200);
-            }
-        });
-    }
-
-    // Bind change events to all potential trigger inputs
-    // We find all unique IDs used in dependencies and bind listeners
-    var triggerIds = new Set();
-    $('[data-dependency]').each(function () {
-        var rule = $(this).data('dependency');
-        if (rule && rule.id) triggerIds.add(rule.id);
-    });
-
-    triggerIds.forEach(function (id) {
-        $(document).on('change input', '[name="' + id + '"], #' + id, function () {
-            checkDependencies();
-        });
-    });
-
-    // Initial Run
-    checkDependencies();
-
 });
