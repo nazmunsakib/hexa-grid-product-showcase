@@ -219,20 +219,36 @@ class Addons_Kit_Settings_Builder {
      */
     public function render_card_selector( $args ) {
         $defaults = [
-            'id'            => '',
-            'label'         => '',
-            'value'         => '',
-            'options'       => [], // Array of ['value' => ['label', 'icon', 'desc']]
-            'type'          => 'radio', // 'radio' or 'checkbox'
-            'layout'        => 'grid', // 'grid' (icons) or 'list' (rows)
-            'dependency'    => [],
-            'assets_url'    => '', // Base URL for icon images
-            'wrapper_class' => '', 
+            'id'             => '',
+            'label'          => '',
+            'value'          => '',
+            'options'        => [], // Array of ['value' => ['label', 'icon', 'desc']]
+            'type'           => 'radio', // 'radio' or 'checkbox'
+            'layout'         => 'grid', // 'grid' (icons) or 'list' (rows)
+            'grid_columns'   => '', // Optional: Integer (e.g. 2, 3, 4) to force fixed columns
+            'grid_min_width' => '150px', // Optional: Min width for auto-fit grid
+            'dependency'     => [],
+            'assets_url'     => '', // Base URL for icon images
+            'wrapper_class'  => '', 
         ];
         $args = wp_parse_args( $args, $defaults );
 
         $field_id = $this->get_id( $args['id'] );
         $container_attr = $this->get_dependency_attr( $args['dependency'] );
+
+        // Calculate Grid Style
+        $grid_style = '';
+        if ( $args['layout'] === 'grid' ) {
+            if ( ! empty( $args['grid_columns'] ) ) {
+                // Fixed columns
+                $grid_style = 'grid-template-columns: repeat(' . intval( $args['grid_columns'] ) . ', 1fr);';
+            } 
+        }else if($args['layout'] === 'list'){
+            if ( $args['grid_min_width'] !== '150px' ) {
+                // Custom Min Width
+                $grid_style = 'grid-template-columns: repeat(auto-fill, minmax(' . esc_attr( $args['grid_min_width'] ) . ', 1fr));';
+            }
+        }
         
         ?>
         <div class="aksbuilder-form-group <?php echo esc_attr( $args['wrapper_class'] ); ?>" <?php echo $container_attr; ?>>
@@ -240,7 +256,7 @@ class Addons_Kit_Settings_Builder {
                 <label style="margin-bottom:15px; display:block;"><?php echo esc_html( $args['label'] ); ?></label>
             <?php endif; ?>
 
-            <div class="aksbuilder-card-grid">
+            <div class="aksbuilder-card-grid" style="<?php echo esc_attr( $grid_style ); ?>">
                 <?php foreach ( $args['options'] as $val => $data ) : 
                     $checked  = checked( $args['value'], $val, false );
                     $icon_url = isset( $data['icon'] ) ? $args['assets_url'] . $data['icon'] : '';

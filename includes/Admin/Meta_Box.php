@@ -127,6 +127,7 @@ class Meta_Box {
                             'value'      => $content_type,
                             'type'       => 'radio',
                             'layout'     => 'list', // content type uses list/row style
+                            'grid_min_width' => '300px',
                             'assets_url' => $assets_url,
                             'options'    => [
                                 'product' => [
@@ -149,6 +150,7 @@ class Meta_Box {
                             'value'      => $layout,
                             'type'       => 'radio',
                             'layout'     => 'grid',
+                            'grid_columns' => 7,
                             'assets_url' => $assets_url,
                             'options'    => [
                                 'grid'   => [ 'label' => __( 'Grid', 'hexa-grid-product-showcase' ), 'icon' => 'grid.svg' ],
@@ -178,7 +180,7 @@ class Meta_Box {
                             ],
                         ];
                         
-                        echo '<div class="aksbuilder-form-group"><label style="margin-bottom:15px; display:block;">' . esc_html__( 'Layout Style', 'hexa-grid-product-showcase' ) . '</label>';
+                        echo '<div class="hexagrid-settings-row"><div class="hexagrid-settings-col-12"><label style="margin-bottom:15px; display:block;">' . esc_html__( 'Layout Style', 'hexa-grid-product-showcase' ) . '</label>';
                         
                         foreach ( $all_variations as $parent_layout => $variations ) {
                              // data-parent-layout is used by admin.js to show/hide this entire group
@@ -190,6 +192,7 @@ class Meta_Box {
                                 'value'         => $style,
                                 'type'          => 'radio',
                                 'layout'        => 'grid',
+                                'grid_columns'  => 4,
                                 'assets_url'    => $assets_url,
                                 'options'       => $variations
                              ]);
@@ -197,7 +200,7 @@ class Meta_Box {
                              echo '</div>';
                         }
                         echo '<div class="hexagrid-settings-no-variations" style="display:none;">' . esc_html__( 'No variations available for this layout.', 'hexa-grid-product-showcase' ) . '</div>';
-                        echo '</div>';
+                        echo '</div></div>'; // Close col-12 and row
                         ?>
 
                         <div class="hexagrid-settings-row">
