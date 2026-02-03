@@ -182,12 +182,21 @@ Yes, the plugin follows WordPress internationalization standards and is translat
 
 = 1.1.0 =
 * New: Completely redesigned Admin UI with modern card-based interface and branding colors.
-* New: Added Layout Variations system (Grid Modern/Classic, List Minimal/Detailed, Table Simple/Advanced, Carousel Standard/Coverflow).
-* New: Added "Content Type" selector (Product vs Category) settings.
+* New: Added Layout Variations system with content-type specific variations (Product Grid Modern/Classic, Category Grid Modern/Classic, etc.).
+* New: Implemented composite key system for layout variations - different variations for Product+Grid vs Category+Grid combinations.
+* New: Added "Content Type" selector (Product vs Category) with visual card-based selection.
 * New: Added "Slider Configuration" options (Navigation, Dots, Auto Play) with modern switcher controls.
-* New: Implemented intelligent conditional logic in Admin (hides irrelevant settings based on layout).
+* New: Implemented intelligent conditional logic in Admin (hides irrelevant settings based on layout and content type).
+* New: Added auto-selection feature - automatically selects first layout variation when changing layout type or content type.
+* New: Created reusable Addons Kit Settings Builder library with support for grouped card selectors and multiple parent field dependencies.
+* New: Added width control for card selectors (grid_columns and grid_min_width parameters).
+* Improved: Refactored layout variation logic into library for better code organization and reusability.
+* Improved: Enhanced JavaScript dependency system to support multiple parent fields with composite keys.
+* Improved: Standardized CSS class naming from 'hexagrid-grid-1' to 'hexagrid-product-grid-1' for better clarity.
 * Improved: Refactored internal code structure (Meta Box data saving) for better scalability and performance.
 * Improved: Frontend Slider now dynamically adapts to configuration settings (autoplay, columns, navigation).
+* Fixed: Resolved HTML markup issues in Layout Settings section that caused broken display with conditional fields.
+* Fixed: Corrected meta box wrapper margins to prevent content overlap with WordPress footer.
 * Fixed: Standardized template naming conventions and fallback logic.
 
 = 1.0.0 =
