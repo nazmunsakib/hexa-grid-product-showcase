@@ -275,7 +275,7 @@ class Addons_Kit_Settings_Builder {
                                 <div class="aksbuilder-variation-preview">
                                     <img src="<?php echo esc_url( $icon_url ); ?>" alt="<?php echo esc_attr( $data['label'] ); ?>">
                                 </div>
-                                <span class="aksbuilder-variation-label" style="font-weight:600; font-size:13px; color:#333; margin-top:5px; display:block;"><?php echo esc_html( $data['label'] ); ?></span>
+                                <span class="aksbuilder-variation-label" style="font-weight:500; font-size:15px; color:#333; margin-top:5px; display:block;"><?php echo esc_html( $data['label'] ); ?></span>
                                 <span class="aksbuilder-card-checkmark">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path fill="white" d="M9 12l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 </span>
@@ -312,7 +312,7 @@ class Addons_Kit_Settings_Builder {
 
     /**
      * Render Grouped Card Selector with Parent-Child Dependencies.
-     * Useful for showing different variations based on a parent field value.
+     * Useful for showing different variations based on parent field value(s).
      *
      * @param array $args Field configurations.
      */
@@ -321,8 +321,8 @@ class Addons_Kit_Settings_Builder {
             'id'             => '',
             'label'          => '',
             'value'          => '',
-            'parent_field'   => '', // ID of the parent field that controls which group to show
-            'groups'         => [], // Array of ['parent_value' => ['option_value' => ['label', 'icon/skeleton']]]
+            'parent_fields'  => [], // Array of parent field IDs, e.g., ['content_type', 'layout_type']
+            'groups'         => [], // Array with composite keys like ['product-grid' => [...], 'category-list' => [...]]
             'type'           => 'radio',
             'layout'         => 'grid',
             'grid_columns'   => '',
@@ -333,7 +333,11 @@ class Addons_Kit_Settings_Builder {
         ];
         $args = wp_parse_args( $args, $defaults );
 
-        $parent_field_id = $this->get_id( $args['parent_field'] );
+        // Convert parent_fields to prefixed IDs
+        $parent_field_ids = [];
+        foreach ( $args['parent_fields'] as $field ) {
+            $parent_field_ids[] = $this->get_id( $field );
+        }
         
         ?>
         <div class="aksbuilder-form-group <?php echo esc_attr( $args['wrapper_class'] ); ?>">
@@ -341,10 +345,10 @@ class Addons_Kit_Settings_Builder {
                 <label style="margin-bottom:15px; display:block;"><?php echo esc_html( $args['label'] ); ?></label>
             <?php endif; ?>
 
-            <?php foreach ( $args['groups'] as $parent_value => $options ) : ?>
+            <?php foreach ( $args['groups'] as $composite_key => $options ) : ?>
                 <div class="aksbuilder-grouped-variation" 
-                     data-parent-field="<?php echo esc_attr( $parent_field_id ); ?>" 
-                     data-parent-value="<?php echo esc_attr( $parent_value ); ?>" 
+                     data-parent-fields="<?php echo esc_attr( json_encode( $parent_field_ids ) ); ?>" 
+                     data-composite-key="<?php echo esc_attr( $composite_key ); ?>" 
                      style="display:none;">
                     <?php
                     // Render card selector for this group

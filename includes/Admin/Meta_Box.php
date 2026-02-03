@@ -160,23 +160,42 @@ class Meta_Box {
                             ]
                         ]);
                         
-                        // Layout Variations - Using Grouped Card Selector
+                        // Layout Variations - Grouped by Content Type + Layout Type
                         $all_variations = [
-                            'grid' => [
-                                'grid-1' => [ 'label' => __( 'Grid Modern', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-1.svg' ],
-                                'grid-2' => [ 'label' => __( 'Grid Classic', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-2.svg' ],
+                            // Product variations
+                            'product-grid' => [
+                                'product-grid-1' => [ 'label' => __( 'Product Grid Modern', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-1.svg' ],
+                                'product-grid-2' => [ 'label' => __( 'Product Grid Classic', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-2.svg' ],
                             ],
-                            'list' => [
-                                'list-1' => [ 'label' => __( 'List Minimal', 'hexa-grid-product-showcase' ), 'skeleton' => 'list.svg' ],
-                                'list-2' => [ 'label' => __( 'List Detailed', 'hexa-grid-product-showcase' ), 'skeleton' => 'list.svg' ],
+                            'product-list' => [
+                                'product-list-1' => [ 'label' => __( 'Product List Minimal', 'hexa-grid-product-showcase' ), 'skeleton' => 'list.svg' ],
+                                'product-list-2' => [ 'label' => __( 'Product List Detailed', 'hexa-grid-product-showcase' ), 'skeleton' => 'list.svg' ],
                             ],
-                            'slider' => [
-                                'slider-1' => [ 'label' => __( 'Carousel Standard', 'hexa-grid-product-showcase' ), 'skeleton' => 'slider.svg' ],
-                                'slider-2' => [ 'label' => __( 'Carousel Coverflow', 'hexa-grid-product-showcase' ), 'skeleton' => 'slider.svg' ],
+                            'product-slider' => [
+                                'product-slider-1' => [ 'label' => __( 'Product Carousel Standard', 'hexa-grid-product-showcase' ), 'skeleton' => 'slider.svg' ],
+                                'product-slider-2' => [ 'label' => __( 'Product Carousel Coverflow', 'hexa-grid-product-showcase' ), 'skeleton' => 'slider.svg' ],
                             ],
-                            'table' => [
-                                'table-1' => [ 'label' => __( 'Table Simple', 'hexa-grid-product-showcase' ), 'skeleton' => 'table.svg' ],
-                                'table-2' => [ 'label' => __( 'Table Advanced', 'hexa-grid-product-showcase' ), 'skeleton' => 'table.svg' ],
+                            'product-table' => [
+                                'product-table-1' => [ 'label' => __( 'Product Table Simple', 'hexa-grid-product-showcase' ), 'skeleton' => 'table.svg' ],
+                                'product-table-2' => [ 'label' => __( 'Product Table Advanced', 'hexa-grid-product-showcase' ), 'skeleton' => 'table.svg' ],
+                            ],
+                            
+                            // Category variations
+                            'category-grid' => [
+                                'category-grid-1' => [ 'label' => __( 'Category Grid Modern', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-1.svg' ],
+                                'category-grid-2' => [ 'label' => __( 'Category Grid Classic', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-2.svg' ],
+                            ],
+                            'category-list' => [
+                                'category-list-1' => [ 'label' => __( 'Category List Minimal', 'hexa-grid-product-showcase' ), 'skeleton' => 'list.svg' ],
+                                'category-list-2' => [ 'label' => __( 'Category List Detailed', 'hexa-grid-product-showcase' ), 'skeleton' => 'list.svg' ],
+                            ],
+                            'category-slider' => [
+                                'category-slider-1' => [ 'label' => __( 'Category Carousel Standard', 'hexa-grid-product-showcase' ), 'skeleton' => 'slider.svg' ],
+                                'category-slider-2' => [ 'label' => __( 'Category Carousel Coverflow', 'hexa-grid-product-showcase' ), 'skeleton' => 'slider.svg' ],
+                            ],
+                            'category-table' => [
+                                'category-table-1' => [ 'label' => __( 'Category Table Simple', 'hexa-grid-product-showcase' ), 'skeleton' => 'table.svg' ],
+                                'category-table-2' => [ 'label' => __( 'Category Table Advanced', 'hexa-grid-product-showcase' ), 'skeleton' => 'table.svg' ],
                             ],
                         ];
                         
@@ -184,13 +203,13 @@ class Meta_Box {
                             'id'            => 'layout_style',
                             'label'         => __( 'Layout Style', 'hexa-grid-product-showcase' ),
                             'value'         => $style,
-                            'parent_field'  => 'layout_type',
+                            'parent_fields' => ['content_type', 'layout_type'], // Multiple parent fields
                             'groups'        => $all_variations,
                             'type'          => 'radio',
                             'layout'        => 'grid',
                             'grid_columns'  => 4,
                             'assets_url'    => $assets_url,
-                            'no_match_text' => __( 'No variations available for this layout.', 'hexa-grid-product-showcase' )
+                            'no_match_text' => __( 'No variations available for this combination.', 'hexa-grid-product-showcase' )
                         ]);
                         ?>
 
