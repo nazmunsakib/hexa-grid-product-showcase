@@ -33,7 +33,7 @@ class Grid_Layout implements Layout_Interface {
 
         ob_start();
         echo wp_kses( \HexaGrid\Assets\Dynamic_Styles::generate( $atts, $atts['wrapper_id'] ), array( 'style' => array() ) );
-        echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="hexagrid-layout-container hexagrid-' . esc_attr( $content_type ) . '-grid-container hexagrid-' . esc_attr( $style ) . '">';
+        echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="hexagrid-layout-container hexagrid-' . esc_attr( $content_type ) . '-grid-container">';
         include $template_path;
         echo '</div>';
 

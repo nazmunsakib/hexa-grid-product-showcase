@@ -1,72 +1,99 @@
-document.addEventListener('DOMContentLoaded', function () {
-    var sliders = document.querySelectorAll('.hexagrid-layout-slider');
+(function () {
+    'use strict';
 
-    sliders.forEach(function (slider) {
-        var container = slider.closest('.hexagrid-slider-container');
-        var columns = 4;
-        var nav = true;
-        var dots = false;
-        var autoplay = false;
+    /**
+     * Initialize HexaGrid Swiper sliders
+     * @param {string} selector - Swiper container selector
+     */
+    const initHexaGridSlider = (selector) => {
 
-        if (container) {
-            columns = parseInt(container.getAttribute('data-columns')) || 4;
-            nav = container.getAttribute('data-nav') === 'yes';
-            dots = container.getAttribute('data-dots') === 'yes';
-            autoplay = container.getAttribute('data-autoplay') === 'yes';
-        }
+        if (typeof Swiper === 'undefined') return;
 
-        var swiperConfig = {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            loop: true,
-            pagination: dots ? {
-                el: slider.querySelector('.swiper-pagination'),
-                clickable: true,
-            } : false,
-            navigation: nav ? {
-                nextEl: slider.querySelector('.swiper-button-next'),
-                prevEl: slider.querySelector('.swiper-button-prev'),
-            } : false,
-            breakpoints: {
-                640: {
-                    slidesPerView: Math.min(2, columns),
-                    spaceBetween: 20,
+        const sliders = document.querySelectorAll(selector);
+        if (!sliders.length) return;
+
+        sliders.forEach((slider) => {
+
+            if (slider.classList.contains('swiper-initialized')) return;
+
+            const container = slider.closest('.hexagrid-slider-container') || slider;
+
+            const columns  = parseInt(container.dataset.columns, 10) || 4;
+            const nav      = container.dataset.nav === 'yes';
+            const dots     = container.dataset.dots === 'yes';
+            const autoplay = container.dataset.autoplay === 'yes';
+
+            const paginationEl = slider.querySelector('.swiper-pagination');
+            const nextEl = slider.querySelector('.swiper-button-next');
+            const prevEl = slider.querySelector('.swiper-button-prev');
+
+            const swiperConfig = {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                loop: true,
+                watchOverflow: true,
+
+                breakpoints: {
+                    640:  { slidesPerView: Math.min(2, columns) },
+                    768:  { slidesPerView: Math.min(3, columns) },
+                    1024: { slidesPerView: columns },
                 },
-                768: {
-                    slidesPerView: Math.min(3, columns),
-                    spaceBetween: 20,
-                },
-                1024: {
-                    slidesPerView: columns,
-                    spaceBetween: 20,
-                },
-            },
-        };
 
-        if (autoplay) {
-            swiperConfig.autoplay = {
-                delay: 3000,
-                disableOnInteraction: false,
+                ...(dots && paginationEl ? {
+                    pagination: {
+                        el: paginationEl,
+                        clickable: true,
+                    }
+                } : {}),
+
+                ...(nav && nextEl && prevEl ? {
+                    navigation: {
+                        nextEl,
+                        prevEl,
+                    }
+                } : {}),
+
+                ...(autoplay ? {
+                    autoplay: {
+                        delay: 3000,
+                        disableOnInteraction: false,
+                    }
+                } : {})
             };
-        }
 
-        new Swiper(slider, swiperConfig);
+            new Swiper(slider, swiperConfig);
+        });
+    };
+
+    // Initial page load
+    document.addEventListener('DOMContentLoaded', () => {
+        initHexaGridSlider('.hexagrid-product-slider-1');
     });
-});
 
-jQuery(document.body).on('added_to_cart', function (event, fragments, cart_hash, $button) {
-    var $container = $button.closest('.hexagrid-product-cart-btn');
-    if ($container.length) {
-        // Change icon
-        $button.find('.dashicons').removeClass('dashicons-cart').addClass('dashicons-arrow-right-alt');
+    // WooCommerce AJAX / fragments refresh
+    document.body.addEventListener('wc_fragments_refreshed', () => {
+        initHexaGridSlider('.hexagrid-product-slider-1');
+    });
 
-        // Get View Cart URL
-        var $viewCartLink = $container.find('.added_to_cart.wc-forward');
-        var cartUrl = $viewCartLink.attr('href');
+    // Expose globally (for custom AJAX / reuse)
+    window.initHexaGridSlider = initHexaGridSlider;
 
-        if (cartUrl) {
-            $button.attr('href', cartUrl);
-            $button.removeClass('ajax_add_to_cart');
+    jQuery(document.body).on('added_to_cart', function (event, fragments, cart_hash, $button) {
+        let $container = $button.closest('.hexagrid-product-cart-btn');
+        if ($container.length) {
+            // Change icon
+            $button.find('.dashicons').removeClass('dashicons-cart').addClass('dashicons-arrow-right-alt');
+
+            // Get View Cart URL
+            let $viewCartLink = $container.find('.added_to_cart.wc-forward');
+            let cartUrl = $viewCartLink.attr('href');
+
+            if (cartUrl) {
+                $button.attr('href', cartUrl);
+                $button.removeClass('ajax_add_to_cart');
+            }
         }
-    }
-});
+    });
+
+
+})();

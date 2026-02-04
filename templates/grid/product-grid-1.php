@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 ?>
-<div class="hexagrid-layout-grid hexagrid-columns-<?php echo esc_attr( $columns ); ?>" role="list">
+<div class="hexagrid-layout-grid hexagrid-<?php echo esc_attr( $style ) ?> hexagrid-columns-<?php echo esc_attr( $columns ); ?>" role="list">
     <?php if ( $query->have_posts() ) : update_post_thumbnail_cache( $query ); ?>
         <?php while ( $query->have_posts() ) : $query->the_post(); ?>
 

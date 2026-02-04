@@ -7,46 +7,51 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 ?>
-<div class="hexagrid-layout-slider swiper">
-    <div class="swiper-wrapper">
+
+<div class="hexagrid-layout-slider hexagrid-<?php echo esc_attr( $style ) ?> hexagrid-product-grid-1 swiper" role="list">
+     <div class="swiper-wrapper">
+    <?php if ( $query->have_posts() ) : update_post_thumbnail_cache( $query ); ?>
         <?php while ( $query->have_posts() ) : $query->the_post(); ?>
+
             <?php 
-                global $product;
-                if ( ! is_object( $product ) ) {
-                    $product = wc_get_product( get_the_ID() );
+                $product = wc_get_product( get_the_ID() );
+                if ( ! $product ) {
+                    continue; 
                 }
             ?>
-            <div class="swiper-slide">
-                <div class="hexagrid-product">
-                    <div class="hexagrid-product-image">
-                        <a href="<?php the_permalink(); ?>">
-                            <?php echo wp_kses_post( $product->get_image( 'woocommerce_thumbnail' ) ); ?>
-                        </a>
-                        <?php if ( $product->is_on_sale() ) : ?>
-                            <span class="hexagrid-badge hexagrid-sale-badge"><?php esc_html_e( 'Sale!', 'hexa-grid-product-showcase' ); ?></span>
-                        <?php endif; ?>
-                         <div class="hexagrid-product-actions">
-                             <?php woocommerce_template_loop_add_to_cart(); ?>
-                        </div>
-                    </div>
-                    <div class="hexagrid-product-details">
-                        <h3 class="hexagrid-product-title"><a href="<?php the_permalink(); ?>"><?php echo wp_kses_post( get_the_title() ); ?></a></h3>
-                        <div class="hexagrid-product-price"><?php echo wp_kses_post( $product->get_price_html() ); ?></div>
-                        <div class="hexagrid-product-rating">
+
+            <article <?php post_class( 'swiper-slide hexagrid-product' ); ?> role="listitem">
+                <!-- <div class="hexagrid-product"> -->
+                    <div class="hexagrid-product-wrapper">
+
+                        <div class="hexagrid-product-image-area">
                             <?php 
-                            if ( $average = $product->get_average_rating() ) :
-                                echo wp_kses_post( wc_get_rating_html( $average ) );
-                            endif;
+                                echo HexaGrid\Helper::get_product_image( $product, 'woocommerce_thumbnail', array( 'loading' => 'lazy' ) ); 
+                                echo wp_kses_post( HexaGrid\Helper::get_product_badge( $product ) ); 
                             ?>
                         </div>
+
+                        <div class="hexagrid-product-content-area">
+                            <?php 
+                                echo wp_kses_post( HexaGrid\Helper::get_product_title( $product, 10, 'words' ) );
+                                echo wp_kses_post( HexaGrid\Helper::get_product_rating( $product, array( 'show_count' => false, 'show_average' => false ) ) ); 
+                            ?>
+
+                            <div class="hexagrid-product-footer">
+                                <?php 
+                                    echo wp_kses_post( HexaGrid\Helper::get_product_price( $product ) ); 
+                                    echo wp_kses_post( HexaGrid\Helper::get_add_to_cart_button( $product, 'icon' ) ); 
+                                ?>
+                            </div>  
+                        </div>
+
                     </div>
-                </div>
-            </div>
+                <!-- </div> -->
+            </article>
+
         <?php endwhile; wp_reset_postdata(); ?>
+    <?php else : ?>
+        <p class="hexagrid-no-products"><?php esc_html_e( 'No products found.', 'hexa-grid-product-showcase' ); ?></p>
+    <?php endif; ?>
     </div>
-    <!-- Add Pagination -->
-    <div class="swiper-pagination"></div>
-    <!-- Add Navigation -->
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
 </div>
