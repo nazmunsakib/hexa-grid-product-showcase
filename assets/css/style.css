@@ -196,7 +196,9 @@
     animation: hexagrid-spin 1s linear infinite;
 }
 
-.hexagrid-product-cart-btn .product_type_variable .hexagrid-btn-icon::before {
+.hexagrid-product-cart-btn a.product_type_variable .hexagrid-btn-icon::before,
+.hexagrid-product-cart-btn a.product_type_grouped .hexagrid-btn-icon::before,
+.hexagrid-product-cart-btn a.product_type_external .hexagrid-btn-icon::before {
     content: "\f344";
 }
 
