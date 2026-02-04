@@ -9,11 +9,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Helper {
 
     public static function get_plugin_path() {
-        return plugin_dir_path( __FILE__ );
+        return HEXAGRID_PATH;
     }
 
     public static function get_plugin_url() {
-        return plugin_dir_url( __FILE__ );
+        return HEXAGRID_URL;
     }
 
     /**
@@ -190,6 +190,9 @@ class Helper {
 
         $text = $product->add_to_cart_text();
 
+        // Icon span (CSS will control which icon shows via mask/background)
+        $icon = '<span class="hexagrid-btn-icon" aria-hidden="true"></span>';
+
         // Decide button content
         switch ( $style ) {
             case 'text':
@@ -197,28 +200,33 @@ class Helper {
                 break;
 
             case 'both':
-                $content = '<span class="dashicons dashicons-cart"></span> ' . esc_html( $text );
+                $content = $icon . ' ' . esc_html( $text );
                 break;
 
             case 'icon':
             default:
-                $content = '<span class="dashicons dashicons-cart"></span>';
+                $content = $icon;
                 break;
+        }
+
+        $classes = array(
+            'button',
+            'hexagrid-add-to-cart',
+            'product_type_' . $product->get_type(),
+        );
+
+        if ( $product->supports( 'ajax_add_to_cart' ) && $product->is_purchasable() && $product->is_in_stock() ) {
+            $classes[] = 'add_to_cart_button';
+            $classes[] = 'ajax_add_to_cart';
         }
 
         $defaults = array(
             'quantity'   => 1,
-            'class'      => implode( ' ', array_filter( array(
-                'button',
-                'product_type_' . $product->get_type(),
-                $product->supports( 'ajax_add_to_cart' ) && $product->is_purchasable() && $product->is_in_stock()
-                    ? 'add_to_cart_button ajax_add_to_cart'
-                    : '',
-            ) ) ),
+            'class'      => implode( ' ', $classes ),
             'attributes' => array(
                 'data-product_id'  => $product->get_id(),
                 'data-product_sku' => $product->get_sku(),
-                'aria-label'       => $product->add_to_cart_description(),
+                'aria-label'       => wp_strip_all_tags( $product->add_to_cart_description() ),
                 'rel'              => 'nofollow',
             ),
         );
@@ -236,8 +244,9 @@ class Helper {
 
         $button = apply_filters( 'woocommerce_loop_add_to_cart_link', $button, $product, $args );
 
-        return '<div class="hexagrid-product-cart-btn">' . $button . '</div>';
+        return '<div class="hexagrid-product-cart-btn hexagrid-cart-btn-type-' . esc_attr($style).'">' . $button . '</div>';
     }
+
 
     public static function get_product_badge( $product ) {
         if ( ! $product instanceof \WC_Product ) {
@@ -325,5 +334,16 @@ class Helper {
         if ( empty( $meta ) ) return '';
 
         return '<div class="hg-product-meta">' . esc_html( $meta ) . '</div>';
+    }
+
+    /**
+     * Get SVG Icon
+     */
+    public static function get_svg_icon( $name ) {
+        $path = HEXAGRID_PATH . 'assets/icons/' . $name . '.svg';
+        if ( file_exists( $path ) ) {
+            return '<span class="hexagrid-btn-icon" aria-hidden="true">' . file_get_contents( $path ) . '</span>';
+        }
+        return '';
     }
 }

@@ -33,7 +33,7 @@ class Dynamic_Styles {
         
         // Backgrounds (Badges, Buttons)
         $css .= "{$scope}.hexagrid-sale-badge { background-color: " . esc_attr( $theme_color ) . " !important; }";
-        $css .= " {$scope}.hexagrid-product-cart-btn a { background-color: " . esc_attr( $theme_color ) . " !important; }";
+        $css .= " {$scope}.hexagrid-cart-btn-type-text a.hexagrid-add-to-cart { background-color: " . esc_attr( $theme_color ) . " !important; }";
         $css .= " {$scope}.hexagrid-product-price ins .amount { color: " . esc_attr( $theme_color ) . " !important; }";
         $css .= " {$scope}.hexagrid-product-grid-1 .hexagrid-product:hover .hexagrid-product-cart-btn a { background-color: " . esc_attr( $theme_color ) . " !important; border-color: " . esc_attr( $theme_color ) . " !important; }";
         

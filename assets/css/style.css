@@ -182,6 +182,38 @@
     overflow: hidden;
 }
 
+.hexagrid-product-cart-btn .hexagrid-btn-icon::before {
+    content: "\f174";
+    font-family: dashicons;
+    font-size: 20px;
+    list-style: 20px;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.hexagrid-product-cart-btn .loading .hexagrid-btn-icon::before {
+    content: "\f463";
+    animation: hexagrid-spin 1s linear infinite;
+}
+
+.hexagrid-product-cart-btn .product_type_variable .hexagrid-btn-icon::before {
+    content: "\f344";
+}
+
+.hexagrid-product-cart-btn .added .hexagrid-btn-icon::before {
+    content: "\f344";
+}
+
+@keyframes hexagrid-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 
 /* =========================================
    Product Showcase - Grid Layout Style 1
