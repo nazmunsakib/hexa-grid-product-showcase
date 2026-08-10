@@ -1,4 +1,4 @@
-=== Hexa Grid – Product Grid, List & Slider for WooCommerce ===
+=== Hexa Grid – Product Grid, List, Slider & Table for WooCommerce ===
 Contributors: nazmunsakib
 Tags: woocommerce, product grid, product showcase, product slider, product list
 Requires at least: 5.0
@@ -9,19 +9,17 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://nazmunsakib.com/donate
 
-Create WooCommerce product grids, lists, sliders, carousels, tables, and category displays with flexible layouts and shortcodes.
+Create WooCommerce product grids, lists, sliders, carousels, and tables with flexible layouts and shortcodes.
 
 == Description ==
 
-**Hexa Grid** is a WooCommerce product display plugin for creating flexible product grids, lists, sliders, carousels, tables, masonry layouts, tabs, product filters, load more sections, and category displays.
+**Hexa Grid** is a WooCommerce product display plugin for creating flexible product grids, lists, sliders, carousels, and tables.
 
-Create a **WooCommerce Product Grid** to showcase products on your homepage, landing pages, shop sections, and other content areas. Choose a product list, slider, carousel, table, or masonry layout when a different presentation works better for your store.
+Create a **WooCommerce Product Grid** to showcase products on your homepage, landing pages, shop sections, and other content areas. Choose a product list, slider, carousel, or table layout when a different presentation works better for your store.
 
-Hexa Grid also includes a **WooCommerce Category Display** feature that lets you showcase product categories using visual category layouts. Use category displays to organize your store and help visitors discover product groups.
+The plugin uses shortcodes, allowing you to add product displays to supported WordPress content areas such as pages, posts, sidebar widgets, and custom theme templates.
 
-The plugin uses shortcodes, allowing you to add product and category displays to supported WordPress content areas such as pages, posts, sidebar widgets, and custom theme templates.
-
-Whether you want to highlight featured products, display latest products, promote sale products, show best-selling products, or organize products by category, Hexa Grid provides multiple WooCommerce product display options from one focused plugin.
+Whether you want to highlight featured products, display latest products, promote sale products, or show best-selling products, Hexa Grid provides multiple WooCommerce product display options from one focused plugin.
 
 == WooCommerce Product Grid ==
 
@@ -65,25 +63,6 @@ Create a **WooCommerce Product Table** when you need a structured table-based pr
 
 The product table provides an alternative to grid, list, slider, and carousel layouts for presenting WooCommerce products in a structured format.
 
-== WooCommerce Product Masonry ==
-
-Use the masonry layout to create an alternative visual product display.
-
-A **WooCommerce Product Masonry** layout provides a flexible presentation for product sections where a traditional grid layout is not preferred.
-
-== Product Tabs ==
-
-Use product tabs to organize multiple product collections within a single section.
-
-Tabs can be used to separate product groups such as:
-
-* Latest products
-* Featured products
-* Sale products
-* Best-selling products
-
-This allows multiple product collections to be presented within one organized section.
-
 == Product Filtering ==
 
 Hexa Grid supports product filtering based on selected WooCommerce categories.
@@ -98,40 +77,15 @@ Category-based product displays can be useful for:
 * Category-focused landing pages
 * Featured product sections
 
-== Product Load More ==
-
-Use the **Load More** option to display additional products when needed.
-
-Load more functionality can help organize larger product collections by allowing additional products to be loaded instead of displaying the entire collection at once.
-
-== WooCommerce Category Display ==
-
-Create a visual **WooCommerce Category Display** to showcase product categories using category images and titles.
-
-Category displays can be used for:
-
-* Homepage navigation
-* Shop landing pages
-* Category overview sections
-* Promotional category sections
-
-A visual category display provides another way for customers to explore the product categories in your WooCommerce store.
-
-== WooCommerce Category Grid ==
-
-Create a **WooCommerce Category Grid** to present product categories in a structured visual layout.
-
-Category grids are useful for stores with multiple product groups and can be placed alongside product sections to create organized storefront navigation.
-
 == Responsive Product Layouts ==
 
-Hexa Grid provides responsive layouts for product and category displays.
+Hexa Grid provides responsive layouts for product displays.
 
-Product grids, lists, sliders, and category sections are designed to adapt to different screen sizes, helping maintain a consistent browsing experience across desktop, tablet, and mobile devices.
+Product grids, lists, sliders, and tables are designed to adapt to different screen sizes, helping maintain a consistent browsing experience across desktop, tablet, and mobile devices.
 
 == Shortcode-Based Product Display ==
 
-Hexa Grid uses shortcodes to add product and category displays to your WordPress website.
+Hexa Grid uses shortcodes to add product displays to your WordPress website.
 
 You can use shortcodes in supported areas such as:
 
@@ -146,9 +100,7 @@ This makes it possible to create WooCommerce product sections without requiring 
 
 Hexa Grid gives WooCommerce store owners multiple ways to showcase products.
 
-Use a product grid for a standard product section, a list for compact product presentation, a slider or carousel for featured products, a table for structured product displays, or masonry for an alternative visual layout.
-
-You can also combine product sections with WooCommerce category displays to create organized storefront sections.
+Use a product grid for a standard product section, a list for compact product presentation, a slider or carousel for featured products, or a table for structured product displays.
 
 == Use Cases ==
 
@@ -160,17 +112,13 @@ Hexa Grid can be used to create:
 * Product carousels
 * Product lists
 * Product tables
-* Product masonry layouts
-* Product tabs
 * Category-based product sections
-* WooCommerce Category Grid sections
 * Featured product sections
 * Latest product sections
 * Sale product sections
 * Best-selling product sections
 * Homepage product sections
 * Landing page product sections
-* Category navigation sections
 
 == Features ==
 
@@ -179,12 +127,7 @@ Hexa Grid can be used to create:
 * WooCommerce Product Slider
 * WooCommerce Product Carousel
 * WooCommerce Product Table
-* WooCommerce Product Masonry
-* Product Tabs
 * Product Filtering
-* Product Load More
-* WooCommerce Category Display
-* WooCommerce Category Grid
 * Responsive product layouts
 * Shortcode-based product display
 * Featured product display
@@ -199,10 +142,10 @@ Hexa Grid can be used to create:
 
 1. Go to **Plugins → Add New**.
 2. Search for **Hexa Grid**.
-3. Find **Hexa Grid – Product Grid, List & Slider for WooCommerce**.
+3. Find **Hexa Grid – Product Grid, List, Slider & Table for WooCommerce**.
 4. Click **Install Now**.
 5. Activate the plugin.
-6. Configure your desired product or category display.
+6. Configure your desired product display.
 7. Add the shortcode to the desired content area.
 
 = Manual Installation =
@@ -211,14 +154,14 @@ Hexa Grid can be used to create:
 2. Go to **Plugins → Add New → Upload Plugin**.
 3. Upload the plugin ZIP file.
 4. Install and activate the plugin.
-5. Configure your product or category display.
+5. Configure your product display.
 6. Add the shortcode where you want the display to appear.
 
 == Frequently Asked Questions ==
 
 = What is Hexa Grid? =
 
-Hexa Grid is a WooCommerce product display plugin for creating product grids, lists, sliders, carousels, tables, masonry layouts, tabs, filtered product sections, load more sections, and category displays.
+Hexa Grid is a WooCommerce product display plugin for creating product grids, lists, sliders, carousels, and tables.
 
 = What is a WooCommerce Product Grid? =
 
@@ -240,29 +183,9 @@ Yes. Hexa Grid includes a product list layout.
 
 Yes. Hexa Grid includes a product table layout.
 
-= Can I create a WooCommerce Product Masonry layout? =
-
-Yes. Hexa Grid includes a masonry layout for product displays.
-
-= Can I use product tabs? =
-
-Yes. Hexa Grid includes a tabs layout for organizing product collections.
-
 = Can I filter products by category? =
 
 Yes. Hexa Grid supports category-based product filtering and product displays.
-
-= Can I load more products? =
-
-Yes. Hexa Grid includes a Load More option for product displays.
-
-= Can I display WooCommerce categories? =
-
-Yes. Hexa Grid includes a WooCommerce Category Display feature for presenting product categories in visual layouts.
-
-= Can I create a WooCommerce Category Grid? =
-
-Yes. The category display functionality can be used to create structured category grid sections.
 
 = Can I display products from selected categories? =
 
@@ -270,15 +193,15 @@ Yes. Hexa Grid supports category-based product displays so you can create focuse
 
 = Can I use multiple product displays on one page? =
 
-Yes. You can place multiple Hexa Grid shortcodes on the same page to create different product and category sections.
+Yes. You can place multiple Hexa Grid shortcodes on the same page to create different product sections.
 
 = Is Hexa Grid responsive? =
 
-Yes. Hexa Grid provides responsive product and category layouts for different screen sizes.
+Yes. Hexa Grid provides responsive product layouts for different screen sizes.
 
 = Do I need a page builder? =
 
-No. Hexa Grid uses shortcodes, so you can add product and category displays without requiring a page builder.
+No. Hexa Grid uses shortcodes, so you can add product displays without requiring a page builder.
 
 = Can I display featured products? =
 
@@ -306,18 +229,16 @@ Yes. Hexa Grid follows WordPress internationalization practices and is translati
 2. WooCommerce Product List Layout
 3. WooCommerce Product Slider Layout
 4. WooCommerce Product Table Layout
-5. WooCommerce Category Grid
-6. Hexa Grid Settings Panel
+5. Hexa Grid Settings Panel
 
 == Changelog ==
 
 = 1.1.0 =
 
 * New: Redesigned admin interface with a modern card-based interface and branding colors.
-* New: Added layout variations for product and category content types.
-* New: Added Product and Category content type selection.
+* New: Added product layout variations (Product Grid Modern/Classic, Product List Minimal, Product Carousel Standard, Product Table Simple).
 * New: Added slider configuration options including navigation, dots, and autoplay.
-* New: Added conditional settings based on selected layout and content type.
+* New: Added conditional settings based on selected layout type.
 * New: Added automatic layout variation selection.
 * New: Added reusable settings builder functionality for grouped selectors and dependencies.
 * New: Added width control for card selectors.
@@ -334,11 +255,10 @@ Yes. Hexa Grid follows WordPress internationalization practices and is translati
 
 * Initial release.
 * Added WooCommerce Product Grid, List, Carousel, and Table layouts.
-* Added WooCommerce Category Display.
 * Added responsive layouts.
 * Added performance improvements.
 
 == Upgrade Notice ==
 
 = 1.1.0 =
-This update introduces the redesigned administration interface, product and category layout variations, improved slider controls, conditional settings, and internal improvements.
+This update introduces the redesigned administration interface, product layout variations, improved slider controls, conditional settings, and internal improvements.

@@ -322,7 +322,7 @@ class Addons_Kit_Settings_Builder {
             'label'          => '',
             'value'          => '',
             'parent_fields'  => [], // Array of parent field IDs, e.g., ['content_type', 'layout_type']
-            'groups'         => [], // Array with composite keys like ['product-grid' => [...], 'category-list' => [...]]
+            'groups'         => [], // Array with composite keys like ['product-grid' => [...], 'product-list' => [...]]
             'type'           => 'radio',
             'layout'         => 'grid',
             'grid_columns'   => '',

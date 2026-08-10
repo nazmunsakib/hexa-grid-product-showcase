@@ -21,11 +21,11 @@ class List_Layout implements Layout_Interface {
             return '<p class="hexagrid-no-products">No products found.</p>';
         }
 
-        $style = isset( $atts['style'] ) ? sanitize_file_name( $atts['style'] ) : 'list-1';
+        $style = isset( $atts['style'] ) ? sanitize_file_name( $atts['style'] ) : 'product-list-1';
         $template_path = dirname( dirname( dirname( __FILE__ ) ) ) . '/templates/list/' . $style . '.php';
 
         if ( ! file_exists( $template_path ) ) {
-             $template_path = dirname( dirname( dirname( __FILE__ ) ) ) . '/templates/list/list-1.php';
+              $template_path = dirname( dirname( dirname( __FILE__ ) ) ) . '/templates/list/product-list-1.php';
         }
         
         ob_start();

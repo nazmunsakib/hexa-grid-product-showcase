@@ -67,7 +67,7 @@ class Settings_Page {
                 <ol>
                     <li><?php echo wp_kses_post( __( 'Go to <strong>Product Showcase > Showcase Presets</strong>.', 'hexa-grid-product-showcase' ) ); ?></li>
                     <li><?php echo wp_kses_post( __( 'Click on <strong>Add New</strong>.', 'hexa-grid-product-showcase' ) ); ?></li>
-                    <li><?php echo wp_kses_post( __( 'Configure your layout (Grid, List, Slider), columns, and product limits in the <strong>Showcase Settings</strong> box.', 'hexa-grid-product-showcase' ) ); ?></li>
+                    <li><?php echo wp_kses_post( __( 'Configure your layout (Grid, List, Slider, Table), columns, and product limits in the <strong>Showcase Settings</strong> box.', 'hexa-grid-product-showcase' ) ); ?></li>
                     <li><?php echo wp_kses_post( __( 'Copy the generated shortcode, e.g., <code>[hexagrid_product_showcase preset_id="123"]</code>.', 'hexa-grid-product-showcase' ) ); ?></li>
                     <li><?php esc_html_e( 'Paste it into any Post or Page.', 'hexa-grid-product-showcase' ); ?></li>
                 </ol>
@@ -80,12 +80,13 @@ class Settings_Page {
 
                 <h4><?php esc_html_e( 'Available Attributes:', 'hexa-grid-product-showcase' ); ?></h4>
                 <ul>
-                    <li><code><?php esc_html_e( 'layout', 'hexa-grid-product-showcase' ); ?></code>: <?php esc_html_e( 'grid, list, slider (default: grid)', 'hexa-grid-product-showcase' ); ?></li>
+                    <li><code><?php esc_html_e( 'layout', 'hexa-grid-product-showcase' ); ?></code>: <?php esc_html_e( 'grid, list, slider, table (default: grid)', 'hexa-grid-product-showcase' ); ?></li>
                     <li><code><?php esc_html_e( 'limit', 'hexa-grid-product-showcase' ); ?></code>: <?php esc_html_e( 'Number of products to show (default: 12)', 'hexa-grid-product-showcase' ); ?></li>
-                    <li><code><?php esc_html_e( 'columns', 'hexa-grid-product-showcase' ); ?></code>: <?php esc_html_e( 'Number of columns for grid layout (default: 3)', 'hexa-grid-product-showcase' ); ?></li>
+                    <li><code><?php esc_html_e( 'columns', 'hexa-grid-product-showcase' ); ?></code>: <?php esc_html_e( 'Number of columns for grid/slider layout (default: 3)', 'hexa-grid-product-showcase' ); ?></li>
                     <li><code><?php esc_html_e( 'category', 'hexa-grid-product-showcase' ); ?></code>: <?php esc_html_e( 'Product category slug (comma separated)', 'hexa-grid-product-showcase' ); ?></li>
                     <li><code><?php esc_html_e( 'ids', 'hexa-grid-product-showcase' ); ?></code>: <?php esc_html_e( 'Specific product IDs (comma separated)', 'hexa-grid-product-showcase' ); ?></li>
-                    <li><code><?php esc_html_e( 'orderby', 'hexa-grid-product-showcase' ); ?></code>: <?php esc_html_e( 'date, price, rand, title (default: date)', 'hexa-grid-product-showcase' ); ?></li>
+                    <li><code><?php esc_html_e( 'exclude_ids', 'hexa-grid-product-showcase' ); ?></code>: <?php esc_html_e( 'Product IDs to exclude (comma separated)', 'hexa-grid-product-showcase' ); ?></li>
+                    <li><code><?php esc_html_e( 'orderby', 'hexa-grid-product-showcase' ); ?></code>: <?php esc_html_e( 'date, price, ID, title, popularity (default: date)', 'hexa-grid-product-showcase' ); ?></li>
                     <li><code><?php esc_html_e( 'order', 'hexa-grid-product-showcase' ); ?></code>: <?php esc_html_e( 'DESC, ASC (default: DESC)', 'hexa-grid-product-showcase' ); ?></li>
                 </ul>
             </div>

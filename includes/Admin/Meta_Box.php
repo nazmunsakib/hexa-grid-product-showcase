@@ -76,7 +76,7 @@ class Meta_Box {
 
         // Retrieve existing values
         $layout       = get_post_meta( $post->ID, '_hexagrid_layout_type', true ) ?: 'grid';
-        $style        = get_post_meta( $post->ID, '_hexagrid_layout_style', true ) ?: 'layout-1';
+        $style        = get_post_meta( $post->ID, '_hexagrid_layout_style', true ) ?: 'product-grid-1';
         $columns      = get_post_meta( $post->ID, '_hexagrid_columns', true ) ?: 3;
         $limit        = get_post_meta( $post->ID, '_hexagrid_query_limit', true ) ?: 12;
         
@@ -119,31 +119,11 @@ class Meta_Box {
                     </div>
                     
                     <div class="hexagrid-settings-section-body">
-                        <!-- Content Type Selector -->
-                        <?php 
-                        $builder->render_card_selector([
-                            'id'         => 'content_type',
-                            'label'      => __( 'Content Type', 'hexa-grid-product-showcase' ),
-                            'value'      => $content_type,
-                            'type'       => 'radio',
-                            'layout'     => 'list', // content type uses list/row style
-                            'grid_min_width' => '300px',
-                            'assets_url' => $assets_url,
-                            'options'    => [
-                                'product' => [
-                                    'label' => __( 'Products', 'hexa-grid-product-showcase' ),
-                                    'icon' => 'product.svg',
-                                    'desc' => __( 'Display WooCommerce products', 'hexa-grid-product-showcase' )
-                                ],
-                                'category' => [
-                                    'label' => __( 'Categories', 'hexa-grid-product-showcase' ),
-                                    'icon' => 'category.svg',
-                                    'desc' => __( 'Display product categories', 'hexa-grid-product-showcase' )
-                                ]
-                            ]
-                        ]);
+                        <!-- Content Type (Product Only) -->
+                        <input type="hidden" name="hexagrid_content_type" value="product">
                         
-                        // Layout Type Selector
+                        <!-- Layout Type Selector -->
+                        <?php
                         $builder->render_card_selector([
                             'id'         => 'layout_type',
                             'label'      => __( 'Layout Type', 'hexa-grid-product-showcase' ),
@@ -160,9 +140,8 @@ class Meta_Box {
                             ]
                         ]);
                         
-                        // Layout Variations - Grouped by Content Type + Layout Type
+                        // Layout Variations - Product Only
                         $all_variations = [
-                            // Product variations
                             'product-grid' => [
                                 'product-grid-1' => [ 'label' => __( 'Product Grid Modern', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-1.svg' ],
                                 'product-grid-2' => [ 'label' => __( 'Product Grid Classic', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-2.svg' ],
@@ -175,20 +154,6 @@ class Meta_Box {
                             ],
                             'product-table' => [
                                 'product-table-1' => [ 'label' => __( 'Product Table Simple', 'hexa-grid-product-showcase' ), 'skeleton' => 'table.svg' ],
-                            ],
-                            
-                            // Category variations
-                            'category-grid' => [
-                                'category-grid-1' => [ 'label' => __( 'Category Grid Modern', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-1.svg' ],
-                            ],
-                            'category-list' => [
-                                'category-list-1' => [ 'label' => __( 'Category List Minimal', 'hexa-grid-product-showcase' ), 'skeleton' => 'list.svg' ],
-                            ],
-                            'category-slider' => [
-                                'category-slider-1' => [ 'label' => __( 'Category Carousel Standard', 'hexa-grid-product-showcase' ), 'skeleton' => 'slider.svg' ],
-                            ],
-                            'category-table' => [
-                                'category-table-1' => [ 'label' => __( 'Category Table Simple', 'hexa-grid-product-showcase' ), 'skeleton' => 'table.svg' ],
                             ],
                         ];
                         
@@ -372,9 +337,9 @@ class Meta_Box {
     private function get_settings_map() {
         return [
             // Layout Settings
-            'hexagrid_content_type' => [ 'sanitize' => 'sanitize_text_field' ],
+            'hexagrid_content_type' => [ 'sanitize' => 'sanitize_text_field', 'default' => 'product' ],
             'hexagrid_layout_type'  => [ 'sanitize' => 'sanitize_text_field', 'default' => 'grid' ],
-            'hexagrid_layout_style' => [ 'sanitize' => 'sanitize_text_field', 'default' => 'grid-1' ],
+            'hexagrid_layout_style' => [ 'sanitize' => 'sanitize_text_field', 'default' => 'product-grid-1' ],
             'hexagrid_columns'      => [ 'sanitize' => 'intval', 'default' => 3 ],
             
             // Slider Specific

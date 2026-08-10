@@ -37,16 +37,15 @@ class Shortcode_Handler {
             
             // Map meta keys to shortcode attributes
             $meta_map = [
-                'layout'       => '_hexagrid_layout_type',
-                'style'        => '_hexagrid_layout_style',
-                'content_type' => '_hexagrid_content_type',
-                'limit'        => '_hexagrid_query_limit',
-                'columns'      => '_hexagrid_columns',
-                'category'     => '_hexagrid_categories', // This is an array
-                'ids'          => '_hexagrid_include_ids',
-                'exclude_ids'  => '_hexagrid_exclude_ids',
-                'orderby'      => '_hexagrid_orderby',
-                'order'        => '_hexagrid_order',
+                'layout'          => '_hexagrid_layout_type',
+                'style'           => '_hexagrid_layout_style',
+                'limit'           => '_hexagrid_query_limit',
+                'columns'         => '_hexagrid_columns',
+                'category'        => '_hexagrid_categories', // Product category filter
+                'ids'             => '_hexagrid_include_ids',
+                'exclude_ids'     => '_hexagrid_exclude_ids',
+                'orderby'         => '_hexagrid_orderby',
+                'order'           => '_hexagrid_order',
                 'theme_color'     => '_hexagrid_theme_color',
                 'slider_nav'      => '_hexagrid_slider_nav',
                 'slider_dots'     => '_hexagrid_slider_dots',
@@ -71,7 +70,6 @@ class Shortcode_Handler {
         $atts = shortcode_atts( [
             'layout'          => 'grid',
             'style'           => 'product-grid-1',
-            'content_type'    => 'product',
             'limit'           => 12,
             'columns'         => 3,
             'category'        => '',
@@ -85,6 +83,9 @@ class Shortcode_Handler {
             'slider_autoplay' => 'no',
             'preset_id'       => '',
         ], $atts, 'hexagrid_product_showcase' );
+
+        // This plugin currently supports product display only.
+        $atts['content_type'] = 'product';
 
         // 1. Build Query
         $query_builder = new Query_Builder();

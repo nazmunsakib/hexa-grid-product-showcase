@@ -21,19 +21,18 @@ class Table_Layout implements Layout_Interface {
             return '<p class="hexagrid-no-products">No products found.</p>';
         }
 
-        $style = isset( $atts['style'] ) ? sanitize_file_name( $atts['style'] ) : 'table-1';
+        $style = isset( $atts['style'] ) ? sanitize_file_name( $atts['style'] ) : 'product-table-1';
         $columns = isset( $atts['columns'] ) ? intval( $atts['columns'] ) : 3;
-        $content_type = isset( $atts['content_type'] ) ? sanitize_file_name( $atts['content_type'] ) : 'product';
 
         $template_path = dirname( dirname( dirname( __FILE__ ) ) ) . '/templates/table/' . $style . '.php';
 
         if ( ! file_exists( $template_path ) ) {
-             $template_path = dirname( dirname( dirname( __FILE__ ) ) ) . '/templates/table/product-table-1.php';
+              $template_path = dirname( dirname( dirname( __FILE__ ) ) ) . '/templates/table/product-table-1.php';
         }
         
         ob_start();
         echo wp_kses( \HexaGrid\Assets\Dynamic_Styles::generate( $atts, $atts['wrapper_id'] ), array( 'style' => array() ) );
-        echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="hexagrid-layout-container hexagrid-' . esc_attr( $content_type ) . '-grid-container">';
+        echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="hexagrid-layout-container hexagrid-product-grid-container">';
         include $template_path;
         echo '</div>';
         return ob_get_clean();

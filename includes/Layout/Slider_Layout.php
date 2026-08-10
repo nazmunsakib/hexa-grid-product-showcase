@@ -21,12 +21,11 @@ class Slider_Layout implements Layout_Interface {
             return '<p class="hexagrid-no-products">No products found.</p>';
         }
 
-        $style = isset( $atts['style'] ) ? sanitize_file_name( $atts['style'] ) : 'slider-1';
-        $content_type = isset( $atts['content_type'] ) ? sanitize_file_name( $atts['content_type'] ) : 'product';
+        $style = isset( $atts['style'] ) ? sanitize_file_name( $atts['style'] ) : 'product-slider-1';
         $template_path = dirname( dirname( dirname( __FILE__ ) ) ) . '/templates/slider/' . $style . '.php';
 
         if ( ! file_exists( $template_path ) ) {
-             $template_path = dirname( dirname( dirname( __FILE__ ) ) ) . '/templates/slider/slider-1.php';
+              $template_path = dirname( dirname( dirname( __FILE__ ) ) ) . '/templates/slider/product-slider-1.php';
         }
         
         $nav      = isset( $atts['slider_nav'] ) ? esc_attr( $atts['slider_nav'] ) : 'yes';
@@ -36,7 +35,7 @@ class Slider_Layout implements Layout_Interface {
         
         ob_start();
         echo wp_kses( \HexaGrid\Assets\Dynamic_Styles::generate( $atts, $atts['wrapper_id'] ), array( 'style' => array() ) );
-        echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="hexagrid-layout-container hexagrid-slider-container hexagrid-' . esc_attr( $content_type ) . '-grid-container" data-columns="' . $columns . '" data-nav="' . $nav . '" data-dots="' . $dots . '" data-autoplay="' . $autoplay . '">';
+        echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="hexagrid-layout-container hexagrid-slider-container hexagrid-product-grid-container" data-columns="' . $columns . '" data-nav="' . $nav . '" data-dots="' . $dots . '" data-autoplay="' . $autoplay . '">';
         include $template_path;
         echo '</div>';
         return ob_get_clean();
