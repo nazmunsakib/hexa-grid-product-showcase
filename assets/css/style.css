@@ -2,8 +2,8 @@
    Product Showcase - Common Styles
    ========================================= */
 :root {
-    --hexagrid-color-primary: #83b735;
-    --hexagrid-color-primary-hover: #74a32f;
+    --hexagrid-color-primary: #3291b6;
+    --hexagrid-color-primary-hover: #2a7a9a;
     --hexagrid-color-heading: #333333;
     --hexagrid-color-text: #767676;
     --hexagrid-col-lg: 4;
@@ -122,13 +122,45 @@
 }
 
 .hexagrid-layout-container .hexagrid-product .hexagrid-add-btn>a {
-    background-color: var(--hexagrid-color-primary);
     transition: background-color 0.3s ease;
     text-decoration: none !important;
 }
 
+.hexagrid-layout-container .hexagrid-product .hexagrid-add-btn>a:hover {
+    background-color: var(--hexagrid-color-primary-hover);
+}
 
-.hexagrid-layout-container .hexagrid-product .hexagrid-add-btn>a {
+/* Text/Both style add-to-cart buttons (used by Helper::get_add_to_cart_button) */
+.hexagrid-layout-container .hexagrid-cart-btn-type-text a.hexagrid-add-to-cart,
+.hexagrid-layout-container .hexagrid-cart-btn-type-both a.hexagrid-add-to-cart {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    outline: none;
+    border-radius: 5px;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none !important;
+    text-shadow: none;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: all .25s ease;
+    color: #ffffff;
+    border: 0;
+    background-color: var(--hexagrid-color-primary);
+    box-shadow: unset;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-family: inherit;
+    font-style: unset;
+    padding: 5px 20px;
+    min-height: 42px;
+    font-size: 13px;
+}
+
+.hexagrid-layout-container .hexagrid-cart-btn-type-text a.hexagrid-add-to-cart:hover,
+.hexagrid-layout-container .hexagrid-cart-btn-type-both a.hexagrid-add-to-cart:hover {
     background-color: var(--hexagrid-color-primary-hover);
 }
 
@@ -328,6 +360,10 @@
     text-decoration: none;
 }
 
+.hexagrid-product-grid-1 .hexagrid-product-price ins .amount {
+    color: var(--hexagrid-color-primary);
+}
+
 /* Cart Button */
 .hexagrid-product-grid-1 .hexagrid-product-cart-btn a {
     display: inline-flex;
@@ -337,17 +373,16 @@
     height: 36px;
     background-color: #f1f2f6;
     color: #2d3436;
+    border: 1px solid transparent;
     border-radius: 6px;
     transition: all 0.2s ease;
     text-decoration: none !important;
 }
 
-.hexagrid-product-grid-1 .hexagrid-product-cart-btn a:hover {
-    background-color: var(--hexagrid-color-primary-hover);
-    color: #fff;
-}
-
+.hexagrid-product-grid-1 .hexagrid-product-cart-btn a:hover,
 .hexagrid-product-grid-1 .hexagrid-product:hover .hexagrid-product-cart-btn a {
+    background-color: var(--hexagrid-color-primary);
+    border-color: var(--hexagrid-color-primary);
     color: #fff;
 }
 
@@ -514,13 +549,13 @@
     padding-bottom: 40px;
 }
 
-.swiper-button-next,
-.swiper-button-prev {
-    color: #333;
+.hexagrid-layout-container .swiper-button-next,
+.hexagrid-layout-container .swiper-button-prev {
+    color: var(--hexagrid-color-primary);
 }
 
-.swiper-pagination-bullet-active {
-    background: #333;
+.hexagrid-layout-container .swiper-pagination-bullet-active {
+    background: var(--hexagrid-color-primary);
 }
 
 /* Table Layout Style 1 - Premium */
@@ -764,10 +799,16 @@
     height: 40px;
     background: var(--hexagrid-color-primary);
     border-radius: 10px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--hexagrid-color-primary);
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.hexagrid-product-table-1 .hexagrid-product-cart-btn a:hover {
+    background: var(--hexagrid-color-primary-hover);
+    border-color: var(--hexagrid-color-primary-hover);
 }
 
 .hexagrid-product-table-1 .hexagrid-product-price ins {
