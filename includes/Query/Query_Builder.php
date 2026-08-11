@@ -2,6 +2,8 @@
 
 namespace HexaGrid\Query;
 
+use HexaGrid\Preset\Preset_Config;
+
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
@@ -25,7 +27,7 @@ class Query_Builder {
         $this->args = [
             'post_type'      => 'product',
             'post_status'    => 'publish',
-            'posts_per_page' => 12, // Default limit
+            'posts_per_page' => Preset_Config::get_default( 'limit' ),
         ];
     }
 
@@ -109,7 +111,9 @@ class Query_Builder {
      * @param string $order Order direction (ASC/DESC).
      * @return self
      */
-    public function set_order( $orderby = 'date', $order = 'DESC' ) {
+    public function set_order( $orderby = '', $order = '' ) {
+        $orderby = $orderby ?: Preset_Config::get_default( 'orderby' );
+        $order   = $order ?: Preset_Config::get_default( 'order' );
         // Allowed orderby values
         $allowed_orderby = [ 'date', 'price', 'rand', 'title', 'popularity', 'ID', 'menu_order' ];
         if ( ! in_array( $orderby, $allowed_orderby, true ) ) {

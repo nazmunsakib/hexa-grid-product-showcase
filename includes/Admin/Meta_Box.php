@@ -2,6 +2,9 @@
 
 namespace HexaGrid\Admin;
 
+use HexaGrid\Preset\Preset_Config;
+use HexaGrid\Preset\Preset_Loader;
+
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
@@ -23,6 +26,8 @@ class Meta_Box {
         add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
         add_action( 'save_post', [ $this, 'save_meta_box_data' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
+        add_action( 'save_post_hexagrid_show_preset', [ Preset_Loader::class, 'clear_cache' ] );
+        add_action( 'delete_post_hexagrid_show_preset', [ Preset_Loader::class, 'clear_cache' ] );
     }
 
     /**
@@ -52,6 +57,33 @@ class Meta_Box {
     }
 
     /**
+     * Get a preset meta value using the centralized config.
+     *
+     * @param int    $post_id Post ID.
+     * @param string $field   Field key.
+     * @return mixed
+     */
+    private function get_preset_value( $post_id, $field ) {
+        $config = Preset_Config::get_field( $field );
+
+        if ( ! $config ) {
+            return null;
+        }
+
+        $value = get_post_meta( $post_id, $config['meta_key'], true );
+
+        if ( '' === $value || false === $value || null === $value ) {
+            $value = $config['default'];
+        }
+
+        if ( isset( $config['sanitize'] ) && is_callable( $config['sanitize'] ) ) {
+            $value = call_user_func( $config['sanitize'], $value );
+        }
+
+        return $value;
+    }
+
+    /**
      * Add meta box.
      */
     public function add_meta_boxes() {
@@ -74,25 +106,21 @@ class Meta_Box {
         // Add nonces for security
         wp_nonce_field( 'hexagrid_save_showcase_settings', 'hexagrid_showcase_settings_nonce' );
 
-        // Retrieve existing values
-        $layout       = get_post_meta( $post->ID, '_hexagrid_layout_type', true ) ?: 'grid';
-        $style        = get_post_meta( $post->ID, '_hexagrid_layout_style', true ) ?: 'product-grid-1';
-        $columns      = get_post_meta( $post->ID, '_hexagrid_columns', true ) ?: 3;
-        $limit        = get_post_meta( $post->ID, '_hexagrid_query_limit', true ) ?: 12;
-        
-        $include_ids  = get_post_meta( $post->ID, '_hexagrid_include_ids', true );
-        $exclude_ids  = get_post_meta( $post->ID, '_hexagrid_exclude_ids', true );
-
-        $orderby      = get_post_meta( $post->ID, '_hexagrid_orderby', true ) ?: 'date';
-        $order        = get_post_meta( $post->ID, '_hexagrid_order', true ) ?: 'DESC';
-
-        $theme_color  = get_post_meta( $post->ID, '_hexagrid_theme_color', true ) ?: '#3291b6';
-        $content_type = get_post_meta( $post->ID, '_hexagrid_content_type', true ) ?: 'product';
+        // Retrieve existing values from centralized config.
+        $layout       = $this->get_preset_value( $post->ID, 'layout' );
+        $style        = $this->get_preset_value( $post->ID, 'style' );
+        $columns      = $this->get_preset_value( $post->ID, 'columns' );
+        $limit        = $this->get_preset_value( $post->ID, 'limit' );
+        $include_ids  = $this->get_preset_value( $post->ID, 'ids' );
+        $exclude_ids  = $this->get_preset_value( $post->ID, 'exclude_ids' );
+        $orderby      = $this->get_preset_value( $post->ID, 'orderby' );
+        $order        = $this->get_preset_value( $post->ID, 'order' );
+        $theme_color  = $this->get_preset_value( $post->ID, 'theme_color' );
 
         // Slider specific settings
-        $slider_nav      = get_post_meta( $post->ID, '_hexagrid_slider_nav', true ) !== 'no' ? 'yes' : 'no'; // Default yes
-        $slider_dots     = get_post_meta( $post->ID, '_hexagrid_slider_dots', true ) === 'yes' ? 'yes' : 'no'; // Default no
-        $slider_autoplay = get_post_meta( $post->ID, '_hexagrid_slider_autoplay', true ) === 'yes' ? 'yes' : 'no'; // Default no
+        $slider_nav      = $this->get_preset_value( $post->ID, 'slider_nav' );
+        $slider_dots     = $this->get_preset_value( $post->ID, 'slider_dots' );
+        $slider_autoplay = $this->get_preset_value( $post->ID, 'slider_autoplay' );
 
         $plugin_root_url = plugin_dir_url( dirname( dirname( __FILE__ ) ) );
         $assets_url      = $plugin_root_url . 'assets/admin/icons/';
@@ -241,7 +269,15 @@ class Meta_Box {
                             'type'       => 'number',
                             'input_attr' => 'min="1"'
                         ]);
-                        
+
+                        $builder->render_text_field([
+                            'id'          => 'include_ids',
+                            'label'       => __( 'Include Products (IDs)', 'hexa-grid-product-showcase' ),
+                            'value'       => $include_ids,
+                            'placeholder' => 'e.g. 101, 105, 200',
+                            'desc'        => __( 'Enter specific product IDs to display', 'hexa-grid-product-showcase' )
+                        ]);
+
                         $builder->render_text_field([
                             'id'          => 'exclude_ids',
                             'label'       => __( 'Exclude Products (IDs)', 'hexa-grid-product-showcase' ),
@@ -331,42 +367,13 @@ class Meta_Box {
     }
     
     /**
-     * Get settings map for the showcase.
-     * Centralized definition of all fields, types, and sanitization.
-     */
-    private function get_settings_map() {
-        return [
-            // Layout Settings
-            'hexagrid_content_type' => [ 'sanitize' => 'sanitize_text_field', 'default' => 'product' ],
-            'hexagrid_layout_type'  => [ 'sanitize' => 'sanitize_text_field', 'default' => 'grid' ],
-            'hexagrid_layout_style' => [ 'sanitize' => 'sanitize_text_field', 'default' => 'product-grid-1' ],
-            'hexagrid_columns'      => [ 'sanitize' => 'intval', 'default' => 3 ],
-            
-            // Slider Specific
-            'hexagrid_slider_nav'   => [ 'type' => 'checkbox', 'default' => 'yes' ],
-            'hexagrid_slider_dots'  => [ 'type' => 'checkbox', 'default' => 'no' ],
-            'hexagrid_slider_autoplay' => [ 'type' => 'checkbox', 'default' => 'no' ],
-
-            // Query Settings
-            'hexagrid_query_limit'  => [ 'sanitize' => 'intval', 'default' => 12 ],
-            'hexagrid_include_ids'  => [ 'sanitize' => 'sanitize_text_field' ],
-            'hexagrid_exclude_ids'  => [ 'sanitize' => 'sanitize_text_field' ],
-            'hexagrid_orderby'      => [ 'sanitize' => 'sanitize_text_field', 'default' => 'date' ],
-            'hexagrid_order'        => [ 'sanitize' => 'sanitize_text_field', 'default' => 'DESC' ],
-
-            // Style Settings
-            'hexagrid_theme_color'  => [ 'sanitize' => 'sanitize_hex_color', 'default' => '#3291b6' ],
-        ];
-    }
-
-    /**
      * Save meta box data.
      *
      * @param int $post_id Post ID.
      */
     public function save_meta_box_data( $post_id ) {
         // Security checks
-        if ( ! isset( $_POST['hexagrid_showcase_settings_nonce'] ) || 
+        if ( ! isset( $_POST['hexagrid_showcase_settings_nonce'] ) ||
              ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['hexagrid_showcase_settings_nonce'] ) ), 'hexagrid_save_showcase_settings' ) ) {
             return;
         }
@@ -379,33 +386,31 @@ class Meta_Box {
             return;
         }
 
-        // Processing Loop
-        $settings = $this->get_settings_map();
-
-        foreach ( $settings as $field_key => $config ) {
-            $meta_key = '_' . $field_key; // Standardize meta key as _field_name
+        foreach ( Preset_Config::get_fields() as $field_key => $config ) {
+            $post_key = $config['post_key'];
+            $meta_key = $config['meta_key'];
             $type     = isset( $config['type'] ) ? $config['type'] : 'text';
-            
-            if ( $type === 'checkbox' ) {
-                // Checkbox Logic: if set in POST, value is 'yes', otherwise 'no'
-                $value = isset( $_POST[ $field_key ] ) ? 'yes' : 'no';
-                update_post_meta( $post_id, $meta_key, $value );
-            } else {
-                // Standard Input Logic
-                if ( isset( $_POST[ $field_key ] ) ) {
-                    $sanitize_func = isset( $config['sanitize'] ) ? $config['sanitize'] : 'sanitize_text_field';
-                    $raw_value     = wp_unslash( $_POST[ $field_key ] );
-                    
-                    // Apply sanitization
-                    if ( function_exists( $sanitize_func ) ) {
-                        $value = $sanitize_func( $raw_value );
-                    } else {
-                        $value = sanitize_text_field( $raw_value );
-                    }
 
-                    update_post_meta( $post_id, $meta_key, $value );
+            if ( 'checkbox' === $type ) {
+                $value = isset( $_POST[ $post_key ] ) ? 'yes' : 'no';
+            } else {
+                if ( ! isset( $_POST[ $post_key ] ) ) {
+                    continue;
+                }
+
+                $raw_value     = wp_unslash( $_POST[ $post_key ] );
+                $sanitize_func = isset( $config['sanitize'] ) ? $config['sanitize'] : 'sanitize_text_field';
+
+                if ( is_callable( $sanitize_func ) ) {
+                    $value = call_user_func( $sanitize_func, $raw_value );
+                } elseif ( function_exists( $sanitize_func ) ) {
+                    $value = $sanitize_func( $raw_value );
+                } else {
+                    $value = sanitize_text_field( $raw_value );
                 }
             }
+
+            update_post_meta( $post_id, $meta_key, $value );
         }
     }
 }

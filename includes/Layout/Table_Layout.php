@@ -18,7 +18,7 @@ class Table_Layout implements Layout_Interface {
      */
     public function render( $query, $atts ) {
         if ( ! $query->have_posts() ) {
-            return '<p class="hexagrid-no-products">No products found.</p>';
+            return '<p class="hexagrid-no-products">' . esc_html__( 'No products found.', 'hexa-grid-product-showcase' ) . '</p>';
         }
 
         $style = isset( $atts['style'] ) ? sanitize_file_name( $atts['style'] ) : 'product-table-1';

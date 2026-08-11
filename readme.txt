@@ -4,7 +4,7 @@ Tags: woocommerce, product grid, product showcase, product slider, product list
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://nazmunsakib.com/donate
@@ -232,6 +232,18 @@ Yes. Hexa Grid follows WordPress internationalization practices and is translati
 5. Hexa Grid Settings Panel
 
 == Changelog ==
+
+= 1.1.1 =
+
+* New: Centralized preset configuration system for easier maintenance and consistency.
+* New: Added dedicated preset loader with validation, caching, and automatic cache invalidation.
+* New: Added missing "Include Products (IDs)" field to the preset builder.
+* Improved: Frontend scripts and styles now load only when the shortcode is used.
+* Improved: Preset configuration is now cached for better performance.
+* Improved: Query builder defaults are now synchronized with preset configuration.
+* Improved: Shortcode wrapper IDs are now deterministic for better caching compatibility.
+* Fixed: Preset Layout Type and Layout Style were being overwritten by shortcode defaults on the frontend.
+* Fixed: Translated "No products found." message in all layout templates.
 
 = 1.1.0 =
 

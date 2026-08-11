@@ -2,45 +2,85 @@
 
 namespace HexaGrid\Assets;
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Class Asset_Manager
  *
- * Handles enqueuing of scripts and styles.
+ * Handles registration and enqueueing of scripts and styles.
  */
 class Asset_Manager {
 
-    /**
-     * Initialize hooks.
-     */
-    public function init() {
-        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
-    }
+	/**
+	 * Plugin version used for cache busting.
+	 *
+	 * @var string
+	 */
+	private const ASSET_VERSION = '1.1.1';
 
-    /**
-     * Enqueue frontend assets.
-     */
-    public function enqueue_assets() {
-        $plugin_root_url = plugin_dir_url( dirname( dirname( __FILE__ ) ) );
+	/**
+	 * Initialize hooks.
+	 */
+	public function init() {
+		add_action( 'wp_enqueue_scripts', [ $this, 'register_assets' ] );
+	}
 
-        wp_enqueue_style(
-            'hexa-grid-product-showcase-style',
-            $plugin_root_url . 'assets/css/style.css',
-            [],
-            '1.0.0'
-        );
+	/**
+	 * Register frontend assets.
+	 *
+	 * Assets are registered early but only enqueued when the shortcode is rendered.
+	 */
+	public function register_assets() {
+		$plugin_root_url = plugin_dir_url( dirname( dirname( __FILE__ ) ) );
 
-        // Enqueue Swiper JS (Local)
-        wp_enqueue_script( 'swiper-js', $plugin_root_url . 'assets/vendor/swiper/swiper-bundle.min.js', [], '11.0.0', true );
-        wp_enqueue_style( 'swiper-css', $plugin_root_url . 'assets/vendor/swiper/swiper-bundle.min.css', [], '11.0.0' );
+		wp_register_style(
+			'hexa-grid-product-showcase-style',
+			$plugin_root_url . 'assets/css/style.css',
+			[],
+			self::ASSET_VERSION
+		);
 
-        wp_enqueue_script(
-            'hexa-grid-product-showcase-script',
-            $plugin_root_url . 'assets/js/main.js',
-            [ 'jquery', 'swiper-js' ],
-            '1.0.0',
-            true
-        );
-    }
+		wp_register_style(
+			'swiper-css',
+			$plugin_root_url . 'assets/vendor/swiper/swiper-bundle.min.css',
+			[],
+			'11.0.0'
+		);
+
+		wp_register_script(
+			'swiper-js',
+			$plugin_root_url . 'assets/vendor/swiper/swiper-bundle.min.js',
+			[],
+			'11.0.0',
+			true
+		);
+
+		wp_register_script(
+			'hexa-grid-product-showcase-script',
+			$plugin_root_url . 'assets/js/main.js',
+			[ 'jquery', 'swiper-js' ],
+			self::ASSET_VERSION,
+			true
+		);
+	}
+
+	/**
+	 * Enqueue frontend assets.
+	 *
+	 * Called from the shortcode handler so assets load only when needed.
+	 */
+	public function enqueue() {
+		// Ensure assets are registered before enqueueing, even if this is
+		// called before the wp_enqueue_scripts hook has fired.
+		if ( ! wp_style_is( 'hexa-grid-product-showcase-style', 'registered' ) ) {
+			$this->register_assets();
+		}
+
+		wp_enqueue_style( 'hexa-grid-product-showcase-style' );
+		wp_enqueue_style( 'swiper-css' );
+		wp_enqueue_script( 'swiper-js' );
+		wp_enqueue_script( 'hexa-grid-product-showcase-script' );
+	}
 }

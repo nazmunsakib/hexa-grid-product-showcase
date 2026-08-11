@@ -3,7 +3,7 @@
  * Plugin Name: Hexa Grid
  * Plugin URI: https://addonskit.com
  * Description: Beautiful Product Showcase with Unlimited Grid, List, Slider and Table Layouts.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: Nazmun Sakib
  * Author URI: https://nazmunsakib.com
  * License: GPL v2 or later
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Define constants.
 define( 'HEXAGRID_PATH', plugin_dir_path( __FILE__ ) );
 define( 'HEXAGRID_URL', plugin_dir_url( __FILE__ ) );
-define( 'HEXAGRID_VERSION', '1.1.0' );
+define( 'HEXAGRID_VERSION', '1.1.1' );
 
 // Autoload dependencies.
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {

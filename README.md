@@ -1,6 +1,6 @@
 # Hexa Grid – Product Showcase for WooCommerce
 
-**Version:** 1.1.0  
+**Version:** 1.1.1  
 **Contributors:** nazmunsakib  
 **Requires at least:** WordPress 5.0  
 **Tested up to:** WordPress 6.9  
@@ -80,11 +80,10 @@ You can use the shortcode directly with attributes:
 - `style`: Layout variation (e.g., `product-grid-1`, `product-list-1`)
 - `limit`: Number of products to show (default: `12`)
 - `columns`: Number of columns for grid/slider layout (default: `3`)
-- `category`: Product category slug(s) (comma separated)
-- `ids`: Specific product IDs (comma separated)
+- `ids`: Specific product IDs to include (comma separated)
+- `exclude_ids`: Comma-separated product IDs to exclude
 - `orderby`: `date`, `price`, `ID`, `title`, `popularity` (default: `date`)
 - `order`: `DESC`, `ASC` (default: `DESC`)
-- `exclude_ids`: Comma-separated product IDs to exclude
 
 ## Layout Variations
 
@@ -101,6 +100,17 @@ You can use the shortcode directly with attributes:
 - PHP 7.4+
 
 ## Changelog
+
+### Version 1.1.1
+- **New:** Centralized preset configuration system (`Preset_Config`) for consistent defaults and sanitization
+- **New:** Added dedicated `Preset_Loader` with preset validation, caching, and cache invalidation on save/delete
+- **New:** Added "Include Products (IDs)" field to the preset builder
+- **Improved:** Frontend assets now load only when the shortcode is rendered (lazy loading)
+- **Improved:** Preset configuration is cached via `wp_cache_*` for better performance
+- **Improved:** Query builder defaults are now synchronized with the centralized preset configuration
+- **Improved:** Shortcode wrapper IDs are now deterministic for better full-page caching compatibility
+- **Fixed:** Preset Layout Type and Layout Style were being overwritten by shortcode defaults on the frontend
+- **Fixed:** Added missing translation for "No products found." in all layout templates
 
 ### Version 1.1.0
 - **New:** Completely redesigned Admin UI with modern card-based interface and branding colors
