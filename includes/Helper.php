@@ -195,7 +195,7 @@ class Helper {
         $text = $product->add_to_cart_text();
 
         // Icon span (CSS will control which icon shows via mask/background)
-        $icon = '<span class="hexagrid-btn-icon" aria-hidden="true"></span>';
+        $icon = '<span class="hexagrid-btn-inner" aria-hidden="true"></span>';
 
         // Decide button content
         switch ( $style ) {
@@ -215,6 +215,8 @@ class Helper {
 
         $classes = array(
             'button',
+            'hexagrid-btn',
+            'hexagrid-btn-' . esc_attr( $style ),
             'hexagrid-add-to-cart',
             'product_type_' . $product->get_type(),
         );

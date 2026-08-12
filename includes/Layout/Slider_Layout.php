@@ -35,7 +35,11 @@ class Slider_Layout implements Layout_Interface {
         
         ob_start();
         echo wp_kses( \HexaGrid\Assets\Dynamic_Styles::generate( $atts, $atts['wrapper_id'] ), array( 'style' => array() ) );
-        echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="hexagrid-layout-container hexagrid-slider-container hexagrid-product-grid-container" data-columns="' . $columns . '" data-nav="' . $nav . '" data-dots="' . $dots . '" data-autoplay="' . $autoplay . '">';
+        $container_classes = sprintf(
+            'hexagrid-layout-container hexagrid-layout-slider hexagrid-slider-container hexagrid-product-grid-container hexagrid-%s',
+            esc_attr( $style )
+        );
+        echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="' . $container_classes . '" data-columns="' . $columns . '" data-nav="' . $nav . '" data-dots="' . $dots . '" data-autoplay="' . $autoplay . '">';
         include $template_path;
         echo '</div>';
         return ob_get_clean();

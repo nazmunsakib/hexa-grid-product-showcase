@@ -1,6 +1,6 @@
 # Hexa Grid – Product Showcase for WooCommerce
 
-**Version:** 1.1.1  
+**Version:** 1.1.2  
 **Contributors:** nazmunsakib  
 **Requires at least:** WordPress 5.0  
 **Tested up to:** WordPress 6.9  
@@ -100,6 +100,12 @@ You can use the shortcode directly with attributes:
 - PHP 7.4+
 
 ## Changelog
+
+### Version 1.1.2
+- **Improved:** Refactored add-to-cart button system with CSS variables for consistent theming
+- **Improved:** Added dedicated button style classes (icon, text, border) for better customization
+- **Improved:** Standardized layout container classes across Grid, List, Slider, and Table layouts
+- **Fixed:** Renamed button icon wrapper class to avoid CSS conflicts
 
 ### Version 1.1.1
 - **New:** Centralized preset configuration system (`Preset_Config`) for consistent defaults and sanitization

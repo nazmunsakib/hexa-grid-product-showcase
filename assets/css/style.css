@@ -92,8 +92,29 @@
     color: inherit;
 }
 
-.hexagrid-layout-container .hexagrid-product .hexagrid-add-btn:is(.btn, .button, button, [type="submit"], [type="button"]),
-.hexagrid-layout-container .hexagrid-product .hexagrid-actions-btn:is(.btn, .button, button, [type="submit"], [type="button"]) {
+/* =========================================
+   HexaGrid Button System
+   =========================================
+   Flexible button system using CSS variables.
+   All theme-colored buttons inherit --hexagrid-color-primary
+   from the shortcode wrapper.
+
+   Variants:
+   - .hexagrid-btn-icon   : icon-only button
+   - .hexagrid-btn-text   : filled text/box button (default)
+   - .hexagrid-btn-border : outlined button
+   ========================================= */
+
+.hexagrid-btn,
+.hexagrid-layout-container .hexagrid-product .hexagrid-add-btn :is(.btn, .button, button, [type="submit"], [type="button"]),
+.hexagrid-layout-container .hexagrid-product .hexagrid-actions-btn :is(.btn, .button, button, [type="submit"], [type="button"]) {
+    --hexagrid-btn-bg: var(--hexagrid-color-primary);
+    --hexagrid-btn-color: #ffffff;
+    --hexagrid-btn-border-color: var(--hexagrid-color-primary);
+    --hexagrid-btn-hover-bg: var(--hexagrid-color-primary-hover);
+    --hexagrid-btn-hover-color: #ffffff;
+    --hexagrid-btn-hover-border-color: var(--hexagrid-color-primary-hover);
+
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -108,60 +129,58 @@
     line-height: 1.2;
     cursor: pointer;
     transition: all .25s ease;
-    color: #ffffff;
-    border: 0px solid #E9E9E9;
-    background-color: var(--hexagrid-color-primary);
-    box-shadow: unset;
+    color: var(--hexagrid-btn-color) !important;
+    background-color: var(--hexagrid-btn-bg) !important;
+    border: 1px solid var(--hexagrid-btn-border-color) !important;
+    box-shadow: unset !important;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 500 !important;
     font-family: inherit;
     font-style: unset;
-    padding: 5px 20px;
-    min-height: 42px;
+    padding: 5px 12px;
+    min-height: 32px;
     font-size: 13px;
 }
 
-.hexagrid-layout-container .hexagrid-product .hexagrid-add-btn>a {
-    transition: background-color 0.3s ease;
-    text-decoration: none !important;
+.hexagrid-btn:hover,
+.hexagrid-layout-container .hexagrid-product .hexagrid-add-btn :is(.btn, .button, button, [type="submit"], [type="button"]):hover,
+.hexagrid-layout-container .hexagrid-product .hexagrid-actions-btn :is(.btn, .button, button, [type="submit"], [type="button"]):hover {
+    color: var(--hexagrid-btn-hover-color) !important;
+    background-color: var(--hexagrid-btn-hover-bg) !important;
+    border-color: var(--hexagrid-btn-hover-border-color) !important;
 }
 
-.hexagrid-layout-container .hexagrid-product .hexagrid-add-btn>a:hover {
-    background-color: var(--hexagrid-color-primary-hover);
+/* Icon Button */
+.hexagrid-btn.hexagrid-btn-icon,
+.hexagrid-layout-container .hexagrid-cart-btn-type-icon a.hexagrid-add-to-cart {
+    --hexagrid-btn-bg: #f1f2f6;
+    --hexagrid-btn-color: #2d3436;
+    --hexagrid-btn-border-color: transparent;
+    --hexagrid-btn-hover-bg: var(--hexagrid-color-primary);
+    --hexagrid-btn-hover-color: #ffffff;
+    --hexagrid-btn-hover-border-color: var(--hexagrid-color-primary);
+
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 6px;
 }
 
-/* Text/Both style add-to-cart buttons (used by Helper::get_add_to_cart_button) */
+/* Border/Outline Button */
+.hexagrid-btn.hexagrid-btn-border {
+    --hexagrid-btn-bg: transparent;
+    --hexagrid-btn-color: var(--hexagrid-color-primary);
+    --hexagrid-btn-border-color: var(--hexagrid-color-primary);
+    --hexagrid-btn-hover-bg: var(--hexagrid-color-primary);
+    --hexagrid-btn-hover-color: #ffffff;
+    --hexagrid-btn-hover-border-color: var(--hexagrid-color-primary);
+}
+
+/* Text/Box Button (filled primary) */
+.hexagrid-btn.hexagrid-btn-text,
 .hexagrid-layout-container .hexagrid-cart-btn-type-text a.hexagrid-add-to-cart,
 .hexagrid-layout-container .hexagrid-cart-btn-type-both a.hexagrid-add-to-cart {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    outline: none;
-    border-radius: 5px;
-    vertical-align: middle;
-    text-align: center;
-    text-decoration: none !important;
-    text-shadow: none;
-    line-height: 1.2;
-    cursor: pointer;
-    transition: all .25s ease;
-    color: #ffffff;
-    border: 0;
-    background-color: var(--hexagrid-color-primary);
-    box-shadow: unset;
-    text-transform: uppercase;
-    font-weight: 600;
-    font-family: inherit;
-    font-style: unset;
-    padding: 5px 20px;
-    min-height: 42px;
-    font-size: 13px;
-}
-
-.hexagrid-layout-container .hexagrid-cart-btn-type-text a.hexagrid-add-to-cart:hover,
-.hexagrid-layout-container .hexagrid-cart-btn-type-both a.hexagrid-add-to-cart:hover {
-    background-color: var(--hexagrid-color-primary-hover);
+    /* Uses base variables. */
 }
 
 .hexagrid-layout-container .hexagrid-product-wrapper {
@@ -183,25 +202,29 @@
 .hexagrid-layout-container .hexagrid-product .hexagrid-badge {
     font-size: 11px;
     font-weight: 600;
-    color: #fff;
+    color: #fff !important;
     padding: 3px 8px;
     border-radius: 4px;
     position: absolute;
     top: 10px;
     left: 10px;
-    background-color: var(--hexagrid-color-primary);
+    background-color: var(--hexagrid-color-primary) !important;
 }
 
 /* Category */
 .hexagrid-layout-container .hexagrid-product .hexagrid-product-category a {
     text-decoration: none !important;
-    font-size: 15px;
-    font-weight: 400;
+    font-size: 13px;
+    font-weight: 400 !important;
     letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: inline-block;
 }
 
-.hexagrid-layout-container .hexagrid-product .hexagrid-product-category a:hover {
-    color: var(--hexagrid-color-primary-hover);
+/* Title and Category hover - enforce theme color against theme overrides */
+.hexagrid-layout-container .hexagrid-product-title a:hover,
+.hexagrid-layout-container .hexagrid-product-category a:hover {
+    color: var(--hexagrid-color-primary) !important;
 }
 
 .hexagrid-layout-container .hexagrid-product .hexagrid-product-short-desc p {
@@ -215,7 +238,7 @@
     overflow: hidden;
 }
 
-.hexagrid-product-cart-btn .hexagrid-btn-icon::before {
+.hexagrid-product-cart-btn .hexagrid-btn-inner::before {
     content: "\f174";
     font-family: dashicons;
     font-size: 20px;
@@ -224,18 +247,18 @@
     transition: all 0.3s ease;
 }
 
-.hexagrid-product-cart-btn .loading .hexagrid-btn-icon::before {
+.hexagrid-product-cart-btn .loading .hexagrid-btn-inner::before {
     content: "\f463";
     animation: hexagrid-spin 1s linear infinite;
 }
 
-.hexagrid-product-cart-btn a.product_type_variable .hexagrid-btn-icon::before,
-.hexagrid-product-cart-btn a.product_type_grouped .hexagrid-btn-icon::before,
-.hexagrid-product-cart-btn a.product_type_external .hexagrid-btn-icon::before {
+.hexagrid-product-cart-btn a.product_type_variable .hexagrid-btn-inner::before,
+.hexagrid-product-cart-btn a.product_type_grouped .hexagrid-btn-inner::before,
+.hexagrid-product-cart-btn a.product_type_external .hexagrid-btn-inner::before {
     content: "\f344";
 }
 
-.hexagrid-product-cart-btn .added .hexagrid-btn-icon::before {
+.hexagrid-product-cart-btn .added .hexagrid-btn-inner::before {
     content: "\f344";
 }
 
@@ -320,10 +343,6 @@
     transition: color 0.2s;
 }
 
-.hexagrid-product-grid-1 .hexagrid-product-title a:hover {
-    color: var(--hexagrid-color-primary);
-}
-
 /* Rating */
 .hexagrid-product-grid-1 .hexagrid-product-rating {
     font-size: 14px;
@@ -361,29 +380,29 @@
 }
 
 .hexagrid-product-grid-1 .hexagrid-product-price ins .amount {
-    color: var(--hexagrid-color-primary);
+    color: var(--hexagrid-color-primary) !important;
 }
 
 /* Cart Button */
-.hexagrid-product-grid-1 .hexagrid-product-cart-btn a {
+.hexagrid-product-grid-1 .hexagrid-product-cart-btn a.hexagrid-btn-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 36px;
     height: 36px;
-    background-color: #f1f2f6;
-    color: #2d3436;
-    border: 1px solid transparent;
+    background-color: var(--hexagrid-btn-bg) !important;
+    color: var(--hexagrid-btn-color) !important;
+    border: 1px solid var(--hexagrid-btn-border-color) !important;
     border-radius: 6px;
     transition: all 0.2s ease;
     text-decoration: none !important;
 }
 
-.hexagrid-product-grid-1 .hexagrid-product-cart-btn a:hover,
-.hexagrid-product-grid-1 .hexagrid-product:hover .hexagrid-product-cart-btn a {
-    background-color: var(--hexagrid-color-primary);
-    border-color: var(--hexagrid-color-primary);
-    color: #fff;
+.hexagrid-product-grid-1 .hexagrid-product-cart-btn a.hexagrid-btn-icon:hover,
+.hexagrid-product-grid-1 .hexagrid-product:hover .hexagrid-product-cart-btn a.hexagrid-btn-icon {
+    background-color: var(--hexagrid-btn-hover-bg) !important;
+    border-color: var(--hexagrid-btn-hover-border-color) !important;
+    color: var(--hexagrid-btn-hover-color) !important;
 }
 
 .hexagrid-product-grid-1 .hexagrid-product-cart-btn .dashicons {
@@ -484,7 +503,7 @@
     font-size: 20px;
     line-height: 27px;
     font-weight: 600;
-    color: var(--hexagrid-color-primary);
+    color: var(--hexagrid-color-primary) !important;
 }
 
 .hexagrid-product-list-1 .hexagrid-product-content-area .hexagrid-product-price del .amount {
@@ -551,11 +570,11 @@
 
 .hexagrid-layout-container .swiper-button-next,
 .hexagrid-layout-container .swiper-button-prev {
-    color: var(--hexagrid-color-primary);
+    color: var(--hexagrid-color-primary) !important;
 }
 
 .hexagrid-layout-container .swiper-pagination-bullet-active {
-    background: var(--hexagrid-color-primary);
+    background: var(--hexagrid-color-primary) !important;
 }
 
 /* Table Layout Style 1 - Premium */
@@ -794,25 +813,48 @@
     gap: 10px;
 }
 
-.hexagrid-product-table-1 .hexagrid-product-cart-btn a {
+.hexagrid-product-table-1 .hexagrid-product-cart-btn a.hexagrid-btn-icon {
     width: 40px;
     height: 40px;
-    background: var(--hexagrid-color-primary);
+    background: var(--hexagrid-btn-bg) !important;
     border-radius: 10px;
-    border: 1px solid var(--hexagrid-color-primary);
+    border: 1px solid var(--hexagrid-btn-border-color) !important;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
 }
 
-.hexagrid-product-table-1 .hexagrid-product-cart-btn a:hover {
-    background: var(--hexagrid-color-primary-hover);
-    border-color: var(--hexagrid-color-primary-hover);
+.hexagrid-product-table-1 .hexagrid-product-cart-btn a.hexagrid-btn-icon:hover {
+    background: var(--hexagrid-btn-hover-bg) !important;
+    border-color: var(--hexagrid-btn-hover-border-color) !important;
 }
 
 .hexagrid-product-table-1 .hexagrid-product-price ins {
-    color: var(--hexagrid-color-primary);
+    color: var(--hexagrid-color-primary) !important;
+}
+.hexagrid-add-btn .added_to_cart {
+    margin-left: 5px;
+}
+
+
+/* Grid Layout 2 style */
+.hexagrid-product-grid-2 .hexagrid-product-content-area {
+    display: block;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.hexagrid-product-grid-2 .hexagrid-product-content-area h3.hexagrid-product-title {
+    margin-bottom: 5px;
+}
+
+.hexagrid-product-grid-2 .hexagrid-product-content-area .hexagrid-product-category {
+    margin-bottom: 8px;
+}
+
+.hexagrid-product-grid-2 .hexagrid-product-content-area .hexagrid-product-price {
+    margin-bottom: 10px;
 }
 
 /* Responsive */

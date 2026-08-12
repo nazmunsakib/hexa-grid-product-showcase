@@ -4,7 +4,7 @@ Tags: woocommerce, product grid, product showcase, product slider, product list
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://nazmunsakib.com/donate
@@ -232,6 +232,13 @@ Yes. Hexa Grid follows WordPress internationalization practices and is translati
 5. Hexa Grid Settings Panel
 
 == Changelog ==
+
+= 1.1.2 =
+
+* Improved: Refactored add-to-cart button system with CSS variables for consistent theming.
+* Improved: Added dedicated button style classes (icon, text, border) for better customization.
+* Improved: Standardized layout container classes across Grid, List, Slider, and Table layouts.
+* Fixed: Renamed button icon wrapper class to avoid CSS conflicts.
 
 = 1.1.1 =
 
