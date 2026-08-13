@@ -726,6 +726,29 @@
     .hexagrid-product-grid-3 .hexagrid-product-image-area {
         padding: 0;
     }
+
+    .hexagrid-product-grid-3 .hexagrid-product-info-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 8px;
+        min-height: auto;
+    }
+
+    .hexagrid-product-grid-3 .hexagrid-product-info-price,
+    .hexagrid-product-grid-3 .hexagrid-product-info-cart {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+
+    .hexagrid-product-grid-3 .hexagrid-product:hover .hexagrid-product-info-price,
+    .hexagrid-product-grid-3 .hexagrid-product:hover .hexagrid-product-info-cart {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
 }
 
 @media (max-width: 480px) {
@@ -735,7 +758,7 @@
     }
 
     .hexagrid-product-grid-3 .hexagrid-product-info-actions {
-        text-align: left;
+        align-items: flex-start;
     }
 }
 
