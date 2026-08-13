@@ -79,7 +79,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                         <input type="number" class="hexagrid-qty-input" value="1" min="1">
                                         <button type="button" class="hexagrid-qty-btn hexagrid-qty-plus">+</button>
                                     </div>
-                                    <?php echo wp_kses_post( \HexaGrid\Helper::get_add_to_cart_button( $product, 'icon' )); ?>
+                                    <?php echo wp_kses( \HexaGrid\Helper::get_add_to_cart_button( $product, 'icon' ), \HexaGrid\Helper::allowed_svg_html() ); ?>
                                 </div>
                             </td>
                         </tr>

@@ -173,6 +173,7 @@ class Meta_Box {
                             'product-grid' => [
                                 'product-grid-1' => [ 'label' => __( 'Product Grid Modern', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-1.svg' ],
                                 'product-grid-2' => [ 'label' => __( 'Product Grid Classic', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-2.svg' ],
+                                'product-grid-3' => [ 'label' => __( 'Product Grid Cosmetic', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-3.svg' ],
                             ],
                             'product-list' => [
                                 'product-list-1' => [ 'label' => __( 'Product List Minimal', 'hexa-grid-product-showcase' ), 'skeleton' => 'list.svg' ]

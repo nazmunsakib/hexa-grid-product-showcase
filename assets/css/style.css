@@ -238,28 +238,53 @@
     overflow: hidden;
 }
 
-.hexagrid-product-cart-btn .hexagrid-btn-inner::before {
-    content: "\f174";
-    font-family: dashicons;
-    font-size: 20px;
-    list-style: 20px;
-    display: inline-block;
-    transition: all 0.3s ease;
+.hexagrid-product-cart-btn .hexagrid-btn-inner {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
 }
 
-.hexagrid-product-cart-btn .loading .hexagrid-btn-inner::before {
-    content: "\f463";
+.hexagrid-product-cart-btn .hexagrid-btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.hexagrid-product-cart-btn .hexagrid-btn-inner svg {
+    width: 100%;
+    height: 100%;
+    color: currentColor;
+}
+
+.hexagrid-product-cart-btn .hexagrid-btn-icon-success {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.6);
+}
+
+.hexagrid-product-cart-btn a.added .hexagrid-btn-icon-default {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.6);
+}
+
+.hexagrid-product-cart-btn a.added .hexagrid-btn-icon-success {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.hexagrid-product-cart-btn .loading .hexagrid-btn-inner svg {
     animation: hexagrid-spin 1s linear infinite;
-}
-
-.hexagrid-product-cart-btn a.product_type_variable .hexagrid-btn-inner::before,
-.hexagrid-product-cart-btn a.product_type_grouped .hexagrid-btn-inner::before,
-.hexagrid-product-cart-btn a.product_type_external .hexagrid-btn-inner::before {
-    content: "\f344";
-}
-
-.hexagrid-product-cart-btn .added .hexagrid-btn-inner::before {
-    content: "\f344";
 }
 
 @keyframes hexagrid-spin {
@@ -439,6 +464,278 @@
 @media (max-width: 480px) {
     .hexagrid-layout-grid[class*="hexagrid-columns-"] {
         grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================
+   Product Showcase - Grid Layout Style 3
+   ========================================= */
+
+.hexagrid-product-grid-3 .hexagrid-product-wrapper {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    align-items: stretch;
+    gap: 16px;
+}
+
+.hexagrid-product-grid-3 .hexagrid-product-image-area {
+    position: relative;
+    overflow: hidden;
+    background: #e8e8e8;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.hexagrid-product-grid-3 .hexagrid-product{
+    padding-bottom: 10px;
+}
+
+.hexagrid-product-grid-3 .hexagrid-product-image-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    transition: transform 0.4s ease;
+}
+
+.hexagrid-product-grid-3 .hexagrid-product:hover .hexagrid-product-image-area img {
+    transform: scale(1.04);
+}
+
+/* Sale / Out of stock badge */
+.hexagrid-product-grid-3 .hexagrid-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 2;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    color: #d32f2f;
+    background: #ffffff;
+    padding: 8px 12px;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.hexagrid-product-grid-3 .hexagrid-outofstock-badge {
+    color: #ffffff;
+    background: #757575;
+}
+
+/* Wishlist button */
+.hexagrid-product-grid-3 .hexagrid-wishlist-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 2;
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.85);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #555555;
+    backdrop-filter: blur(4px);
+    transition: all 0.25s ease;
+    padding: 0;
+}
+
+.hexagrid-product-grid-3 .hexagrid-wishlist-btn:hover {
+    background: #ffffff;
+    color: #d32f2f;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.hexagrid-product-grid-3 .hexagrid-wishlist-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.hexagrid-product-grid-3 .hexagrid-wishlist-btn.is-active svg {
+    fill: #d32f2f;
+    stroke: #d32f2f;
+}
+
+.hexagrid-product-grid-3 .hexagrid-wishlist-btn.is-loading {
+    cursor: progress;
+    opacity: 0.7;
+}
+
+.hexagrid-product-grid-3 .hexagrid-wishlist-btn.is-loading svg {
+    animation: hexagrid-wishlist-pulse 1s ease-in-out infinite;
+}
+
+@keyframes hexagrid-wishlist-pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.85);
+    }
+}
+
+/* Content area */
+.hexagrid-product-grid-3 .hexagrid-product-content-area {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 4px;
+}
+
+.hexagrid-product-grid-3 .hexagrid-product-info-main {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.hexagrid-product-grid-3 .hexagrid-product-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.hexagrid-product-grid-3 .hexagrid-product-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.hexagrid-product-grid-3 .hexagrid-product-title a:hover {
+    color: var(--hexagrid-color-primary);
+}
+
+.hexagrid-product-grid-3 .hexagrid-product-category {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #9e9e9e;
+}
+
+.hexagrid-product-grid-3 .hexagrid-product-category a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Price */
+.hexagrid-product-grid-3 .hexagrid-product-info-price {
+    flex-shrink: 0;
+    text-align: right;
+}
+
+.hexagrid-product-grid-3 .hexagrid-product-price {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    line-height: 1.3;
+}
+
+.hexagrid-product-grid-3 .hexagrid-product-price .amount {
+    color: inherit;
+}
+
+.hexagrid-product-grid-3 .hexagrid-product-price del {
+    color: #9e9e9e;
+    font-weight: 400;
+    margin-right: 6px;
+}
+
+.hexagrid-product-grid-3 .hexagrid-product-price del .amount {
+    color: #9e9e9e;
+    font-size: 14px;
+}
+
+.hexagrid-product-grid-3 .hexagrid-product-price ins {
+    text-decoration: none;
+}
+
+/* Content actions: price / cart hover toggle */
+.hexagrid-product-grid-3 .hexagrid-product-info-actions {
+    position: relative;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 36px;
+}
+
+.hexagrid-product-grid-3 .hexagrid-product-info-price,
+.hexagrid-product-grid-3 .hexagrid-product-info-cart {
+    transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
+}
+
+.hexagrid-product-grid-3 .hexagrid-product-info-price {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.hexagrid-product-grid-3 .hexagrid-product-info-cart {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) translateX(6px);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.hexagrid-product-grid-3 .hexagrid-product:hover .hexagrid-product-info-price {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+}
+
+.hexagrid-product-grid-3 .hexagrid-product:hover .hexagrid-product-info-cart {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(0);
+}
+
+.hexagrid-product-grid-3 .hexagrid-product-info-cart .hexagrid-product-cart-btn a.hexagrid-btn-icon {
+    --hexagrid-btn-bg: transparent;
+    --hexagrid-btn-color: var(--hexagrid-color-primary);
+    --hexagrid-btn-border-color: var(--hexagrid-color-primary);
+    --hexagrid-btn-hover-bg: var(--hexagrid-color-primary);
+    --hexagrid-btn-hover-color: #ffffff;
+    --hexagrid-btn-hover-border-color: var(--hexagrid-color-primary);
+
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hexagrid-product-grid-3 .hexagrid-product-image-area {
+        padding: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .hexagrid-product-grid-3 .hexagrid-product-content-area {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hexagrid-product-grid-3 .hexagrid-product-info-actions {
+        text-align: left;
     }
 }
 

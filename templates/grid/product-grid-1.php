@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <div class="hexagrid-product-footer">
                             <?php 
                                 echo wp_kses_post( \HexaGrid\Helper::get_product_price( $product ) ); 
-                                echo wp_kses_post( \HexaGrid\Helper::get_add_to_cart_button( $product, 'icon' )); 
+                                echo wp_kses( \HexaGrid\Helper::get_add_to_cart_button( $product, 'icon' ), \HexaGrid\Helper::allowed_svg_html() ); 
                             ?>
                         </div>  
                     </div>

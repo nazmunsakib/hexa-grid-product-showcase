@@ -44,6 +44,58 @@ class Helper {
     }
 
     /**
+     * Allowed HTML for SVG icons inside buttons.
+     *
+     * Merges the default post allowed tags with SVG tags so icons
+     * survive wp_kses() sanitization.
+     */
+    public static function allowed_svg_html() {
+        $svg = array(
+            'svg'    => array(
+                'xmlns'           => true,
+                'viewbox'         => true,
+                'viewBox'         => true,
+                'fill'            => true,
+                'stroke'          => true,
+                'stroke-width'    => true,
+                'stroke-linecap'  => true,
+                'stroke-linejoin' => true,
+                'width'           => true,
+                'height'          => true,
+                'role'            => true,
+                'aria-hidden'     => true,
+                'class'           => true,
+            ),
+            'path'   => array(
+                'd'               => true,
+                'fill'            => true,
+                'stroke'          => true,
+                'stroke-width'    => true,
+                'stroke-linecap'  => true,
+                'stroke-linejoin' => true,
+                'class'           => true,
+            ),
+            'circle' => array(
+                'cx' => true,
+                'cy' => true,
+                'r'  => true,
+            ),
+            'rect'   => array(
+                'x'      => true,
+                'y'      => true,
+                'width'  => true,
+                'height' => true,
+                'rx'     => true,
+            ),
+            'g'      => array(
+                'class' => true,
+            ),
+        );
+
+        return array_merge( wp_kses_allowed_html( 'post' ), $svg );
+    }
+
+    /**
      * Product Image with link
      */
     public static function get_product_image( $product, $size = 'woocommerce_thumbnail', $attr = array() ) {
@@ -194,8 +246,17 @@ class Helper {
 
         $text = $product->add_to_cart_text();
 
-        // Icon span (CSS will control which icon shows via mask/background)
-        $icon = '<span class="hexagrid-btn-inner" aria-hidden="true"></span>';
+        // Choose the right icon for the product type.
+        $icon_name = 'cart';
+        if ( in_array( $product->get_type(), [ 'variable', 'grouped', 'external' ], true ) ) {
+            $icon_name = 'arrow-right';
+        }
+
+        // Icon wrapper with primary icon + success checkmark icon.
+        $icon = '<span class="hexagrid-btn-inner" aria-hidden="true">' .
+            '<span class="hexagrid-btn-icon hexagrid-btn-icon-default">' . self::get_svg_icon( $icon_name ) . '</span>' .
+            '<span class="hexagrid-btn-icon hexagrid-btn-icon-success">' . self::get_svg_icon( 'check' ) . '</span>' .
+        '</span>';
 
         // Decide button content
         switch ( $style ) {
@@ -373,5 +434,70 @@ class Helper {
             return '<span class="hexagrid-btn-icon" aria-hidden="true">' . file_get_contents( $path ) . '</span>';
         }
         return '';
+    }
+
+    /**
+     * Get Wishlist Button HTML
+     *
+     * @param \WC_Product $product Product object.
+     * @param array       $args   Optional arguments:
+     *                            - button_class (string) Wrapper class. Default 'hexagrid-wishlist-btn'.
+     *                            - active_class (string) Class added when product is in wishlist. Default 'is-active'.
+     *                            - loading_class (string) Class added during AJAX. Default 'is-loading'.
+     * @return string HTML button.
+     */
+    public static function get_wishlist_button( $product, $args = array() ) {
+        if ( ! $product instanceof \WC_Product ) {
+            return '';
+        }
+
+        $defaults = array(
+            'button_class'  => 'hexagrid-wishlist-btn',
+            'active_class'  => 'is-active',
+            'loading_class' => 'is-loading',
+        );
+        $args = wp_parse_args( $args, $defaults );
+
+        $product_id = $product->get_id();
+
+        $wishlist_handler = new \HexaGrid\Wishlist\Wishlist_Handler();
+        $is_active        = $wishlist_handler->is_in_wishlist( $product_id );
+
+        $classes = array_filter( array(
+            $args['button_class'],
+            $is_active ? $args['active_class'] : '',
+        ) );
+
+        $aria_label = $is_active
+            ? __( 'Remove from wishlist', 'hexa-grid-product-showcase' )
+            : __( 'Add to wishlist', 'hexa-grid-product-showcase' );
+
+        $html  = '<button type="button" class="' . esc_attr( implode( ' ', $classes ) ) . '" ';
+        $html .= 'data-product-id="' . esc_attr( $product_id ) . '" ';
+        $html .= 'aria-label="' . esc_attr( $aria_label ) . '">';
+        $html .= self::get_wishlist_icon();
+        $html .= '</button>';
+
+        return $html;
+    }
+
+    /**
+     * Get Wishlist Heart Icon SVG
+     *
+     * @return string SVG markup.
+     */
+    public static function get_wishlist_icon() {
+        return self::get_svg_icon( 'heart' );
+    }
+
+    /**
+     * Check if a product is in the current wishlist.
+     *
+     * @param int $product_id Product ID.
+     * @return bool
+     */
+    public static function is_product_in_wishlist( $product_id ) {
+        $wishlist_handler = new \HexaGrid\Wishlist\Wishlist_Handler();
+        return $wishlist_handler->is_in_wishlist( $product_id );
     }
 }

@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                             echo wp_kses_post( \HexaGrid\Helper::get_product_rating( $product ) ); 
                             echo wp_kses_post( \HexaGrid\Helper::get_product_price( $product ) ); 
                             echo wp_kses_post( \HexaGrid\Helper::get_product_excerpt( $product, 20, 'words' ) ); 
-                            echo wp_kses_post( \HexaGrid\Helper::get_add_to_cart_button( $product, 'text' ) ); 
+                            echo wp_kses( \HexaGrid\Helper::get_add_to_cart_button( $product, 'text' ), \HexaGrid\Helper::allowed_svg_html() ); 
                         ?>
 
                     </div>

@@ -82,5 +82,19 @@ class Asset_Manager {
 		wp_enqueue_style( 'swiper-css' );
 		wp_enqueue_script( 'swiper-js' );
 		wp_enqueue_script( 'hexa-grid-product-showcase-script' );
+
+		// Localize data required by the wishlist feature.
+		$wishlist_handler = new \HexaGrid\Wishlist\Wishlist_Handler();
+		wp_localize_script( 'hexa-grid-product-showcase-script', 'hexagridWishlist', [
+			'ajaxurl'   => admin_url( 'admin-ajax.php' ),
+			'nonce'     => wp_create_nonce( \HexaGrid\Wishlist\Wishlist_Handler::NONCE_ACTION ),
+			'wishlist'  => $wishlist_handler->get_wishlist(),
+			'count'     => $wishlist_handler->get_count(),
+			'i18n'      => [
+				'added'   => __( 'Added to wishlist', 'hexa-grid-product-showcase' ),
+				'removed' => __( 'Removed from wishlist', 'hexa-grid-product-showcase' ),
+				'error'   => __( 'Something went wrong. Please try again.', 'hexa-grid-product-showcase' ),
+			],
+		] );
 	}
 }

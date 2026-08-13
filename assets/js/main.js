@@ -94,6 +94,11 @@
                     $button.removeClass('ajax_add_to_cart');
                 }
             }
+
+            // Revert the icon back to cart after a short delay.
+            setTimeout(() => {
+                $button.removeClass('added');
+            }, 2500);
         }
     });
 
@@ -129,6 +134,76 @@
         if ($cartBtn.length) {
             $cartBtn.attr('data-quantity', val);
         }
+    });
+
+    /**
+     * Wishlist toggle via AJAX.
+     *
+     * Uses server-side storage (user meta for logged-in users,
+     * WooCommerce session for guests).
+     */
+    const wishlistConfig = typeof hexagridWishlist !== 'undefined' ? hexagridWishlist : {
+        ajaxurl: '',
+        nonce: '',
+        i18n: { added: 'Added to wishlist', removed: 'Removed from wishlist', error: 'Something went wrong.' }
+    };
+
+    const updateWishlistButton = (btn, inWishlist) => {
+        btn.classList.toggle('is-active', inWishlist);
+        btn.setAttribute(
+            'aria-label',
+            inWishlist ? wishlistConfig.i18n.removed : wishlistConfig.i18n.added
+        );
+    };
+
+    document.body.addEventListener('click', (e) => {
+        const btn = e.target.closest('.hexagrid-wishlist-btn');
+        if (!btn) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (btn.classList.contains('is-loading') || !wishlistConfig.ajaxurl) return;
+
+        const productId = parseInt(btn.dataset.productId, 10);
+        if (!productId) return;
+
+        btn.classList.add('is-loading');
+
+        jQuery.ajax({
+            url: wishlistConfig.ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'hexagrid_toggle_wishlist',
+                product_id: productId,
+                nonce: wishlistConfig.nonce,
+            },
+            success: (response) => {
+                btn.classList.remove('is-loading');
+
+                if (response.success) {
+                    updateWishlistButton(btn, response.data.in_wishlist);
+
+                    document.body.dispatchEvent(new CustomEvent('hexagrid_wishlist_updated', {
+                        detail: {
+                            productId: response.data.product_id,
+                            inWishlist: response.data.in_wishlist,
+                            count: response.data.count,
+                            message: response.data.message,
+                        }
+                    }));
+                } else {
+                    updateWishlistButton(btn, !btn.classList.contains('is-active'));
+                    // eslint-disable-next-line no-console
+                    console.warn(response.data.message || wishlistConfig.i18n.error);
+                }
+            },
+            error: () => {
+                btn.classList.remove('is-loading');
+                // eslint-disable-next-line no-console
+                console.warn(wishlistConfig.i18n.error);
+            }
+        });
     });
 
 })();

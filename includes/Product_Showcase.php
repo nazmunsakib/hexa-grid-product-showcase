@@ -67,6 +67,10 @@ class Product_Showcase {
         $shortcode_handler = new \HexaGrid\Shortcode\Shortcode_Handler();
         $shortcode_handler->init();
 
+        // Wishlist must be available on frontend and backend.
+        $wishlist_handler = new \HexaGrid\Wishlist\Wishlist_Handler();
+        $wishlist_handler->init();
+
         // CPT must be registered globally
         $post_type = new \HexaGrid\Admin\Post_Type();
         $post_type->init();
