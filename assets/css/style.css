@@ -354,6 +354,24 @@
     transform: scale(1.05);
 }
 
+/* Grid 2 image area matches Grid 1 */
+.hexagrid-product-grid-2 .hexagrid-product-image-area {
+    position: relative;
+    overflow: hidden;
+    background: #f9f9f9;
+}
+
+.hexagrid-product-grid-2 .hexagrid-product-image-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.hexagrid-product-grid-2 .hexagrid-product:hover .hexagrid-product-image-area img {
+    transform: scale(1.05);
+}
+
 /* Content */
 .hexagrid-product-grid-1 .hexagrid-product-content-area {
     padding: 0 15px 15px 15px;

@@ -18,14 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
         ?>
         <article <?php post_class( 'hexagrid-product' ); ?>>
             <div class="hexagrid-product-wrapper">
-                <?php if ( $product->is_on_sale() ) : ?>
-                    <span class="hexagrid-badge hexagrid-sale-badge"><?php esc_html_e( 'Sale!', 'hexa-grid-product-showcase' ); ?></span>
-                <?php endif; ?>
-
-                <div class="hexagrid-product-image">
-                    <a href="<?php the_permalink(); ?>">
-                        <?php echo wp_kses_post( $product->get_image( 'woocommerce_thumbnail' ) ); ?>
-                    </a>
+                <div class="hexagrid-product-image-area">
+                    <?php echo \HexaGrid\Helper::get_product_image( $product, 'woocommerce_thumbnail', array( 'loading' => 'lazy' ) ); ?>
+                    <?php echo wp_kses_post( \HexaGrid\Helper::get_product_badge( $product ) ); ?>
                 </div>
 
                 <div class="hexagrid-product-content-area">
