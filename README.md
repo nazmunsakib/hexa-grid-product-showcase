@@ -145,6 +145,10 @@ You can use the shortcode directly with attributes:
 
 For support, feature requests, or bug reports, please visit [nazmunsakib.com](https://nazmunsakib.com)
 
+## Development Guide
+
+For a complete guide to the plugin architecture, coding standards, folder structure, security patterns, and instructions for extending layouts or shortcode attributes, see [`PROJECT_GUIDE.md`](PROJECT_GUIDE.md).
+
 ## License
 
 This plugin is licensed under GPLv2 or later. See [LICENSE](https://www.gnu.org/licenses/gpl-2.0.html) for more details.
