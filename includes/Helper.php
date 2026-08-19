@@ -134,6 +134,10 @@ class Helper {
             }
         }
 
+        if ( '' === trim( $title ) ) {
+            return '';
+        }
+
         $title = '<h3 class="hexagrid-product-title">' .
             '<a href="' . esc_url( get_permalink( $product->get_id() ) ) . '">' . wp_kses_post( $title ) . '</a>' .
             '</h3>';
@@ -149,7 +153,13 @@ class Helper {
             return '';
         }
 
-        $price = '<div class="hexagrid-product-price">' . wp_kses_post( $product->get_price_html() ) . '</div>';
+        $price_html = $product->get_price_html();
+
+        if ( '' === trim( $price_html ) ) {
+            return '';
+        }
+
+        $price = '<div class="hexagrid-product-price">' . wp_kses_post( $price_html ) . '</div>';
 
         return $price;
     }
@@ -170,6 +180,10 @@ class Helper {
             } else {
                 $excerpt = wp_trim_words( $excerpt, $length, '...' );
             }
+        }
+
+        if ( '' === trim( $excerpt ) ) {
+            return '';
         }
 
         $excerpt = '<div class="hexagrid-product-short-desc">' .
@@ -204,7 +218,9 @@ class Helper {
         $average = (float) $product->get_average_rating();
         $review_count = (int) $product->get_review_count();
 
-        if ( $average <= 0 && ! $args['show_count'] ) {
+        $has_content = $average > 0 || ( $args['show_count'] && $review_count > 0 );
+
+        if ( ! $has_content ) {
             return ''; // Nothing to show
         }
 
@@ -347,9 +363,11 @@ class Helper {
         } else {
             $categories = get_the_term_list( $product->get_id(), 'product_cat', '', ', ' );
         }
-            if ( $categories ) {
+        if ( $categories ) {
             return '<div class="hexagrid-product-category">' . wp_kses_post( $categories ) . '</div>';
         }
+
+        return '';
     }
 
     /**

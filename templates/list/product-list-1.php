@@ -21,34 +21,65 @@ if ( ! defined( 'ABSPATH' ) ) {
                 if ( ! $product ) {
                     continue; 
                 }
+
+                $product_image   = \HexaGrid\Helper::get_product_image( $product, 'woocommerce_thumbnail', array( 'loading' => 'lazy' ) );
+                $product_badge   = \HexaGrid\Helper::get_product_badge( $product );
+                $product_cats    = \HexaGrid\Helper::get_product_categories( $product );
+                $product_title   = \HexaGrid\Helper::get_product_title( $product, 0 );
+                $product_rating  = \HexaGrid\Helper::get_product_rating( $product );
+                $product_price   = \HexaGrid\Helper::get_product_price( $product );
+                $product_excerpt = \HexaGrid\Helper::get_product_excerpt( $product, 20, 'words' );
+                $product_button  = \HexaGrid\Helper::get_add_to_cart_button( $product, 'text' );
             ?>
 
             <article <?php post_class( 'hexagrid-product' ); ?> role="listitem">
                 <div class="hexagrid-product-wrapper">
 
-                    <div class="hexagrid-product-image-area">
-                        <?php 
-                            echo \HexaGrid\Helper::get_product_image( $product, 'woocommerce_thumbnail', array( 'loading' => 'lazy' ) ); 
-                            echo wp_kses_post( \HexaGrid\Helper::get_product_badge( $product ) ); 
-                        ?>
-                    </div>
-
-                    <div class="hexagrid-product-content-area">
-                        <div class="hexagrid-product-content-header">
+                    <?php if ( $product_image || $product_badge ) : ?>
+                        <div class="hexagrid-product-image-area">
                             <?php 
-                                echo wp_kses_post( \HexaGrid\Helper::get_product_categories( $product ) ); 
-                                echo wp_kses_post( \HexaGrid\Helper::get_product_title( $product, 0 ) ); 
+                                if ( $product_image ) {
+                                    echo wp_kses_post( $product_image );
+                                }
+                                if ( $product_badge ) {
+                                    echo wp_kses_post( $product_badge );
+                                }
                             ?>
                         </div>
+                    <?php endif; ?>
 
-                        <?php 
-                            echo wp_kses_post( \HexaGrid\Helper::get_product_rating( $product ) ); 
-                            echo wp_kses_post( \HexaGrid\Helper::get_product_price( $product ) ); 
-                            echo wp_kses_post( \HexaGrid\Helper::get_product_excerpt( $product, 20, 'words' ) ); 
-                            echo wp_kses( \HexaGrid\Helper::get_add_to_cart_button( $product, 'text' ), \HexaGrid\Helper::allowed_svg_html() ); 
-                        ?>
+                    <?php if ( $product_cats || $product_title || $product_rating || $product_price || $product_excerpt || $product_button ) : ?>
+                        <div class="hexagrid-product-content-area">
+                            <?php if ( $product_cats || $product_title ) : ?>
+                                <div class="hexagrid-product-content-header">
+                                    <?php 
+                                        if ( $product_cats ) {
+                                            echo wp_kses_post( $product_cats );
+                                        }
+                                        if ( $product_title ) {
+                                            echo wp_kses_post( $product_title );
+                                        }
+                                    ?>
+                                </div>
+                            <?php endif; ?>
 
-                    </div>
+                            <?php 
+                                if ( $product_rating ) {
+                                    echo wp_kses_post( $product_rating );
+                                }
+                                if ( $product_price ) {
+                                    echo wp_kses_post( $product_price );
+                                }
+                                if ( $product_excerpt ) {
+                                    echo wp_kses_post( $product_excerpt );
+                                }
+                                if ( $product_button ) {
+                                    echo wp_kses( $product_button, \HexaGrid\Helper::allowed_svg_html() );
+                                }
+                            ?>
+
+                        </div>
+                    <?php endif; ?>
 
                 </div>
             </article>

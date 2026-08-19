@@ -864,15 +864,15 @@
 
 /* Price (Now in Content) */
 .hexagrid-product-list-1 .hexagrid-product-content-area .hexagrid-product-price .amount {
-    font-size: 20px;
-    line-height: 27px;
+    font-size: 17px;
+    line-height: 25px;
     font-weight: 600;
     color: var(--hexagrid-color-primary) !important;
 }
 
 .hexagrid-product-list-1 .hexagrid-product-content-area .hexagrid-product-price del .amount {
     color: #b2bec3;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 400;
     margin-right: 5px;
 }
@@ -883,6 +883,14 @@
     top: 10px;
     left: 10px;
     z-index: 99;
+}
+
+.hexagrid-layout-container .hexagrid-product .hexagrid-product-category {
+    text-transform: capitalize;
+}
+
+.hexagrid-layout-container .hexagrid-product .hexagrid-product-category a {
+    text-transform: capitalize;
 }
 
 /* Rating Refinements */
