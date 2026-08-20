@@ -186,6 +186,7 @@ class Meta_Box {
                             ],
                             'product-table' => [
                                 'product-table-1' => [ 'label' => __( 'Product Table Simple', 'hexa-grid-product-showcase' ), 'skeleton' => 'table.svg' ],
+                                'product-table-2' => [ 'label' => __( 'Product Table Modern', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-table-2.svg' ],
                             ],
                         ];
                         

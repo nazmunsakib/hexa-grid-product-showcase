@@ -1079,14 +1079,14 @@
     margin-bottom: 30px;
 }
 
+.hexagrid-product-table-1 .hexagrid-table-responsive {
+    overflow: hidden;
+}
+
 .hexagrid-product-table-1 .hexagrid-product-table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
+    border-collapse: collapse;
     background: #fff;
-    border: 1px solid #f0f2f5;
-    border-radius: 12px;
-    overflow: hidden;
 }
 
 .hexagrid-product-table-1 .hexagrid-product-table th {
@@ -1106,12 +1106,12 @@
     transition: background 0.2s ease;
 }
 
-.hexagrid-product-table-1 .hexagrid-product-row:hover td {
-    background: #f9fbff;
-}
-
 .hexagrid-product-table-1 .hexagrid-product-row:last-child td {
     border-bottom: none;
+}
+
+.hexagrid-product-table-1 .hexagrid-product-row:hover td {
+    background: #f9fbff;
 }
 
 /* Product Info */
@@ -1386,5 +1386,335 @@
         content: attr(data-label);
         font-weight: 700;
         color: #4a5568;
+    }
+}
+
+
+/* =========================================
+   Product Showcase - Table Layout Style 2
+   ========================================= */
+
+.hexagrid-product-table-2 .hexagrid-table-responsive {
+    overflow: hidden;
+    border: 1px solid #eef0f3;
+    border-radius: 16px;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: none;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-table th,
+.hexagrid-product-table-2 .hexagrid-product-table td {
+    border: none;
+    border-bottom: 1px solid #eef0f3;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-table th {
+    background: var(--hexagrid-color-primary);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 20px;
+    border-bottom: none;
+    text-align: left;
+    transition: background 0.2s ease;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-table th:hover {
+    background: var(--hexagrid-color-primary-hover);
+}
+
+.hexagrid-product-table-2 .hexagrid-product-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #eef0f3;
+    vertical-align: middle;
+    transition: background 0.2s ease;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-row:hover td {
+    background: #f7f8fa;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-row:last-child td {
+    border-bottom: none;
+}
+
+/* Product info */
+.hexagrid-product-table-2 .hexagrid-product-info-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 220px;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-image {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    flex: 0 0 50px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #f9fafb;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hexagrid-product-table-2 .hexagrid-image-badge {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 3px 0;
+    font-size: 9px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: #fff;
+}
+
+.hexagrid-product-table-2 .hexagrid-image-badge-sale {
+    background: var(--hexagrid-color-primary);
+}
+
+.hexagrid-product-table-2 .hexagrid-image-badge-featured {
+    background: #2563eb;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-sku {
+    font-size: 12px;
+    color: #9ca3af;
+    font-weight: 500;
+}
+
+/* Category pills */
+.hexagrid-product-table-2 .hexagrid-category-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 6px;
+    margin-bottom: 4px;
+}
+
+.hexagrid-product-table-2 .hexagrid-category-pill-blue    { background: #e0f2fe; color: #0369a1; }
+.hexagrid-product-table-2 .hexagrid-category-pill-yellow  { background: #fef3c7; color: #b45309; }
+.hexagrid-product-table-2 .hexagrid-category-pill-green   { background: #d1fae5; color: #047857; }
+.hexagrid-product-table-2 .hexagrid-category-pill-purple  { background: #ede9fe; color: #6d28d9; }
+.hexagrid-product-table-2 .hexagrid-category-pill-pink    { background: #fce7f3; color: #be185d; }
+.hexagrid-product-table-2 .hexagrid-category-pill-orange  { background: #ffedd5; color: #c2410c; }
+.hexagrid-product-table-2 .hexagrid-category-pill-cyan    { background: #cffafe; color: #0e7490; }
+.hexagrid-product-table-2 .hexagrid-category-pill-red     { background: #fee2e2; color: #b91c1c; }
+
+/* Price wrap */
+.hexagrid-product-table-2 .hexagrid-price-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-price {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-price .amount {
+    color: #111827;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-price del {
+    color: #9ca3af;
+    font-weight: 500;
+    text-decoration: line-through;
+    margin-right: 6px;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-price ins {
+    text-decoration: none;
+}
+
+.hexagrid-product-table-2 .hexagrid-discount-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #dc2626;
+    background: #fee2e2;
+}
+
+/* Stock pills */
+.hexagrid-product-table-2 .hexagrid-stock-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.hexagrid-product-table-2 .hexagrid-stock-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.hexagrid-product-table-2 .hexagrid-stock-instock {
+    background: #ecfdf5;
+    color: #047857;
+}
+
+.hexagrid-product-table-2 .hexagrid-stock-instock .hexagrid-stock-dot {
+    background: #10b981;
+}
+
+.hexagrid-product-table-2 .hexagrid-stock-outofstock {
+    background: #fff1f2;
+    color: #be123c;
+}
+
+.hexagrid-product-table-2 .hexagrid-stock-outofstock .hexagrid-stock-dot {
+    background: #f43f5e;
+}
+
+.hexagrid-product-table-2 .hexagrid-stock-lowstock,
+.hexagrid-product-table-2 .hexagrid-stock-onbackorder {
+    background: #fffbeb;
+    color: #b45309;
+}
+
+.hexagrid-product-table-2 .hexagrid-stock-lowstock .hexagrid-stock-dot,
+.hexagrid-product-table-2 .hexagrid-stock-onbackorder .hexagrid-stock-dot {
+    background: #f59e0b;
+}
+
+/* Actions */
+.hexagrid-product-table-2 .hexagrid-action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hexagrid-product-table-2 .hexagrid-quantity-stepper {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 2px;
+}
+
+.hexagrid-product-table-2 .hexagrid-qty-btn {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 16px;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.hexagrid-product-table-2 .hexagrid-qty-input {
+    width: 32px;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-weight: 600;
+    color: #111827;
+    font-size: 14px;
+    padding: 0;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-cart-btn a.hexagrid-btn-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--hexagrid-btn-bg) !important;
+    border: 1px solid var(--hexagrid-btn-border-color) !important;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-cart-btn a.hexagrid-btn-icon:hover {
+    background: var(--hexagrid-btn-hover-bg) !important;
+    border-color: var(--hexagrid-btn-hover-border-color) !important;
+}
+
+/* Responsive */
+@media screen and (max-width: 992px) {
+    .hexagrid-product-table-2 .hexagrid-th-category,
+    .hexagrid-product-table-2 .hexagrid-td-category {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hexagrid-product-table-2 .hexagrid-product-table thead {
+        display: none;
+    }
+
+    .hexagrid-product-table-2 .hexagrid-product-table tr {
+        display: block;
+        padding: 15px;
+        border-bottom: 1px solid #f4f6f8;
+    }
+
+    .hexagrid-product-table-2 .hexagrid-product-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border: none;
+    }
+
+    .hexagrid-product-table-2 .hexagrid-product-table td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: #4b5563;
+        font-size: 12px;
+        text-transform: uppercase;
+    }
+
+    .hexagrid-product-table-2 .hexagrid-product-info-wrapper {
+        min-width: auto;
     }
 }
