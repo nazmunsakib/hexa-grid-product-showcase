@@ -95,7 +95,7 @@ class Preset_Config {
 				'meta_key'       => '_hexagrid_slider_dots',
 				'post_key'       => 'hexagrid_slider_dots',
 				'shortcode_attr' => 'slider_dots',
-				'default'        => 'no',
+				'default'        => 'yes',
 				'sanitize'       => [ __CLASS__, 'sanitize_yes_no' ],
 				'type'           => 'checkbox',
 			],
@@ -106,6 +106,14 @@ class Preset_Config {
 				'default'        => 'no',
 				'sanitize'       => [ __CLASS__, 'sanitize_yes_no' ],
 				'type'           => 'checkbox',
+			],
+			'slider_nav_position' => [
+				'meta_key'       => '_hexagrid_slider_nav_position',
+				'post_key'       => 'hexagrid_slider_nav_position',
+				'shortcode_attr' => 'slider_nav_position',
+				'default'        => 'middle',
+				'sanitize'       => 'sanitize_text_field',
+				'type'           => 'text',
 			],
 		];
 	}

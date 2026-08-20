@@ -71,9 +71,12 @@ if ( ! defined( 'ABSPATH' ) ) {
                         </div>
 
                         <div class="hexagrid-product-info-actions">
-                            <div class="hexagrid-product-info-price">
-                                <?php echo wp_kses_post( \HexaGrid\Helper::get_product_price( $product ) ); ?>
-                            </div>
+                            <?php $product_price = \HexaGrid\Helper::get_product_price( $product ); ?>
+                            <?php if ( $product_price ) : ?>
+                                <div class="hexagrid-product-info-price">
+                                    <?php echo wp_kses_post( $product_price ); ?>
+                                </div>
+                            <?php endif; ?>
                             <div class="hexagrid-product-info-cart">
                                 <?php echo wp_kses( \HexaGrid\Helper::get_add_to_cart_button( $product, 'icon' ), \HexaGrid\Helper::allowed_svg_html() ); ?>
                             </div>

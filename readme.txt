@@ -4,7 +4,7 @@ Tags: woocommerce, product grid, product showcase, product slider, product list
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://nazmunsakib.com/donate
@@ -232,6 +232,23 @@ Yes. Hexa Grid follows WordPress internationalization practices and is translati
 5. Hexa Grid Settings Panel
 
 == Changelog ==
+
+= 1.1.3 =
+
+* New: Added Product Carousel Classic (slider style 2) matching the Grid Classic design.
+* New: Added Product Carousel Cosmetic (slider style 3) matching the Grid Cosmetic design.
+* New: Added wishlist (heart) button support to Grid 3 and Slider 3 layouts.
+* New: Added slider navigation position setting (middle, top right, bottom left, bottom right).
+* New: Added card-accurate skeleton previews for all slider styles in the admin.
+* Improved: Carousel slides now render at equal heights with a fixed image aspect ratio.
+* Improved: Price container is no longer rendered when a product has no price (Grid 2/3, Slider 2/3).
+* Improved: Modernized slider pagination dots (pill-style active dot) and arrow navigation styling.
+* Improved: Slider dots are enabled by default for a better out-of-the-box experience.
+* Improved: Content spacing now uses margins instead of flex-grow for more predictable layouts.
+* Improved: Wishlist button background now uses a semi-transparent white for better visibility.
+* Fixed: Slider navigation icons now render at the correct size on all slider styles.
+* Fixed: Unequal grid column widths at medium breakpoints.
+* Fixed: Price and cart icon layout on mobile for Grid Layout 3.
 
 = 1.1.2 =
 

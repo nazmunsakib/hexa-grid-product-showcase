@@ -137,8 +137,8 @@
     font-weight: 500 !important;
     font-family: inherit;
     font-style: unset;
-    padding: 5px 12px;
-    min-height: 32px;
+    padding: 5px 10px;
+    min-height: 28px;
     font-size: 13px;
 }
 
@@ -558,18 +558,17 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.85);
+    background: rgb(255 255 255 / 0.5);
     border: none;
     border-radius: 50%;
     cursor: pointer;
     color: #555555;
-    backdrop-filter: blur(4px);
     transition: all 0.25s ease;
     padding: 0;
 }
 
 .hexagrid-product-grid-3 .hexagrid-wishlist-btn:hover {
-    background: #ffffff;
+    background: rgb(255 255 255 / 0.35);
     color: #d32f2f;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
@@ -885,11 +884,12 @@
     z-index: 99;
 }
 
-.hexagrid-layout-container .hexagrid-product .hexagrid-product-category {
+.hexagrid-product-list-1 .hexagrid-product .hexagrid-product-category {
     text-transform: capitalize;
+    margin-bottom: 5px;
 }
 
-.hexagrid-layout-container .hexagrid-product .hexagrid-product-category a {
+.hexagrid-product-list-1 .hexagrid-product .hexagrid-product-category a {
     text-transform: capitalize;
 }
 
@@ -937,16 +937,140 @@
    ========================================= */
 
 .hexagrid-layout-slider {
-    padding-bottom: 40px;
+    padding-bottom: 60px !important;
 }
 
 .hexagrid-layout-container .swiper-button-next,
 .hexagrid-layout-container .swiper-button-prev {
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: 1.5px solid var(--hexagrid-color-primary);
+    border-radius: 4px;
     color: var(--hexagrid-color-primary) !important;
+    transition: all 0.2s ease;
 }
 
-.hexagrid-layout-container .swiper-pagination-bullet-active {
+.hexagrid-layout-container .swiper-button-next svg,
+.hexagrid-layout-container .swiper-button-prev svg {
+    width: 16px;
+    height: 16px;
+}
+
+.hexagrid-layout-container .swiper-button-next:hover,
+.hexagrid-layout-container .swiper-button-prev:hover {
+    background: var(--hexagrid-color-primary);
+    border-color: var(--hexagrid-color-primary);
+    color: #ffffff !important;
+}
+
+/* Slider nav positioning (default: middle/vertical center sides) */
+.hexagrid-slider-container.hexagrid-nav-middle .swiper-button-next,
+.hexagrid-slider-container.hexagrid-nav-middle .swiper-button-prev {
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+}
+
+.hexagrid-slider-container.hexagrid-nav-top-right .swiper-button-next,
+.hexagrid-slider-container.hexagrid-nav-top-right .swiper-button-prev {
+    top: 25px;
+    bottom: auto;
+    transform: none;
+}
+
+.hexagrid-slider-container.hexagrid-nav-top-right .swiper-button-next {
+    right: 10px;
+    left: auto;
+}
+
+.hexagrid-slider-container.hexagrid-nav-top-right .swiper-button-prev {
+    right: 48px;
+    left: auto;
+}
+
+.hexagrid-slider-container.hexagrid-nav-top-right .hexagrid-layout-slider {
+    padding-top: 50px;
+}
+
+.hexagrid-slider-container.hexagrid-nav-bottom-left .swiper-button-next,
+.hexagrid-slider-container.hexagrid-nav-bottom-left .swiper-button-prev {
+    bottom: 10px;
+    top: auto;
+    transform: none;
+}
+
+.hexagrid-slider-container.hexagrid-nav-bottom-left .swiper-button-prev {
+    left: 10px;
+    right: auto;
+}
+
+.hexagrid-slider-container.hexagrid-nav-bottom-left .swiper-button-next {
+    left: 48px;
+    right: auto;
+}
+
+.hexagrid-slider-container.hexagrid-nav-bottom-right .swiper-button-next,
+.hexagrid-slider-container.hexagrid-nav-bottom-right .swiper-button-prev {
+    bottom: 10px;
+    top: auto;
+    transform: none;
+}
+
+.hexagrid-slider-container.hexagrid-nav-bottom-right .swiper-button-next {
+    right: 10px;
+    left: auto;
+}
+
+.hexagrid-slider-container.hexagrid-nav-bottom-right .swiper-button-prev {
+    right: 48px;
+    left: auto;
+}
+
+.hexagrid-layout-container .swiper-pagination {
+    bottom: 20px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.hexagrid-layout-container .swiper-pagination .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    margin: 0 !important;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    transition: width 0.3s ease, background-color 0.3s ease, border-radius 0.3s ease;
+}
+
+.hexagrid-layout-container .swiper-pagination .swiper-pagination-bullet-active {
+    width: 24px;
+    height: 8px;
+    border-radius: 4px;
     background: var(--hexagrid-color-primary) !important;
+}
+
+/* Equal height slides: stretch the card to fill the tallest slide */
+.hexagrid-slider-container .swiper-slide {
+    height: auto;
+    display: flex;
+}
+
+.hexagrid-slider-container .swiper-slide .hexagrid-product-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+/* Consistent image area height so cards stay equal without flex */
+.hexagrid-slider-container .swiper-slide .hexagrid-product-image-area {
+    aspect-ratio: 1 / 1;
+}
+
+/* Space content with margins, not flex */
+.hexagrid-slider-container .swiper-slide .hexagrid-product-content-area {
+    margin-top: 14px;
 }
 
 /* Table Layout Style 1 - Premium */

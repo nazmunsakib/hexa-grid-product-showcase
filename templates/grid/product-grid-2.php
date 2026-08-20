@@ -32,9 +32,12 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
                         <?php echo wp_kses_post( \wc_get_product_category_list( $product->get_id(), ', ' ) ); ?>
                     </div>
 
-                    <div class="hexagrid-product-price">
-                        <?php echo wp_kses_post( $product->get_price_html() ); ?>
-                    </div>
+                    <?php $product_price = $product->get_price_html(); ?>
+                    <?php if ( $product_price ) : ?>
+                        <div class="hexagrid-product-price">
+                            <?php echo wp_kses_post( $product_price ); ?>
+                        </div>
+                    <?php endif; ?>
                     
                     <div class="hexagrid-add-btn">
                          <?php \woocommerce_template_loop_add_to_cart(); ?>

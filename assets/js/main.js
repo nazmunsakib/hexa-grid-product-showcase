@@ -71,12 +71,12 @@
 
     // Initial page load
     document.addEventListener('DOMContentLoaded', () => {
-        initHexaGridSlider('.hexagrid-product-slider-1');
+        initHexaGridSlider('.hexagrid-slider-container .swiper');
     });
 
     // WooCommerce AJAX / fragments refresh
     document.body.addEventListener('wc_fragments_refreshed', () => {
-        initHexaGridSlider('.hexagrid-product-slider-1');
+        initHexaGridSlider('.hexagrid-slider-container .swiper');
     });
 
     // Expose globally (for custom AJAX / reuse)

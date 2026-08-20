@@ -121,6 +121,7 @@ class Meta_Box {
         $slider_nav      = $this->get_preset_value( $post->ID, 'slider_nav' );
         $slider_dots     = $this->get_preset_value( $post->ID, 'slider_dots' );
         $slider_autoplay = $this->get_preset_value( $post->ID, 'slider_autoplay' );
+        $slider_nav_position = $this->get_preset_value( $post->ID, 'slider_nav_position' );
 
         $plugin_root_url = plugin_dir_url( dirname( dirname( __FILE__ ) ) );
         $assets_url      = $plugin_root_url . 'assets/admin/icons/';
@@ -179,7 +180,9 @@ class Meta_Box {
                                 'product-list-1' => [ 'label' => __( 'Product List Minimal', 'hexa-grid-product-showcase' ), 'skeleton' => 'list.svg' ]
                             ],
                             'product-slider' => [
-                                'product-slider-1' => [ 'label' => __( 'Product Carousel Standard', 'hexa-grid-product-showcase' ), 'skeleton' => 'slider.svg' ],
+                                'product-slider-1' => [ 'label' => __( 'Product Carousel Standard', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-slider-1.svg' ],
+                                'product-slider-2' => [ 'label' => __( 'Product Carousel Classic', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-slider-2.svg' ],
+                                'product-slider-3' => [ 'label' => __( 'Product Carousel Cosmetic', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-slider-3.svg' ],
                             ],
                             'product-table' => [
                                 'product-table-1' => [ 'label' => __( 'Product Table Simple', 'hexa-grid-product-showcase' ), 'skeleton' => 'table.svg' ],
@@ -241,6 +244,24 @@ class Meta_Box {
                                 </div>
                                 <div class="hexagrid-settings-col-4">
                                     <?php $builder->render_switcher_field([ 'id' => 'slider_autoplay', 'label' => __( 'Auto Play', 'hexa-grid-product-showcase' ), 'value' => $slider_autoplay ]); ?>
+                                </div>
+                            </div>
+
+                            <div class="hexagrid-settings-row" style="margin-top: 15px;" data-dependency='{"id":"hexagrid_slider_nav","value":"yes"}'>
+                                <div class="hexagrid-settings-col-6">
+                                    <?php
+                                    $builder->render_select_field([
+                                        'id'      => 'slider_nav_position',
+                                        'label'   => __( 'Navigation Position', 'hexa-grid-product-showcase' ),
+                                        'value'   => $slider_nav_position,
+                                        'options' => [
+                                            'middle'       => __( 'Middle (Sides)', 'hexa-grid-product-showcase' ),
+                                            'top-right'    => __( 'Top Right', 'hexa-grid-product-showcase' ),
+                                            'bottom-left'  => __( 'Bottom Left', 'hexa-grid-product-showcase' ),
+                                            'bottom-right' => __( 'Bottom Right', 'hexa-grid-product-showcase' ),
+                                        ],
+                                    ]);
+                                    ?>
                                 </div>
                             </div>
                         </div>

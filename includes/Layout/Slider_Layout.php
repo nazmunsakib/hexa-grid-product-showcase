@@ -32,12 +32,15 @@ class Slider_Layout implements Layout_Interface {
         $dots     = isset( $atts['slider_dots'] ) ? esc_attr( $atts['slider_dots'] ) : 'no';
         $autoplay = isset( $atts['slider_autoplay'] ) ? esc_attr( $atts['slider_autoplay'] ) : 'no';
         $columns  = isset( $atts['columns'] ) ? esc_attr( $atts['columns'] ) : 3;
+        $nav_position = isset( $atts['slider_nav_position'] ) ? sanitize_text_field( $atts['slider_nav_position'] ) : 'middle';
+        $nav_position = in_array( $nav_position, array( 'middle', 'top-right', 'bottom-left', 'bottom-right' ), true ) ? $nav_position : 'middle';
         
         ob_start();
         echo wp_kses( \HexaGrid\Assets\Dynamic_Styles::generate( $atts, $atts['wrapper_id'] ), array( 'style' => array() ) );
         $container_classes = sprintf(
-            'hexagrid-layout-container hexagrid-layout-slider hexagrid-slider-container hexagrid-product-grid-container hexagrid-%s',
-            esc_attr( $style )
+            'hexagrid-layout-container hexagrid-layout-slider hexagrid-slider-container hexagrid-product-grid-container hexagrid-%s hexagrid-nav-%s',
+            esc_attr( $style ),
+            esc_attr( $nav_position )
         );
         echo '<div id="' . esc_attr( $atts['wrapper_id'] ) . '" class="' . $container_classes . '" data-columns="' . $columns . '" data-nav="' . $nav . '" data-dots="' . $dots . '" data-autoplay="' . $autoplay . '">';
         include $template_path;

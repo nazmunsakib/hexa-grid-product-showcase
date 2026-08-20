@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140" fill="none">
+  <!-- Nav arrows (circular buttons, vertical center) -->
+  <circle cx="12" cy="42" r="7" fill="#BDBDBD"/>
+  <path d="M9.5 38.5 13 42l-3.5 3.5" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="108" cy="42" r="7" fill="#BDBDBD"/>
+  <path d="M110.5 38.5 107 42l3.5 3.5" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Card: grid-2 style (image, centered title, category, price, button) -->
+  <rect x="24" y="10" width="72" height="58" rx="6" fill="#E0E0E0"/>
+  <rect x="32" y="78" width="56" height="6" rx="3" fill="#E0E0E0"/>
+  <rect x="32" y="90" width="40" height="6" rx="3" fill="#E0E0E0"/>
+  <rect x="38" y="102" width="44" height="10" rx="5" fill="#E0E0E0"/>
+  <!-- Pagination dots (bottom center) -->
+  <circle cx="48" cy="132" r="3.5" fill="#BDBDBD"/>
+  <circle cx="60" cy="132" r="3" fill="#E0E0E0"/>
+  <circle cx="72" cy="132" r="3" fill="#E0E0E0"/>
+</svg>

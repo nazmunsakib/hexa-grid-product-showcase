@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140" fill="none">
+  <!-- Nav arrows (circular buttons, vertical center) -->
+  <circle cx="12" cy="46" r="7" fill="#BDBDBD"/>
+  <path d="M9.5 42.5 13 46l-3.5 3.5" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="108" cy="46" r="7" fill="#BDBDBD"/>
+  <path d="M110.5 42.5 107 46l3.5 3.5" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Card: grid-3 style (gray image, badge, heart, title + category left, price right) -->
+  <rect x="24" y="10" width="72" height="66" rx="8" fill="#E0E0E0"/>
+  <rect x="30" y="16" width="18" height="10" rx="5" fill="#FFFFFF"/>
+  <path d="M86 20c0-2.6-2.1-4.7-4.7-4.7S76.6 17.4 76.6 20c0 3.9 4.7 8 4.7 8s4.7-4.1 4.7-8z" fill="#FFFFFF" stroke="#BDBDBD" stroke-width="1.5"/>
+  <rect x="24" y="86" width="36" height="6" rx="3" fill="#E0E0E0"/>
+  <rect x="24" y="96" width="25" height="5" rx="2.5" fill="#E0E0E0"/>
+  <rect x="66" y="91" width="30" height="6" rx="3" fill="#E0E0E0"/>
+  <!-- Pagination dots (bottom center) -->
+  <circle cx="48" cy="120" r="3.5" fill="#BDBDBD"/>
+  <circle cx="60" cy="120" r="3" fill="#E0E0E0"/>
+  <circle cx="72" cy="120" r="3" fill="#E0E0E0"/>
+</svg>
