@@ -2254,8 +2254,48 @@
         align-items: flex-start;
     }
 
+    .hexagrid-product-table-3 .hexagrid-table-responsive {
+        overflow: hidden;
+    }
+
     .hexagrid-product-table-3 .hexagrid-product-table {
-        min-width: 720px;
+        min-width: 0;
+    }
+
+    .hexagrid-product-table-3 .hexagrid-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Mobile accordion: rows collapse to image + title + expand arrow */
+    .hexagrid-product-table-3 .hexagrid-product-info-wrapper {
+        width: 100%;
+    }
+
+    .hexagrid-product-table-3 .hexagrid-product-details {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .hexagrid-product-table-3 .hexagrid-row-toggle {
+        display: inline-flex !important;
+        margin-left: auto;
+    }
+
+    .hexagrid-product-table-3 .hexagrid-expand-row {
+        cursor: pointer;
+    }
+
+    .hexagrid-product-table-3 .hexagrid-th-price,
+    .hexagrid-product-table-3 .hexagrid-th-stock,
+    .hexagrid-product-table-3 .hexagrid-th-action,
+    .hexagrid-product-table-3 .hexagrid-td-price,
+    .hexagrid-product-table-3 .hexagrid-td-stock,
+    .hexagrid-product-table-3 .hexagrid-td-action {
+        display: none;
+    }
+
+    .hexagrid-product-table-3 .hexagrid-detail-row.is-open {
+        display: table-row !important;
     }
 }
 
@@ -2263,4 +2303,104 @@
 .hexagrid-product-table-3.hexagrid-loading .hexagrid-table-pagination a {
     pointer-events: none;
     opacity: 0.6;
+}
+/* Expandable rows (mobile accordion) */
+.hexagrid-product-table-3 .hexagrid-row-toggle {
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e5ea;
+    border-radius: 8px;
+    background: #f7f8fa;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.hexagrid-product-table-3 .hexagrid-row-toggle svg {
+    transition: transform 0.25s ease;
+}
+
+.hexagrid-product-table-3 .hexagrid-row-toggle:hover {
+    color: var(--hexagrid-color-primary);
+    border-color: var(--hexagrid-color-primary);
+    background: #fff;
+}
+
+.hexagrid-product-table-3 .hexagrid-expand-row.is-open .hexagrid-row-toggle svg {
+    transform: rotate(180deg);
+}
+
+.hexagrid-product-table-3 .hexagrid-expand-row.is-open .hexagrid-row-toggle {
+    background: var(--hexagrid-color-primary);
+    border-color: var(--hexagrid-color-primary);
+    color: #fff;
+}
+
+.hexagrid-product-table-3 .hexagrid-expand-row.is-open td {
+    background: #fafbfc;
+}
+
+/* Detail row is hidden by default and only revealed on mobile when opened */
+.hexagrid-product-table-3 .hexagrid-detail-row {
+    display: none;
+}
+
+.hexagrid-product-table-3 .hexagrid-detail-row td {
+    padding: 0;
+}
+
+.hexagrid-product-table-3 .hexagrid-detail-panel {
+    padding: 18px 20px 20px;
+    background: #fafbfc;
+    border-top: 1px solid #e6e9ed;
+}
+
+.hexagrid-product-table-3 .hexagrid-detail-desc {
+    font-size: 14px;
+    color: #4b5563;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    padding: 14px 16px;
+    background: #fff;
+    border: 1px solid #eef0f3;
+    border-radius: 10px;
+}
+
+.hexagrid-product-table-3 .hexagrid-detail-desc p {
+    margin: 0;
+}
+
+.hexagrid-product-table-3 .hexagrid-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+}
+
+.hexagrid-product-table-3 .hexagrid-detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.hexagrid-product-table-3 .hexagrid-detail-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #9ca3af;
+}
+
+.hexagrid-product-table-3 .hexagrid-detail-value {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.hexagrid-product-table-3 .hexagrid-detail-item-actions .hexagrid-detail-value {
+    justify-content: flex-start;
 }

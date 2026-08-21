@@ -2,7 +2,9 @@
 /**
  * Table Layout Template - Style 3 (Premium)
  *
- * Columns: Product, Category, Price, Stock Status, Actions.
+ * Desktop: 5-column table (Product, Category, Price, Stock Status, Actions).
+ * Mobile:  rows collapse to image + title + expand arrow; clicking expands a
+ *          detail panel with all information (accordion behaviour).
  *
  * Supports partial rendering (only tbody + footer) when `$partial` is true,
  * which is used by the AJAX pagination handler.
@@ -163,8 +165,11 @@ $end_item   = min( $total, $paged * $per_page );
                             // Quantity limits.
                             $min_qty = $product->get_min_purchase_quantity();
                             $max_qty = $product->get_max_purchase_quantity();
+
+                            $product_excerpt = \HexaGrid\Helper::get_product_excerpt( $product, 14 );
+                            $detail_id       = 'hexagrid-detail-' . $product->get_id();
                         ?>
-                        <tr class="hexagrid-product-row hexagrid-product<?php echo $in_stock ? '' : ' hexagrid-product-outofstock'; ?>" role="row">
+                        <tr class="hexagrid-product-row hexagrid-product hexagrid-expand-row<?php echo $in_stock ? '' : ' hexagrid-product-outofstock'; ?>" role="row" data-expand="<?php echo esc_attr( $detail_id ); ?>">
                             <td class="hexagrid-td-product" data-label="<?php esc_attr_e( 'Product', 'hexa-grid-product-showcase' ); ?>" role="cell">
                                 <div class="hexagrid-product-info-wrapper">
                                     <div class="hexagrid-product-image">
@@ -176,6 +181,11 @@ $end_item   = min( $total, $paged * $per_page );
                                             <span class="hexagrid-product-sku"><?php echo esc_html( sprintf( /* translators: %s: SKU value */ __( 'SKU: %s', 'hexa-grid-product-showcase' ), $product_sku ) ); ?></span>
                                         <?php endif; ?>
                                     </div>
+                                    <button type="button" class="hexagrid-row-toggle" aria-expanded="false" aria-controls="<?php echo esc_attr( $detail_id ); ?>" aria-label="<?php echo esc_attr( sprintf( /* translators: %s: product name */ __( 'Toggle details for %s', 'hexa-grid-product-showcase' ), wp_strip_all_tags( $product->get_name() ) ) ); ?>">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <path d="m6 9 6 6 6-6"></path>
+                                        </svg>
+                                    </button>
                                 </div>
                             </td>
                             <td class="hexagrid-td-category" data-label="<?php esc_attr_e( 'Category', 'hexa-grid-product-showcase' ); ?>" role="cell">
@@ -196,11 +206,6 @@ $end_item   = min( $total, $paged * $per_page );
                             </td>
                             <td class="hexagrid-td-action" data-label="<?php esc_attr_e( 'Actions', 'hexa-grid-product-showcase' ); ?>" role="cell">
                                 <div class="hexagrid-action-buttons">
-                                    <div class="hexagrid-quantity-stepper"<?php echo $in_stock && $is_purchasable ? '' : ' aria-hidden="true"'; ?>>
-                                        <button type="button" class="hexagrid-qty-btn hexagrid-qty-minus"<?php echo $in_stock && $is_purchasable ? '' : ' disabled'; ?> aria-label="<?php esc_attr_e( 'Decrease quantity', 'hexa-grid-product-showcase' ); ?>">-</button>
-                                        <input type="number" class="hexagrid-qty-input" value="<?php echo esc_attr( $min_qty ); ?>" min="<?php echo esc_attr( $min_qty ); ?>"<?php echo ( $max_qty > 0 ) ? ' max="' . esc_attr( $max_qty ) . '"' : ''; ?> step="1"<?php echo $in_stock && $is_purchasable ? '' : ' disabled'; ?> aria-label="<?php esc_attr_e( 'Quantity', 'hexa-grid-product-showcase' ); ?>">
-                                        <button type="button" class="hexagrid-qty-btn hexagrid-qty-plus"<?php echo $in_stock && $is_purchasable ? '' : ' disabled'; ?> aria-label="<?php esc_attr_e( 'Increase quantity', 'hexa-grid-product-showcase' ); ?>">+</button>
-                                    </div>
                                     <?php echo wp_kses( \HexaGrid\Helper::get_add_to_cart_button( $product, 'icon' ), \HexaGrid\Helper::allowed_svg_html() ); ?>
                                     <a class="hexagrid-more-btn" href="<?php echo esc_url( get_permalink( $product->get_id() ) ); ?>" aria-label="<?php echo esc_attr( sprintf( /* translators: %s: product name */ __( 'View more about %s', 'hexa-grid-product-showcase' ), wp_strip_all_tags( $product->get_name() ) ) ); ?>">
                                         <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
@@ -209,6 +214,64 @@ $end_item   = min( $total, $paged * $per_page );
                                             <circle cx="12" cy="19" r="1.6"></circle>
                                         </svg>
                                     </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hexagrid-detail-row hexagrid-product<?php echo $in_stock ? '' : ' hexagrid-product-outofstock'; ?>" id="<?php echo esc_attr( $detail_id ); ?>" role="row">
+                            <td colspan="5" role="cell">
+                                <div class="hexagrid-detail-panel">
+                                    <?php if ( $product_excerpt ) : ?>
+                                        <div class="hexagrid-detail-desc">
+                                            <?php echo wp_kses_post( $product_excerpt ); ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <div class="hexagrid-detail-grid">
+                                        <div class="hexagrid-detail-item">
+                                            <span class="hexagrid-detail-label"><?php esc_html_e( 'Category', 'hexa-grid-product-showcase' ); ?></span>
+                                            <div class="hexagrid-detail-value">
+                                                <?php if ( $category_pills ) : ?>
+                                                    <?php echo wp_kses_post( $category_pills ); ?>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                        <div class="hexagrid-detail-item">
+                                            <span class="hexagrid-detail-label"><?php esc_html_e( 'Price', 'hexa-grid-product-showcase' ); ?></span>
+                                            <div class="hexagrid-detail-value">
+                                                <?php if ( $price_html ) : ?>
+                                                    <?php echo wp_kses_post( $price_html ); ?>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                        <div class="hexagrid-detail-item">
+                                            <span class="hexagrid-detail-label"><?php esc_html_e( 'Stock Status', 'hexa-grid-product-showcase' ); ?></span>
+                                            <div class="hexagrid-detail-value">
+                                                <span class="hexagrid-stock-pill hexagrid-stock-<?php echo esc_attr( $stock_status ); ?>">
+                                                    <span class="hexagrid-stock-dot" aria-hidden="true"></span>
+                                                    <span class="hexagrid-stock-text"><?php echo esc_html( $stock_label ); ?></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="hexagrid-detail-item hexagrid-detail-item-actions">
+                                            <span class="hexagrid-detail-label"><?php esc_html_e( 'Actions', 'hexa-grid-product-showcase' ); ?></span>
+                                            <div class="hexagrid-detail-value">
+                                                <div class="hexagrid-action-buttons">
+                                                    <div class="hexagrid-quantity-stepper"<?php echo $in_stock && $is_purchasable ? '' : ' aria-hidden="true"'; ?>>
+                                                        <button type="button" class="hexagrid-qty-btn hexagrid-qty-minus"<?php echo $in_stock && $is_purchasable ? '' : ' disabled'; ?> aria-label="<?php esc_attr_e( 'Decrease quantity', 'hexa-grid-product-showcase' ); ?>">-</button>
+                                                        <input type="number" class="hexagrid-qty-input" value="<?php echo esc_attr( $min_qty ); ?>" min="<?php echo esc_attr( $min_qty ); ?>"<?php echo ( $max_qty > 0 ) ? ' max="' . esc_attr( $max_qty ) . '"' : ''; ?> step="1"<?php echo $in_stock && $is_purchasable ? '' : ' disabled'; ?> aria-label="<?php esc_attr_e( 'Quantity', 'hexa-grid-product-showcase' ); ?>">
+                                                        <button type="button" class="hexagrid-qty-btn hexagrid-qty-plus"<?php echo $in_stock && $is_purchasable ? '' : ' disabled'; ?> aria-label="<?php esc_attr_e( 'Increase quantity', 'hexa-grid-product-showcase' ); ?>">+</button>
+                                                    </div>
+                                                    <?php echo wp_kses( \HexaGrid\Helper::get_add_to_cart_button( $product, 'icon' ), \HexaGrid\Helper::allowed_svg_html() ); ?>
+                                                    <a class="hexagrid-more-btn" href="<?php echo esc_url( get_permalink( $product->get_id() ) ); ?>" aria-label="<?php echo esc_attr( sprintf( /* translators: %s: product name */ __( 'View more about %s', 'hexa-grid-product-showcase' ), wp_strip_all_tags( $product->get_name() ) ) ); ?>">
+                                                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                                                            <circle cx="12" cy="5" r="1.6"></circle>
+                                                            <circle cx="12" cy="12" r="1.6"></circle>
+                                                            <circle cx="12" cy="19" r="1.6"></circle>
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </td>
                         </tr>

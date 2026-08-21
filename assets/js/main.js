@@ -283,4 +283,36 @@
         });
     });
 
+    /**
+     * Expandable table rows.
+     *
+     * Clicking the chevron (or the row body, away from links/controls)
+     * reveals the product detail row with all information.
+     */
+    const toggleDetailRow = ($row) => {
+        const detailId = $row.data('expand');
+        if (!detailId) return;
+
+        const $detail = jQuery('#' + detailId);
+        if (!$detail.length) return;
+
+        const isOpen = $detail.hasClass('is-open');
+        $detail.toggleClass('is-open', !isOpen);
+        $row.toggleClass('is-open', !isOpen);
+        $row.find('.hexagrid-row-toggle').attr('aria-expanded', isOpen ? 'false' : 'true');
+    };
+
+    jQuery(document).on('click', '.hexagrid-product-table-3 .hexagrid-row-toggle', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleDetailRow(jQuery(this).closest('.hexagrid-expand-row'));
+    });
+
+    jQuery(document).on('click', '.hexagrid-product-table-3 .hexagrid-expand-row', function (e) {
+        if (jQuery(e.target).closest('a, .hexagrid-row-toggle, button, input').length) {
+            return;
+        }
+        toggleDetailRow(jQuery(this));
+    });
+
 })();
