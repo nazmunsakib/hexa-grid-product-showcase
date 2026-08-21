@@ -1080,13 +1080,14 @@
 }
 
 .hexagrid-product-table-1 .hexagrid-table-responsive {
-    overflow: hidden;
+    overflow-x: auto;
     border: 1px solid #e2e5ea;
     border-radius: 12px;
 }
 
 .hexagrid-product-table-1 .hexagrid-product-table {
     width: 100%;
+    min-width: 820px;
     border-collapse: collapse;
     background: #fff;
 }
@@ -1361,32 +1362,6 @@
     .hexagrid-th-rating,
     .hexagrid-td-rating {
         display: none;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .hexagrid-product-table-1 .hexagrid-product-table thead {
-        display: none;
-    }
-
-    .hexagrid-product-table-1 .hexagrid-product-table tr {
-        display: block;
-        padding: 15px;
-        border-bottom: 2px solid #edf2f7;
-    }
-
-    .hexagrid-product-table-1 .hexagrid-product-table td {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 8px 0;
-        border: none;
-    }
-
-    .hexagrid-product-table-1 .hexagrid-product-table td::before {
-        content: attr(data-label);
-        font-weight: 700;
-        color: #4a5568;
     }
 }
 
