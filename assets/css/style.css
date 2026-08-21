@@ -1396,13 +1396,14 @@
    ========================================= */
 
 .hexagrid-product-table-2 .hexagrid-table-responsive {
-    overflow: hidden;
+    overflow-x: auto;
     border: 1px solid #eef0f3;
     border-radius: 16px;
 }
 
 .hexagrid-product-table-2 .hexagrid-product-table {
     width: 100%;
+    min-width: 820px;
     border-collapse: collapse;
     background: #fff;
     border: none;
@@ -1516,6 +1517,19 @@
     font-weight: 500;
 }
 
+.hexagrid-product-table-2 .hexagrid-product-rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+}
+
+.hexagrid-product-table-2 .hexagrid-product-rating .star-rating {
+    float: none;
+    margin: 0;
+    font-size: 12px;
+}
+
 /* Category pills */
 .hexagrid-product-table-2 .hexagrid-category-pill {
     display: inline-flex;
@@ -1575,6 +1589,38 @@
     font-weight: 700;
     color: #dc2626;
     background: #fee2e2;
+}
+
+/* Table layout 3 style price (two-line sale price) */
+.hexagrid-product-table-2 .hexagrid-table-price {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.hexagrid-product-table-2 .hexagrid-offer-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+}
+
+.hexagrid-product-table-2 .hexagrid-offer-price {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+    line-height: 1.2;
+}
+
+.hexagrid-product-table-2 .hexagrid-table-price.has-sale .hexagrid-offer-price {
+    color: var(--hexagrid-color-primary);
+}
+
+.hexagrid-product-table-2 .hexagrid-regular-line del {
+    color: #9ca3af;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: line-through;
 }
 
 /* Stock pills */
@@ -1663,6 +1709,16 @@
     padding: 0;
 }
 
+.hexagrid-product-table-2 .hexagrid-qty-btn:disabled,
+.hexagrid-product-table-2 .hexagrid-qty-input:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.hexagrid-product-table-2 .hexagrid-quantity-stepper[aria-hidden="true"] {
+    opacity: 0.55;
+}
+
 .hexagrid-product-table-2 .hexagrid-product-cart-btn a.hexagrid-btn-icon {
     width: 36px;
     height: 36px;
@@ -1689,6 +1745,16 @@
 }
 
 @media screen and (max-width: 768px) {
+    .hexagrid-product-table-2 .hexagrid-table-responsive {
+        overflow: hidden;
+        border: none;
+        border-radius: 12px;
+    }
+
+    .hexagrid-product-table-2 .hexagrid-product-table {
+        min-width: 0;
+    }
+
     .hexagrid-product-table-2 .hexagrid-product-table thead {
         display: none;
     }

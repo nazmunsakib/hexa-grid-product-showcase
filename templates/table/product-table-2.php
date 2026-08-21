@@ -41,7 +41,7 @@ $palette_classes = array( 'blue', 'yellow', 'green', 'purple', 'pink', 'orange',
                             $product_image = \HexaGrid\Helper::get_product_image( $product, 'woocommerce_thumbnail', array( 'loading' => 'lazy' ) );
                             $product_title = \HexaGrid\Helper::get_product_title( $product );
                             $product_sku   = $product->get_sku();
-                            $product_price = \HexaGrid\Helper::get_product_price( $product );
+                            $product_rating = \HexaGrid\Helper::get_product_rating( $product, array( 'show_average' => false, 'show_count' => false ) );
 
                             // Stock status.
                             $stock_status = $product->get_stock_status();
@@ -55,14 +55,35 @@ $palette_classes = array( 'blue', 'yellow', 'green', 'purple', 'pink', 'orange',
                                 }
                             }
 
-                            // Discount badge.
+                            // Price: table layout 3 style (two-line on sale, discount badge right of offer price).
+                            $regular_price = $product->get_regular_price();
+                            $sale_price    = $product->get_sale_price();
+                            $current_price = $product->get_price();
+
                             $discount_badge = '';
+                            $has_sale       = false;
                             if ( $product->is_on_sale() && $product->is_type( 'simple' ) ) {
-                                $regular = (float) $product->get_regular_price();
-                                $sale    = (float) $product->get_sale_price();
-                                if ( $regular > 0 ) {
+                                $regular = (float) $regular_price;
+                                $sale    = (float) $sale_price;
+                                if ( $regular > 0 && $sale > 0 && $sale < $regular ) {
+                                    $has_sale       = true;
                                     $discount_badge = '-' . absint( round( ( ( $regular - $sale ) / $regular ) * 100 ) ) . '%';
                                 }
+                            }
+
+                            $price_html = '';
+                            if ( $has_sale && function_exists( 'wc_price' ) ) {
+                                $price_html = '<div class="hexagrid-table-price has-sale">' .
+                                    '<div class="hexagrid-offer-line">' .
+                                        '<span class="hexagrid-offer-price">' . wp_kses_post( wc_price( $sale_price ) ) . '</span>' .
+                                        '<span class="hexagrid-discount-badge">' . esc_html( $discount_badge ) . '</span>' .
+                                    '</div>' .
+                                    '<div class="hexagrid-regular-line"><del>' . wp_kses_post( wc_price( $regular_price ) ) . '</del></div>' .
+                                    '</div>';
+                            } elseif ( '' !== $current_price && function_exists( 'wc_price' ) ) {
+                                $price_html = '<div class="hexagrid-table-price">' .
+                                    '<span class="hexagrid-offer-price">' . wp_kses_post( wc_price( $current_price ) ) . '</span>' .
+                                    '</div>';
                             }
 
                             // Image bottom badge.
@@ -75,6 +96,14 @@ $palette_classes = array( 'blue', 'yellow', 'green', 'purple', 'pink', 'orange',
                                 $image_badge      = __( 'FEATURED', 'hexa-grid-product-showcase' );
                                 $image_badge_type = 'featured';
                             }
+
+                            // Quantity controls only for simple, in-stock, purchasable products.
+                            $in_stock       = $product->is_in_stock();
+                            $is_purchasable = $product->is_purchasable();
+                            $is_simple      = 'simple' === $product->get_type();
+                            $enable_qty     = $in_stock && $is_purchasable && $is_simple;
+                            $min_qty        = $product->get_min_purchase_quantity();
+                            $max_qty        = $product->get_max_purchase_quantity();
                         ?>
                         <tr class="hexagrid-product-row hexagrid-product" role="row">
                             <td class="hexagrid-td-product" data-label="<?php esc_attr_e( 'Product', 'hexa-grid-product-showcase' ); ?>" role="cell">
@@ -90,8 +119,9 @@ $palette_classes = array( 'blue', 'yellow', 'green', 'purple', 'pink', 'orange',
                                     <div class="hexagrid-product-details">
                                         <?php echo wp_kses_post( $product_title ); ?>
                                         <?php if ( $product_sku ) : ?>
-                                            <span class="hexagrid-product-sku"><?php echo esc_html( $product_sku ); ?></span>
+                                            <span class="hexagrid-product-sku"><?php echo esc_html( sprintf( /* translators: %s: SKU value */ __( 'SKU: %s', 'hexa-grid-product-showcase' ), $product_sku ) ); ?></span>
                                         <?php endif; ?>
+                                        <?php echo wp_kses_post( $product_rating ); ?>
                                     </div>
                                 </div>
                             </td>
@@ -108,11 +138,8 @@ $palette_classes = array( 'blue', 'yellow', 'green', 'purple', 'pink', 'orange',
                             </td>
                             <td class="hexagrid-td-price" data-label="<?php esc_attr_e( 'Price', 'hexa-grid-product-showcase' ); ?>" role="cell">
                                 <div class="hexagrid-price-wrap">
-                                    <?php if ( $product_price ) : ?>
-                                        <?php echo wp_kses_post( $product_price ); ?>
-                                    <?php endif; ?>
-                                    <?php if ( $discount_badge ) : ?>
-                                        <span class="hexagrid-discount-badge"><?php echo esc_html( $discount_badge ); ?></span>
+                                    <?php if ( $price_html ) : ?>
+                                        <?php echo wp_kses_post( $price_html ); ?>
                                     <?php endif; ?>
                                 </div>
                             </td>
@@ -124,10 +151,10 @@ $palette_classes = array( 'blue', 'yellow', 'green', 'purple', 'pink', 'orange',
                             </td>
                             <td class="hexagrid-td-action" data-label="<?php esc_attr_e( 'Actions', 'hexa-grid-product-showcase' ); ?>" role="cell">
                                 <div class="hexagrid-action-buttons">
-                                    <div class="hexagrid-quantity-stepper">
-                                        <button type="button" class="hexagrid-qty-btn hexagrid-qty-minus">-</button>
-                                        <input type="number" class="hexagrid-qty-input" value="1" min="1">
-                                        <button type="button" class="hexagrid-qty-btn hexagrid-qty-plus">+</button>
+                                    <div class="hexagrid-quantity-stepper"<?php echo $enable_qty ? '' : ' aria-hidden="true"'; ?>>
+                                        <button type="button" class="hexagrid-qty-btn hexagrid-qty-minus"<?php echo $enable_qty ? '' : ' disabled'; ?> aria-label="<?php esc_attr_e( 'Decrease quantity', 'hexa-grid-product-showcase' ); ?>">-</button>
+                                        <input type="number" class="hexagrid-qty-input" value="<?php echo esc_attr( $min_qty ); ?>" min="<?php echo esc_attr( $min_qty ); ?>"<?php echo ( $max_qty > 0 ) ? ' max="' . esc_attr( $max_qty ) . '"' : ''; ?> step="1"<?php echo $enable_qty ? '' : ' disabled'; ?> aria-label="<?php esc_attr_e( 'Quantity', 'hexa-grid-product-showcase' ); ?>">
+                                        <button type="button" class="hexagrid-qty-btn hexagrid-qty-plus"<?php echo $enable_qty ? '' : ' disabled'; ?> aria-label="<?php esc_attr_e( 'Increase quantity', 'hexa-grid-product-showcase' ); ?>">+</button>
                                     </div>
                                     <?php echo wp_kses( \HexaGrid\Helper::get_add_to_cart_button( $product, 'icon' ), \HexaGrid\Helper::allowed_svg_html() ); ?>
                                 </div>
