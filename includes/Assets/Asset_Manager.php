@@ -96,5 +96,15 @@ class Asset_Manager {
 				'error'   => __( 'Something went wrong. Please try again.', 'hexa-grid-product-showcase' ),
 			],
 		] );
+
+		// Localize data for table layout AJAX pagination.
+		wp_localize_script( 'hexa-grid-product-showcase-script', 'hexagridTable', [
+			'ajaxurl' => admin_url( 'admin-ajax.php' ),
+			'action'  => \HexaGrid\Layout\Table_Layout::AJAX_ACTION,
+			'nonce'   => wp_create_nonce( \HexaGrid\Layout\Table_Layout::AJAX_ACTION ),
+			'i18n'    => [
+				'error' => __( 'Unable to load the requested page. Please try again.', 'hexa-grid-product-showcase' ),
+			],
+		] );
 	}
 }

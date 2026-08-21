@@ -71,6 +71,10 @@ class Product_Showcase {
         $wishlist_handler = new \HexaGrid\Wishlist\Wishlist_Handler();
         $wishlist_handler->init();
 
+        // Table AJAX pagination must be available on frontend and backend.
+        $table_layout = new \HexaGrid\Layout\Table_Layout();
+        $table_layout->init();
+
         // CPT must be registered globally
         $post_type = new \HexaGrid\Admin\Post_Type();
         $post_type->init();

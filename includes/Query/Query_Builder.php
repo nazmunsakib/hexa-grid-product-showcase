@@ -133,6 +133,17 @@ class Query_Builder {
     }
 
     /**
+     * Set the current page for pagination.
+     *
+     * @param int $paged Current page number (1-based).
+     * @return self
+     */
+    public function set_paged( $paged ) {
+        $this->args['paged'] = max( 1, intval( $paged ) );
+        return $this;
+    }
+
+    /**
      * Execute the query and return the results.
      *
      * @return \WP_Query

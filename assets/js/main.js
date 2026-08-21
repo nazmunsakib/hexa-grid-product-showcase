@@ -206,4 +206,81 @@
         });
     });
 
+    /**
+     * Table Layout AJAX pagination.
+     *
+     * Uses server-side storage-free JSON atts passed back to the AJAX handler
+     * to rebuild the same product query on the requested page.
+     */
+    const tableConfig = typeof hexagridTable !== 'undefined' ? hexagridTable : {
+        ajaxurl: '',
+        action: 'hexagrid_table_pagination',
+        nonce: '',
+        i18n: { error: 'Unable to load the requested page. Please try again.' }
+    };
+
+    jQuery(document).on('click', '.hexagrid-table-pagination a.page-numbers', function (e) {
+        e.preventDefault();
+
+        const $link = jQuery(this);
+        const $container = $link.closest('.hexagrid-layout-container');
+
+        if (!$container.length || $container.hasClass('hexagrid-loading') || !tableConfig.ajaxurl) {
+            return;
+        }
+
+        const atts = $container.data('table-atts');
+        const $body = $container.find('.hexagrid-table-body');
+
+        if (!atts || !$body.length) {
+            return;
+        }
+
+        const paged = parseInt($link.data('page'), 10) || 1;
+
+        $container.addClass('hexagrid-loading');
+
+        jQuery.ajax({
+            url: tableConfig.ajaxurl,
+            type: 'POST',
+            data: {
+                action: tableConfig.action,
+                nonce: tableConfig.nonce,
+                paged: paged,
+                atts: JSON.stringify(atts),
+            },
+            success: (response) => {
+                if (response.success && response.data && response.data.html) {
+                    const html = response.data.html;
+
+                    // The AJAX response contains <tr> rows followed by the
+                    // footer. Parse the rows in a table context so jQuery
+                    // keeps them valid, then extract the footer separately.
+                    const footerStart = html.indexOf('<div class="hexagrid-table-footer">');
+                    const rowsHtml = footerStart > -1 ? html.slice(0, footerStart) : html;
+                    const footerHtml = footerStart > -1 ? html.slice(footerStart) : '';
+
+                    const $rows = jQuery('<table>').append(rowsHtml).find('tr');
+                    const $footer = footerHtml ? jQuery(footerHtml) : jQuery();
+
+                    $body.html($rows);
+
+                    if ($footer.length) {
+                        $container.find('.hexagrid-table-footer').replaceWith($footer);
+                    }
+                } else {
+                    // eslint-disable-next-line no-console
+                    console.warn(response.data && response.data.message ? response.data.message : tableConfig.i18n.error);
+                }
+            },
+            error: () => {
+                // eslint-disable-next-line no-console
+                console.warn(tableConfig.i18n.error);
+            },
+            complete: () => {
+                $container.removeClass('hexagrid-loading');
+            }
+        });
+    });
+
 })();
