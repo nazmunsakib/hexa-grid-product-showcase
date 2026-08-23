@@ -88,10 +88,10 @@ You can use the shortcode directly with attributes:
 ## Layout Variations
 
 ### Product Layouts
-- **Grid**: Product Grid Modern, Product Grid Classic
-- **List**: Product List Minimal
-- **Slider**: Product Carousel Standard
-- **Table**: Product Table Simple
+- **Grid**: Product Grid Modern, Product Grid Classic, Product Grid Cosmetic
+- **List**: Product List Minimal, Product List Premium
+- **Slider**: Product Carousel Standard, Product Carousel Classic, Product Carousel Cosmetic
+- **Table**: Product Table Simple, Product Table Modern, Product Table Premium
 
 ## Requirements
 
