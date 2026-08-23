@@ -2,18 +2,21 @@
 Contributors: nazmunsakib
 Tags: woocommerce, product grid, product showcase, product slider, product list
 Requires at least: 5.0
-Tested up to: 6.9
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://nazmunsakib.com/donate
+
 
 Create WooCommerce product grids, lists, sliders, carousels, and tables with flexible layouts and shortcodes.
 
 == Description ==
 
 **Hexa Grid** is a WooCommerce product display plugin for creating flexible product grids, lists, sliders, carousels, and tables.
+
+[Demo](https://addonskit.com/demo/hexa-grid/) | [Plugin Website](https://addonskit.com/plugins/hexa-grid/) | [Documentation](https://addonskit.com/docs/hexa-grid/)
 
 Create a **WooCommerce Product Grid** to showcase products on your homepage, landing pages, shop sections, and other content areas. Choose a product list, slider, carousel, or table layout when a different presentation works better for your store.
 
@@ -232,6 +235,15 @@ Yes. Hexa Grid follows WordPress internationalization practices and is translati
 5. Hexa Grid Settings Panel
 
 == Changelog ==
+
+= 1.1.4 =
+
+* New: Added Product List Premium (List Layout 2) — a modern, information-rich catalog-style product list with contained thumbnails, compact ratings, line-clamped descriptions, stock/SKU/category metadata, and a right-aligned price + add-to-cart CTA.
+* New: Added Product List Two Column (List Layout 3) — the same premium list design arranged in a responsive two-column grid that collapses to a single column on tablet and mobile.
+* New: Added discount (sale) badges to the top-left of product thumbnails in List Layouts 2 & 3 (percentage off for simple products, with a "Sale!" fallback).
+* New: Added admin skeleton previews for the new list variations.
+* Improved: List Layout 2 & 3 share a single set of row styles, themeable via CSS variables (row border, hover border, radius).
+* Fixed: Frontend asset versioning now cache-busts correctly so updated styles load after upgrades.
 
 = 1.1.3 =
 

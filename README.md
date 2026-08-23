@@ -1,9 +1,9 @@
 # Hexa Grid – Product Showcase for WooCommerce
 
-**Version:** 1.1.3  
+**Version:** 1.1.4  
 **Contributors:** nazmunsakib  
 **Requires at least:** WordPress 5.0  
-**Tested up to:** WordPress 6.9  
+**Tested up to:** WordPress 7.1  
 **Requires PHP:** 7.4  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
@@ -100,6 +100,14 @@ You can use the shortcode directly with attributes:
 - PHP 7.4+
 
 ## Changelog
+
+### Version 1.1.4
+- **New:** Added Product List Premium (List Layout 2) — a modern, information-rich catalog-style product list with contained thumbnails, compact ratings, line-clamped descriptions, stock/SKU/category metadata, and a right-aligned price + add-to-cart CTA
+- **New:** Added Product List Two Column (List Layout 3) — the same premium list design arranged in a responsive two-column grid that collapses to a single column on tablet and mobile
+- **New:** Added discount (sale) badges to the top-left of product thumbnails in List Layouts 2 & 3 (percentage off for simple products, with a "Sale!" fallback)
+- **New:** Added admin skeleton previews for the new list variations
+- **Improved:** List Layout 2 & 3 share a single set of row styles, themeable via CSS variables (row border, hover border, radius)
+- **Fixed:** Frontend asset versioning now cache-busts correctly so updated styles load after upgrades
 
 ### Version 1.1.3
 - **New:** Added Product Carousel Classic (slider style 2) matching the Grid Classic design
