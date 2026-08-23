@@ -89,7 +89,7 @@ You can use the shortcode directly with attributes:
 
 ### Product Layouts
 - **Grid**: Product Grid Modern, Product Grid Classic, Product Grid Cosmetic
-- **List**: Product List Minimal, Product List Premium
+- **List**: Product List Minimal, Product List Premium, Product List Two Column
 - **Slider**: Product Carousel Standard, Product Carousel Classic, Product Carousel Cosmetic
 - **Table**: Product Table Simple, Product Table Modern, Product Table Premium
 

@@ -18,7 +18,7 @@ class Asset_Manager {
 	 *
 	 * @var string
 	 */
-	private const ASSET_VERSION = '1.1.7';
+	private const ASSET_VERSION = '1.1.9';
 
 	/**
 	 * Initialize hooks.

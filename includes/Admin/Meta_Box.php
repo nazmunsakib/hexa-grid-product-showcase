@@ -179,6 +179,7 @@ class Meta_Box {
                             'product-list' => [
                                 'product-list-1' => [ 'label' => __( 'Product List Minimal', 'hexa-grid-product-showcase' ), 'skeleton' => 'list.svg' ],
                                 'product-list-2' => [ 'label' => __( 'Product List Premium', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-list-2.svg' ],
+                                'product-list-3' => [ 'label' => __( 'Product List Two Column', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-list-3.svg' ],
                             ],
                             'product-slider' => [
                                 'product-slider-1' => [ 'label' => __( 'Product Carousel Standard', 'hexa-grid-product-showcase' ), 'skeleton' => 'skeleton-slider-1.svg' ],

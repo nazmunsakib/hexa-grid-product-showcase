@@ -1,16 +1,10 @@
 <?php
 /**
- * List Layout Template - Style 2 (Premium Catalog)
+ * List Layout Template - Style 3 (Two Column)
  *
- * A modern, information-rich horizontal product list. Each product is a
- * single full-width row: Image | Product Information | Price + CTA.
- *
- * Features:
- * - No floating cards; products are separated by a subtle divider.
- * - Contained product image (object-fit: contain) on a soft neutral background.
- * - Compact rating, line-clamped description and subtle stock/SKU/category meta.
- * - Right-aligned price + compact add-to-cart CTA.
- * - Responsive: image + info on desktop, compact wrap layout on mobile.
+ * Identical row design to the Premium catalog list (style 2) but arranged
+ * in a two-column grid on desktop, collapsing to a single column on
+ * tablet and mobile.
  *
  * @var \WP_Query $query
  * @var string    $style
@@ -20,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 ?>
-<div class="hexagrid-layout-list hexagrid-list-2" role="list">
+<div class="hexagrid-layout-list hexagrid-list-2 hexagrid-list-3" role="list">
     <?php if ( $query->have_posts() ) : update_post_thumbnail_cache( $query ); ?>
         <?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
