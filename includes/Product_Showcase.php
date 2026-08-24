@@ -68,8 +68,10 @@ class Product_Showcase {
         $shortcode_handler->init();
 
         // Wishlist must be available on frontend and backend.
-        $wishlist_handler = new \HexaGrid\Wishlist\Wishlist_Handler();
-        $wishlist_handler->init();
+        if ( class_exists( 'HexaGrid\\Wishlist\\Wishlist_Handler' ) ) {
+            $wishlist_handler = new \HexaGrid\Wishlist\Wishlist_Handler();
+            $wishlist_handler->init();
+        }
 
         // Table AJAX pagination must be available on frontend and backend.
         $table_layout = new \HexaGrid\Layout\Table_Layout();

@@ -2,6 +2,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+if ( class_exists( 'Addons_Kit_Settings_Builder' ) ) {
+	return;
+}
+
 /**
  * Class Addons_Kit_Settings_Builder
  *

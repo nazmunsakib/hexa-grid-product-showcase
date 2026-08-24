@@ -4,7 +4,7 @@ Tags: woocommerce, product grid, product showcase, product slider, product list
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://nazmunsakib.com/donate
@@ -235,6 +235,12 @@ Yes. Hexa Grid follows WordPress internationalization practices and is translati
 5. Hexa Grid Settings Panel
 
 == Changelog ==
+
+= 1.1.5 =
+
+* Fixed: Critical error caused by the missing `includes/Wishlist/` directory in the release package (class `HexaGrid\Wishlist\Wishlist_Handler` not found).
+* Fixed: Added missing template files (Grid 3, List 2 & 3, Slider 2 & 3, Table 2 & 3) and skeleton preview icons to the package.
+* Fixed: The Addons Kit settings library now guards against duplicate class declaration to avoid conflicts when other Addons Kit plugins are active.
 
 = 1.1.4 =
 
